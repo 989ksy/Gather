@@ -17,11 +17,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L85-sP-0xZ">
-                                <rect key="frame" x="24" y="97" width="345" height="52.666666666666657"/>
+                                <rect key="frame" x="24" y="109.00000000000001" width="345" height="52.666666666666671"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="345" id="Xcy-AR-rTQ"/>
                                 </constraints>
-                                <string key="text">버즈톡을 사용하면 어디서나 
+                                <string key="text">게더를 사용하면 어디서나 
 팀을 모을 수 있습니다</string>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
                                 <nil key="textColor"/>
@@ -39,7 +39,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="eQR-X1-KI7" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="PnI-if-WaC"/>
-                            <constraint firstItem="L85-sP-0xZ" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="38" id="XS5-gn-Han"/>
+                            <constraint firstItem="L85-sP-0xZ" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="50" id="XS5-gn-Han"/>
                             <constraint firstItem="eQR-X1-KI7" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="mjH-Lm-KP4"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="L85-sP-0xZ" secondAttribute="trailing" constant="24" id="o0z-B4-mAW"/>
                             <constraint firstItem="L85-sP-0xZ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="24" id="pTT-On-jfK"/>
