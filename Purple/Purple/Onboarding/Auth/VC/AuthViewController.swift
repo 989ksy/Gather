@@ -9,6 +9,10 @@ import UIKit
 import RxSwift
 import RxCocoa
 
+import KakaoSDKCommon
+import KakaoSDKAuth
+import KakaoSDKUser
+
 final class AuthViewController: BaseViewController, UISheetPresentationControllerDelegate {
     
     let mainView = AuthView()
@@ -32,7 +36,7 @@ final class AuthViewController: BaseViewController, UISheetPresentationControlle
     
     func bindVM() {
         
-        let input = AuthViewModel.Input(singupTap: mainView.signUpButton.rx.tap)
+        let input = AuthViewModel.Input(singupTap: mainView.signUpButton.rx.tap, kakaoTap: mainView.kakaoLoginButton.rx.tap)
         
         //회원가입 버튼 tap
         input.singupTap
@@ -51,7 +55,31 @@ final class AuthViewController: BaseViewController, UISheetPresentationControlle
             }
             .disposed(by: disposeBag)
         
+        //카카오 버튼 tap
+        input.kakaoTap
+            .subscribe(with: self) { owner, _ in
+                
+                if (UserApi.isKakaoTalkLoginAvailable()) {
+                    
+                    UserApi.shared.loginWithKakaoTalk {(oauthToken, error) in
+                        if let error = error {
+                            print(error)
+                        }
+                        else {
+                            print("loginWithKakaoTalk() success.")
+
+                            let accessToken = oauthToken?.accessToken
+                            let idToken = oauthToken?.idToken
+                            
+                        }
+                    }
+                }
+                
+                
+            }
+            .disposed(by: disposeBag)
     }
+    
     
     
 }

@@ -12,7 +12,10 @@ import RxCocoa
 class AuthViewModel {
     
     struct Input {
-        let singupTap : ControlEvent<Void>
+        
+        let singupTap: ControlEvent<Void> //회원가입
+        let kakaoTap: ControlEvent<Void> //카카오로그인
+        
     }
     
     struct Output {
