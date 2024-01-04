@@ -6,11 +6,20 @@
 //
 
 import UIKit
+import KakaoSDKAuth
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
 
+    //iOS13이상 카카오로그인
+    func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
+           if let url = URLContexts.first?.url {
+               if (AuthApi.isKakaoTalkLoginUrl(url)) {
+                   _ = AuthController.handleOpenUrl(url: url)
+               }
+           }
+       }
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let scene = (scene as? UIWindowScene) else { return }
