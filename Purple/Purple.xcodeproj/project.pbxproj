@@ -41,6 +41,7 @@
 		0F547AC02B458DCE00813C28 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 0F547ABF2B458DCE00813C28 /* RxCocoa */; };
 		0F547AC22B458DCE00813C28 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 0F547AC12B458DCE00813C28 /* RxSwift */; };
 		0F547AC52B458DDA00813C28 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 0F547AC42B458DDA00813C28 /* SnapKit */; };
+		0F547AD02B469D2600813C28 /* ToastMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F547ACF2B469D2600813C28 /* ToastMessage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -77,6 +78,7 @@
 		0F547AB32B458BA200813C28 /* SignupView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupView.swift; sourceTree = "<group>"; };
 		0F547ABA2B458BBA00813C28 /* APIKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
 		0F547ABC2B458BBF00813C28 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		0F547ACF2B469D2600813C28 /* ToastMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastMessage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -270,6 +272,7 @@
 		0F547AAD2B458BA200813C28 /* SignUp */ = {
 			isa = PBXGroup;
 			children = (
+				0F547ACE2B469D1400813C28 /* Toast */,
 				0F547AAE2B458BA200813C28 /* VM */,
 				0F547AB02B458BA200813C28 /* VC */,
 				0F547AB22B458BA200813C28 /* View */,
@@ -322,6 +325,14 @@
 				0F547ABA2B458BBA00813C28 /* APIKey.swift */,
 			);
 			path = Key;
+			sourceTree = "<group>";
+		};
+		0F547ACE2B469D1400813C28 /* Toast */ = {
+			isa = PBXGroup;
+			children = (
+				0F547ACF2B469D2600813C28 /* ToastMessage.swift */,
+			);
+			path = Toast;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -410,6 +421,7 @@
 				0F547A822B458B8800813C28 /* PlaceholderText.swift in Sources */,
 				0F547A842B458B8800813C28 /* LeftPadding + Extension.swift in Sources */,
 				0F547AAB2B458B9C00813C28 /* OnboardingViewController.swift in Sources */,
+				0F547AD02B469D2600813C28 /* ToastMessage.swift in Sources */,
 				0F547A992B458B9400813C28 /* ConstantImage.swift in Sources */,
 				0F547A912B458B8E00813C28 /* SignupTitleLabel.swift in Sources */,
 				0F547A982B458B9400813C28 /* ConstantIcon.swift in Sources */,

@@ -17,10 +17,9 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L85-sP-0xZ">
-                                <rect key="frame" x="24" y="136" width="345" height="60"/>
+                                <rect key="frame" x="24" y="97" width="345" height="52.666666666666657"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="345" id="Xcy-AR-rTQ"/>
-                                    <constraint firstAttribute="height" constant="60" id="qEE-4k-LSv"/>
                                 </constraints>
                                 <string key="text">버즈톡을 사용하면 어디서나 
 팀을 모을 수 있습니다</string>
@@ -40,10 +39,10 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="eQR-X1-KI7" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="PnI-if-WaC"/>
+                            <constraint firstItem="L85-sP-0xZ" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="38" id="XS5-gn-Han"/>
                             <constraint firstItem="eQR-X1-KI7" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="mjH-Lm-KP4"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="L85-sP-0xZ" secondAttribute="trailing" constant="24" id="o0z-B4-mAW"/>
                             <constraint firstItem="L85-sP-0xZ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="24" id="pTT-On-jfK"/>
-                            <constraint firstItem="eQR-X1-KI7" firstAttribute="top" secondItem="L85-sP-0xZ" secondAttribute="bottom" constant="46" id="rdH-hy-T5T"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -53,7 +52,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="OnboardingImage" width="2000" height="2000"/>
+        <image name="OnboardingImage" width="666.66668701171875" height="666.66668701171875"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
