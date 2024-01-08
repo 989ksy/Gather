@@ -1,13 +1,13 @@
 //
 //  TitleLabel.swift
-//  Purple
+//  Buzz
 //
-//  Created by Seungyeon Kim on 1/9/24.
+//  Created by Seungyeon Kim on 1/3/24.
 //
 
 import UIKit
 
-class TitleLabel: UILabel {
+class NavigationTitleLabel: UILabel {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -19,7 +19,7 @@ class TitleLabel: UILabel {
     }
     
     func setLabel() {
-        font = ConstantTypo.title1
+        font = UIFont.systemFont(ofSize: 17, weight: .bold)
         textColor = ConstantColor.blackBrand
     }
 }

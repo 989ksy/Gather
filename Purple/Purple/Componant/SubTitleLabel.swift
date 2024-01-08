@@ -1,5 +1,5 @@
 //
-//  TitleLabel.swift
+//  SubTitleLabel.swift
 //  Purple
 //
 //  Created by Seungyeon Kim on 1/9/24.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TitleLabel: UILabel {
+class SubTitleLabel: UILabel {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -19,7 +19,9 @@ class TitleLabel: UILabel {
     }
     
     func setLabel() {
-        font = ConstantTypo.title1
+        font = ConstantTypo.body
         textColor = ConstantColor.blackBrand
+        numberOfLines = 0
+        textAlignment = .center
     }
 }

@@ -10,5 +10,7 @@ import UIKit
 struct ConstantImage {
     
     static let onboardingImage = UIImage(named: "OnboardingImage")
+    static let launchingImage = UIImage(named: "LaunchingImage")
+    static let emptyImage = UIImage(named: "EmptyImage")
     
 }
