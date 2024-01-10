@@ -14,6 +14,5 @@ struct EmailValidation: Encodable {
 
 //카카오 로그인
 struct KakaoLogin: Encodable {
-    let oauthToken: String
-    let deviceToken: String
+    let oauthToken, deviceToken: String
 }

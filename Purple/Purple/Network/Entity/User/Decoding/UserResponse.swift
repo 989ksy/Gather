@@ -7,16 +7,14 @@
 
 import Foundation
 
-struct ErrorResponse: Decodable {
-    let errorCode: String
-}
-
 struct KakaoLoginResponse: Decodable {
     
     let userID: Int
     let email, nickname: String
-    let profileImage, phone: String
-    let vendor, createdAt: String
+    let profileImage: String?
+    let vendor: String?
+    let phone: String?
+    let createdAt: String
     let token: Token
     
     enum CodingKeys: String, CodingKey {
