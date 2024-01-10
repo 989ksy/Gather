@@ -14,14 +14,14 @@ struct ToastMessage {
         
         //이메일 유효성 오류
         case emailValidationError = "이메일 형식이 올바르지 않습니다."
-        
+
         //사용 가능한 이메일 & 이미 검증된 상태
         case availableEmail = "사용 가능한 이메일입니다."
-        
     }
     
     //[가입하기] 버튼 클릭
     enum SignupButton: String {
+        
         
         case EmailValidationFailed = "이메일 중복 확인을 진행해주세요."
         case nickError = "닉네임은 1글자 이상 30글자 이내로 부탁드려요."
