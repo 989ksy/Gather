@@ -15,7 +15,7 @@ final class OnboardingView: BaseView {
         label.font = ConstantTypo.title1
         label.setLineSpacing(spacing: 30)
         label.textColor = ConstantColor.blackBrand
-        label.text = "버즈톡을 사용하면 어디서나\n팀을 모을 수 있습니다"
+        label.text = "게더를 사용하면 어디서나\n팀을 모을 수 있습니다"
         label.numberOfLines = 0
         label.textAlignment = .center
         return label
