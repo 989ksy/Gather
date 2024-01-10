@@ -50,15 +50,40 @@ final class KeychainStorage {
     }
     
     
-    //MARK: - User ID
+    //MARK: - User Email
     
-    var userID: String? {
+    var userEmail: String {
         get {
-            KeychainWrapper.standard.string(forKey: KeychainKeys.userIDKey)
+            if let nickname = KeychainWrapper.standard.string(forKey: KeychainKeys.userIDKey) {
+                return nickname
+            }
+            else {
+                return "이메일 없음"
+            }
         }
         set {
-            if let value = newValue {
-                KeychainWrapper.standard.set(value, forKey: KeychainKeys.userIDKey)
+            if !newValue.isEmpty {
+                KeychainWrapper.standard.set(newValue, forKey: KeychainKeys.userIDKey)
+            } else {
+                KeychainWrapper.standard.removeObject(forKey: KeychainKeys.userIDKey)
+            }
+        }
+    }
+    
+    
+    //MARK: - User nickname
+    
+    var userNickname: String {
+        get {
+            if let nickname = KeychainWrapper.standard.string(forKey: KeychainKeys.userIDKey) {
+                return nickname
+            } else {
+                return "닉네임 없음"
+            }
+        }
+        set {
+            if !newValue.isEmpty {
+                KeychainWrapper.standard.set(newValue, forKey: KeychainKeys.userIDKey)
             } else {
                 KeychainWrapper.standard.removeObject(forKey: KeychainKeys.userIDKey)
             }
