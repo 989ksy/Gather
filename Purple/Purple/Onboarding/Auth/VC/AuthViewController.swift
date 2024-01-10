@@ -6,18 +6,21 @@
 //
 
 import UIKit
-import RxSwift
-import RxCocoa
-
 import KakaoSDKCommon
 import KakaoSDKAuth
 import KakaoSDKUser
+import RxSwift
+import RxCocoa
+import Toast
 
 final class AuthViewController: BaseViewController, UISheetPresentationControllerDelegate {
     
     let mainView = AuthView()
     let viewModel = AuthViewModel()
     let disposeBag = DisposeBag()
+    
+    var oauthToken: String?
+    var deviceToken: String?
     
     override func loadView() {
         self.view = mainView
@@ -30,19 +33,25 @@ final class AuthViewController: BaseViewController, UISheetPresentationControlle
         
     }
     
-    override func configureView() {
-        view.backgroundColor = ConstantColor.bgPrimary
-    }
     
     func bindVM() {
         
-        let input = AuthViewModel.Input(singupTap: mainView.signUpButton.rx.tap, kakaoTap: mainView.kakaoLoginButton.rx.tap)
+        let input = AuthViewModel.Input(
+            oauthToken: oauthToken ?? "어스 토큰 없음",
+            deviceToken: deviceToken ?? "디바이스토큰 없음",
+            singupTap: mainView.signUpButton.rx.tap,
+            kakaoTap: mainView.kakaoLoginButton.rx.tap,
+            appleTap: mainView.appleLoginButton.rx.tap
+        )
         
-        //회원가입 버튼 tap
+        let output = viewModel.transform(input: input)
+        
+        // 회원가입 버튼 tap
+        // 회원가입 화면으로 화면전환
         input.singupTap
             .subscribe(with: self) { owner, _ in
                 
-                let vc = SignupViewController()
+                let vc = SignupViewController() //회원가입VC
                 vc.modalPresentationStyle = .pageSheet
                 
                 if let sheet = vc.sheetPresentationController {
@@ -55,31 +64,45 @@ final class AuthViewController: BaseViewController, UISheetPresentationControlle
             }
             .disposed(by: disposeBag)
         
-        //카카오 버튼 tap
-        input.kakaoTap
+        
+        // 애플버튼 tap
+        input.appleTap
             .subscribe(with: self) { owner, _ in
-                
-                if (UserApi.isKakaoTalkLoginAvailable()) {
-                    
-                    UserApi.shared.loginWithKakaoTalk {(oauthToken, error) in
-                        if let error = error {
-                            print(error)
-                        }
-                        else {
-                            print("loginWithKakaoTalk() success.")
-
-                            let accessToken = oauthToken?.accessToken
-                            let idToken = oauthToken?.idToken
-                            
-                        }
-                    }
-                }
-                
-                
+                let vc = WorkSpaceInitialViewController()
+                self.present(vc, animated: true)
             }
             .disposed(by: disposeBag)
+        
+        
+        //로그인 성공 시
+        output.isLoggedIn
+            .subscribe(with: self) { owner, value in
+                
+                print(value)
+                
+                if value {
+                    
+                    let vc = WorkSpaceInitialViewController()
+                    self.view.window?.rootViewController = vc
+                    
+                } else {
+                    
+                    self.setToastAlert(
+                        message: ToastMessage
+                            .SignupButton
+                            .undefinedError
+                            .rawValue
+                    )
+                    
+                    print("--- 🚨로그인 실패! 화면전환X")
+                    
+                }
+                
+            }
+            .disposed(by: self.disposeBag)
     }
     
     
     
 }
+
