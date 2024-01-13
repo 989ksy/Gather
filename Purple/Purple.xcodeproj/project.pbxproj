@@ -21,7 +21,7 @@
 		0F547A8C2B458B8E00813C28 /* NextButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F547A862B458B8E00813C28 /* NextButton.swift */; };
 		0F547A8D2B458B8E00813C28 /* CloseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F547A872B458B8E00813C28 /* CloseButton.swift */; };
 		0F547A8E2B458B8E00813C28 /* Divider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F547A882B458B8E00813C28 /* Divider.swift */; };
-		0F547A8F2B458B8E00813C28 /* TitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F547A892B458B8E00813C28 /* TitleLabel.swift */; };
+		0F547A8F2B458B8E00813C28 /* NavigationTitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F547A892B458B8E00813C28 /* NavigationTitleLabel.swift */; };
 		0F547A902B458B8E00813C28 /* SignupTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F547A8A2B458B8E00813C28 /* SignupTextField.swift */; };
 		0F547A912B458B8E00813C28 /* SignupTitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F547A8B2B458B8E00813C28 /* SignupTitleLabel.swift */; };
 		0F547A972B458B9400813C28 /* ConstantColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F547A932B458B9400813C28 /* ConstantColor.swift */; };
@@ -54,6 +54,24 @@
 		0F547AE72B46CA0D00813C28 /* KakaoSDKTalk in Frameworks */ = {isa = PBXBuildFile; productRef = 0F547AE62B46CA0D00813C28 /* KakaoSDKTalk */; };
 		0F547AE92B46CA0D00813C28 /* KakaoSDKTemplate in Frameworks */ = {isa = PBXBuildFile; productRef = 0F547AE82B46CA0D00813C28 /* KakaoSDKTemplate */; };
 		0F547AEB2B46CA0D00813C28 /* KakaoSDKUser in Frameworks */ = {isa = PBXBuildFile; productRef = 0F547AEA2B46CA0D00813C28 /* KakaoSDKUser */; };
+		0F547AFB2B48660D00813C28 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 0F547AFA2B48660D00813C28 /* Alamofire */; };
+		0F547AFE2B486FA500813C28 /* Toast in Frameworks */ = {isa = PBXBuildFile; productRef = 0F547AFD2B486FA500813C28 /* Toast */; };
+		0F547B002B48735E00813C28 /* APIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F547AFF2B48735E00813C28 /* APIConstants.swift */; };
+		0F547B022B490CFF00813C28 /* AuthRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F547B012B490CFF00813C28 /* AuthRouter.swift */; };
+		0F547B082B491CBC00813C28 /* BaseServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F547B072B491CBC00813C28 /* BaseServer.swift */; };
+		0F547B0D2B4924DA00813C28 /* CustomError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F547B0C2B4924DA00813C28 /* CustomError.swift */; };
+		0F547B0F2B4929CD00813C28 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F547B0E2B4929CD00813C28 /* Router.swift */; };
+		0F547B132B49338E00813C28 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F547B122B49338E00813C28 /* User.swift */; };
+		0F547B162B4933CB00813C28 /* UserResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F547B152B4933CB00813C28 /* UserResponse.swift */; };
+		0F547B1D2B495DAB00813C28 /* SwiftKeychainWrapper in Frameworks */ = {isa = PBXBuildFile; productRef = 0F547B1C2B495DAB00813C28 /* SwiftKeychainWrapper */; };
+		0F547B202B49611100813C28 /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F547B1F2B49611100813C28 /* Keychain.swift */; };
+		0F547B242B4BDC2D00813C28 /* WorkSpaceInitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F547B232B4BDC2D00813C28 /* WorkSpaceInitialViewController.swift */; };
+		0F547B5E2B4C50EB00813C28 /* WorkSpaceInitialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F547B5D2B4C50EB00813C28 /* WorkSpaceInitialView.swift */; };
+		0F547B602B4C515F00813C28 /* TitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F547B5F2B4C515F00813C28 /* TitleLabel.swift */; };
+		0F547B622B4C51C400813C28 /* SubTitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F547B612B4C51C400813C28 /* SubTitleLabel.swift */; };
+		0F577D2F2B4D18BE0094484D /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F577D2E2B4D18BE0094484D /* Network.swift */; };
+		0F577D3C2B4D701F0094484D /* ErrorResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F577D3B2B4D701F0094484D /* ErrorResponse.swift */; };
+		0F577D432B4E5A430094484D /* ToastAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F577D422B4E5A430094484D /* ToastAlert.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -73,7 +91,7 @@
 		0F547A862B458B8E00813C28 /* NextButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NextButton.swift; sourceTree = "<group>"; };
 		0F547A872B458B8E00813C28 /* CloseButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloseButton.swift; sourceTree = "<group>"; };
 		0F547A882B458B8E00813C28 /* Divider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Divider.swift; sourceTree = "<group>"; };
-		0F547A892B458B8E00813C28 /* TitleLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitleLabel.swift; sourceTree = "<group>"; };
+		0F547A892B458B8E00813C28 /* NavigationTitleLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationTitleLabel.swift; sourceTree = "<group>"; };
 		0F547A8A2B458B8E00813C28 /* SignupTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupTextField.swift; sourceTree = "<group>"; };
 		0F547A8B2B458B8E00813C28 /* SignupTitleLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupTitleLabel.swift; sourceTree = "<group>"; };
 		0F547A932B458B9400813C28 /* ConstantColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConstantColor.swift; sourceTree = "<group>"; };
@@ -91,7 +109,21 @@
 		0F547ABA2B458BBA00813C28 /* APIKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
 		0F547ABC2B458BBF00813C28 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		0F547ACF2B469D2600813C28 /* ToastMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastMessage.swift; sourceTree = "<group>"; };
-		0F547AEC2B46D0ED00813C28 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
+		0F547AFF2B48735E00813C28 /* APIConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIConstants.swift; sourceTree = "<group>"; };
+		0F547B012B490CFF00813C28 /* AuthRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRouter.swift; sourceTree = "<group>"; };
+		0F547B072B491CBC00813C28 /* BaseServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseServer.swift; sourceTree = "<group>"; };
+		0F547B0C2B4924DA00813C28 /* CustomError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomError.swift; sourceTree = "<group>"; };
+		0F547B0E2B4929CD00813C28 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
+		0F547B122B49338E00813C28 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		0F547B152B4933CB00813C28 /* UserResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserResponse.swift; sourceTree = "<group>"; };
+		0F547B1F2B49611100813C28 /* Keychain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keychain.swift; sourceTree = "<group>"; };
+		0F547B232B4BDC2D00813C28 /* WorkSpaceInitialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkSpaceInitialViewController.swift; sourceTree = "<group>"; };
+		0F547B5D2B4C50EB00813C28 /* WorkSpaceInitialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkSpaceInitialView.swift; sourceTree = "<group>"; };
+		0F547B5F2B4C515F00813C28 /* TitleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleLabel.swift; sourceTree = "<group>"; };
+		0F547B612B4C51C400813C28 /* SubTitleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubTitleLabel.swift; sourceTree = "<group>"; };
+		0F577D2E2B4D18BE0094484D /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
+		0F577D3B2B4D701F0094484D /* ErrorResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorResponse.swift; sourceTree = "<group>"; };
+		0F577D422B4E5A430094484D /* ToastAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastAlert.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,9 +139,12 @@
 				0F547AE52B46CA0D00813C28 /* KakaoSDKShare in Frameworks */,
 				0F547AC22B458DCE00813C28 /* RxSwift in Frameworks */,
 				0F547AE72B46CA0D00813C28 /* KakaoSDKTalk in Frameworks */,
+				0F547B1D2B495DAB00813C28 /* SwiftKeychainWrapper in Frameworks */,
 				0F547AEB2B46CA0D00813C28 /* KakaoSDKUser in Frameworks */,
+				0F547AFB2B48660D00813C28 /* Alamofire in Frameworks */,
 				0F547AD92B46CA0D00813C28 /* KakaoSDKCert in Frameworks */,
 				0F547AE92B46CA0D00813C28 /* KakaoSDKTemplate in Frameworks */,
+				0F547AFE2B486FA500813C28 /* Toast in Frameworks */,
 				0F547AC02B458DCE00813C28 /* RxCocoa in Frameworks */,
 				0F547AD72B46CA0D00813C28 /* KakaoSDKAuth in Frameworks */,
 				0F547AE12B46CA0D00813C28 /* KakaoSDKFriendCore in Frameworks */,
@@ -120,6 +155,54 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0F4EC4DD2B5252F500EE169E /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				0F547B5B2B4C50CF00813C28 /* Initial */,
+				0F547AB72B458BA800813C28 /* EmailLogin */,
+				0F547AB02B458BA200813C28 /* Signup */,
+				0F4EC4E02B52531F00EE169E /* Auth */,
+				0F4EC4E12B52532500EE169E /* Onboarding */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		0F4EC4DE2B52530200EE169E /* View */ = {
+			isa = PBXGroup;
+			children = (
+				0F547B5C2B4C50D700813C28 /* Initial */,
+				0F547AB22B458BA200813C28 /* Signup */,
+				0F547AA12B458B9B00813C28 /* Auth */,
+				0F547AA62B458B9B00813C28 /* Onboarding */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		0F4EC4DF2B52530A00EE169E /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				0F547AAE2B458BA200813C28 /* Signup */,
+				0F547A9D2B458B9B00813C28 /* Auth */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		0F4EC4E02B52531F00EE169E /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				0F547AA02B458B9B00813C28 /* AuthViewController.swift */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
+		0F4EC4E12B52532500EE169E /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				0F547AA52B458B9B00813C28 /* OnboardingViewController.swift */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
 		0F547A522B458B1000813C28 = {
 			isa = PBXGroup;
 			children = (
@@ -140,11 +223,10 @@
 			isa = PBXGroup;
 			children = (
 				0F547ABC2B458BBF00813C28 /* .gitignore */,
-				0F547AEC2B46D0ED00813C28 /* Config.xcconfig */,
 				0F547AB82B458BBA00813C28 /* Network */,
-				0F547AB72B458BA800813C28 /* LoginEmail */,
-				0F547AAD2B458BA200813C28 /* SignUp */,
-				0F547A9B2B458B9B00813C28 /* Onboarding */,
+				0F4EC4DF2B52530A00EE169E /* ViewModel */,
+				0F4EC4DE2B52530200EE169E /* View */,
+				0F4EC4DD2B5252F500EE169E /* ViewController */,
 				0F547A922B458B9400813C28 /* Constant */,
 				0F547A852B458B8E00813C28 /* Componant */,
 				0F547A7E2B458B8800813C28 /* Extension */,
@@ -206,12 +288,10 @@
 		0F547A852B458B8E00813C28 /* Componant */ = {
 			isa = PBXGroup;
 			children = (
-				0F547A862B458B8E00813C28 /* NextButton.swift */,
-				0F547A872B458B8E00813C28 /* CloseButton.swift */,
-				0F547A882B458B8E00813C28 /* Divider.swift */,
-				0F547A892B458B8E00813C28 /* TitleLabel.swift */,
-				0F547A8A2B458B8E00813C28 /* SignupTextField.swift */,
-				0F547A8B2B458B8E00813C28 /* SignupTitleLabel.swift */,
+				0F577D412B4E5A300094484D /* Toast */,
+				0F577D2D2B4D18820094484D /* View */,
+				0F577D2C2B4D18720094484D /* Label */,
+				0F577D2B2B4D18670094484D /* Button */,
 			);
 			path = Componant;
 			sourceTree = "<group>";
@@ -227,119 +307,70 @@
 			path = Constant;
 			sourceTree = "<group>";
 		};
-		0F547A9B2B458B9B00813C28 /* Onboarding */ = {
-			isa = PBXGroup;
-			children = (
-				0F547A9C2B458B9B00813C28 /* Auth */,
-				0F547AA32B458B9B00813C28 /* Onboarding */,
-			);
-			path = Onboarding;
-			sourceTree = "<group>";
-		};
-		0F547A9C2B458B9B00813C28 /* Auth */ = {
-			isa = PBXGroup;
-			children = (
-				0F547A9D2B458B9B00813C28 /* VM */,
-				0F547A9F2B458B9B00813C28 /* VC */,
-				0F547AA12B458B9B00813C28 /* View */,
-			);
-			path = Auth;
-			sourceTree = "<group>";
-		};
-		0F547A9D2B458B9B00813C28 /* VM */ = {
+		0F547A9D2B458B9B00813C28 /* Auth */ = {
 			isa = PBXGroup;
 			children = (
 				0F547A9E2B458B9B00813C28 /* AuthViewModel.swift */,
 			);
-			path = VM;
+			path = Auth;
 			sourceTree = "<group>";
 		};
-		0F547A9F2B458B9B00813C28 /* VC */ = {
-			isa = PBXGroup;
-			children = (
-				0F547AA02B458B9B00813C28 /* AuthViewController.swift */,
-			);
-			path = VC;
-			sourceTree = "<group>";
-		};
-		0F547AA12B458B9B00813C28 /* View */ = {
+		0F547AA12B458B9B00813C28 /* Auth */ = {
 			isa = PBXGroup;
 			children = (
 				0F547AA22B458B9B00813C28 /* AuthView.swift */,
 			);
-			path = View;
+			path = Auth;
 			sourceTree = "<group>";
 		};
-		0F547AA32B458B9B00813C28 /* Onboarding */ = {
-			isa = PBXGroup;
-			children = (
-				0F547AA42B458B9B00813C28 /* VC */,
-				0F547AA62B458B9B00813C28 /* View */,
-			);
-			path = Onboarding;
-			sourceTree = "<group>";
-		};
-		0F547AA42B458B9B00813C28 /* VC */ = {
-			isa = PBXGroup;
-			children = (
-				0F547AA52B458B9B00813C28 /* OnboardingViewController.swift */,
-			);
-			path = VC;
-			sourceTree = "<group>";
-		};
-		0F547AA62B458B9B00813C28 /* View */ = {
+		0F547AA62B458B9B00813C28 /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
 				0F547AA72B458B9B00813C28 /* OnboardingView.swift */,
 			);
-			path = View;
+			path = Onboarding;
 			sourceTree = "<group>";
 		};
-		0F547AAD2B458BA200813C28 /* SignUp */ = {
-			isa = PBXGroup;
-			children = (
-				0F547ACE2B469D1400813C28 /* Toast */,
-				0F547AAE2B458BA200813C28 /* VM */,
-				0F547AB02B458BA200813C28 /* VC */,
-				0F547AB22B458BA200813C28 /* View */,
-			);
-			path = SignUp;
-			sourceTree = "<group>";
-		};
-		0F547AAE2B458BA200813C28 /* VM */ = {
+		0F547AAE2B458BA200813C28 /* Signup */ = {
 			isa = PBXGroup;
 			children = (
 				0F547AAF2B458BA200813C28 /* SignupViewModel.swift */,
 			);
-			path = VM;
+			path = Signup;
 			sourceTree = "<group>";
 		};
-		0F547AB02B458BA200813C28 /* VC */ = {
+		0F547AB02B458BA200813C28 /* Signup */ = {
 			isa = PBXGroup;
 			children = (
 				0F547AB12B458BA200813C28 /* SignupViewController.swift */,
 			);
-			path = VC;
+			path = Signup;
 			sourceTree = "<group>";
 		};
-		0F547AB22B458BA200813C28 /* View */ = {
+		0F547AB22B458BA200813C28 /* Signup */ = {
 			isa = PBXGroup;
 			children = (
 				0F547AB32B458BA200813C28 /* SignupView.swift */,
 			);
-			path = View;
+			path = Signup;
 			sourceTree = "<group>";
 		};
-		0F547AB72B458BA800813C28 /* LoginEmail */ = {
+		0F547AB72B458BA800813C28 /* EmailLogin */ = {
 			isa = PBXGroup;
 			children = (
 			);
-			path = LoginEmail;
+			path = EmailLogin;
 			sourceTree = "<group>";
 		};
 		0F547AB82B458BBA00813C28 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				0F547B1E2B495DB200813C28 /* Keycahin */,
+				0F547B182B4939ED00813C28 /* Constants */,
+				0F547B172B4939DE00813C28 /* Service */,
+				0F547B092B491E6B00813C28 /* Router */,
+				0F547B042B491B6F00813C28 /* Error */,
+				0F547B032B490D3F00813C28 /* Entity */,
 				0F547AB92B458BBA00813C28 /* Key */,
 			);
 			path = Network;
@@ -349,14 +380,137 @@
 			isa = PBXGroup;
 			children = (
 				0F547ABA2B458BBA00813C28 /* APIKey.swift */,
+				0F547B072B491CBC00813C28 /* BaseServer.swift */,
 			);
 			path = Key;
 			sourceTree = "<group>";
 		};
-		0F547ACE2B469D1400813C28 /* Toast */ = {
+		0F547B032B490D3F00813C28 /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				0F547B142B4933B600813C28 /* User */,
+			);
+			path = Entity;
+			sourceTree = "<group>";
+		};
+		0F547B042B491B6F00813C28 /* Error */ = {
+			isa = PBXGroup;
+			children = (
+				0F547B0C2B4924DA00813C28 /* CustomError.swift */,
+				0F577D3B2B4D701F0094484D /* ErrorResponse.swift */,
+			);
+			path = Error;
+			sourceTree = "<group>";
+		};
+		0F547B092B491E6B00813C28 /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				0F547B012B490CFF00813C28 /* AuthRouter.swift */,
+				0F547B0E2B4929CD00813C28 /* Router.swift */,
+			);
+			path = Router;
+			sourceTree = "<group>";
+		};
+		0F547B102B49334300813C28 /* Encoding */ = {
+			isa = PBXGroup;
+			children = (
+				0F547B122B49338E00813C28 /* User.swift */,
+			);
+			path = Encoding;
+			sourceTree = "<group>";
+		};
+		0F547B112B49334C00813C28 /* Decoding */ = {
+			isa = PBXGroup;
+			children = (
+				0F547B152B4933CB00813C28 /* UserResponse.swift */,
+			);
+			path = Decoding;
+			sourceTree = "<group>";
+		};
+		0F547B142B4933B600813C28 /* User */ = {
+			isa = PBXGroup;
+			children = (
+				0F547B102B49334300813C28 /* Encoding */,
+				0F547B112B49334C00813C28 /* Decoding */,
+			);
+			path = User;
+			sourceTree = "<group>";
+		};
+		0F547B172B4939DE00813C28 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				0F577D2E2B4D18BE0094484D /* Network.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		0F547B182B4939ED00813C28 /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				0F547AFF2B48735E00813C28 /* APIConstants.swift */,
+			);
+			path = Constants;
+			sourceTree = "<group>";
+		};
+		0F547B1E2B495DB200813C28 /* Keycahin */ = {
+			isa = PBXGroup;
+			children = (
+				0F547B1F2B49611100813C28 /* Keychain.swift */,
+			);
+			path = Keycahin;
+			sourceTree = "<group>";
+		};
+		0F547B5B2B4C50CF00813C28 /* Initial */ = {
+			isa = PBXGroup;
+			children = (
+				0F547B232B4BDC2D00813C28 /* WorkSpaceInitialViewController.swift */,
+			);
+			path = Initial;
+			sourceTree = "<group>";
+		};
+		0F547B5C2B4C50D700813C28 /* Initial */ = {
+			isa = PBXGroup;
+			children = (
+				0F547B5D2B4C50EB00813C28 /* WorkSpaceInitialView.swift */,
+			);
+			name = Initial;
+			path = "퍋ㅈ";
+			sourceTree = "<group>";
+		};
+		0F577D2B2B4D18670094484D /* Button */ = {
+			isa = PBXGroup;
+			children = (
+				0F547A862B458B8E00813C28 /* NextButton.swift */,
+				0F547A872B458B8E00813C28 /* CloseButton.swift */,
+			);
+			path = Button;
+			sourceTree = "<group>";
+		};
+		0F577D2C2B4D18720094484D /* Label */ = {
+			isa = PBXGroup;
+			children = (
+				0F547A892B458B8E00813C28 /* NavigationTitleLabel.swift */,
+				0F547A8A2B458B8E00813C28 /* SignupTextField.swift */,
+				0F547A8B2B458B8E00813C28 /* SignupTitleLabel.swift */,
+				0F547B5F2B4C515F00813C28 /* TitleLabel.swift */,
+				0F547B612B4C51C400813C28 /* SubTitleLabel.swift */,
+			);
+			path = Label;
+			sourceTree = "<group>";
+		};
+		0F577D2D2B4D18820094484D /* View */ = {
+			isa = PBXGroup;
+			children = (
+				0F547A882B458B8E00813C28 /* Divider.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		0F577D412B4E5A300094484D /* Toast */ = {
 			isa = PBXGroup;
 			children = (
 				0F547ACF2B469D2600813C28 /* ToastMessage.swift */,
+				0F577D422B4E5A430094484D /* ToastAlert.swift */,
 			);
 			path = Toast;
 			sourceTree = "<group>";
@@ -393,6 +547,9 @@
 				0F547AE62B46CA0D00813C28 /* KakaoSDKTalk */,
 				0F547AE82B46CA0D00813C28 /* KakaoSDKTemplate */,
 				0F547AEA2B46CA0D00813C28 /* KakaoSDKUser */,
+				0F547AFA2B48660D00813C28 /* Alamofire */,
+				0F547AFD2B486FA500813C28 /* Toast */,
+				0F547B1C2B495DAB00813C28 /* SwiftKeychainWrapper */,
 			);
 			productName = Purple;
 			productReference = 0F547A5B2B458B1100813C28 /* Purple.app */;
@@ -426,6 +583,9 @@
 				0F547ABE2B458DCE00813C28 /* XCRemoteSwiftPackageReference "RxSwift" */,
 				0F547AC32B458DDA00813C28 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				0F547AD32B46CA0D00813C28 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
+				0F547AF92B48660D00813C28 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				0F547AFC2B486FA500813C28 /* XCRemoteSwiftPackageReference "Toast-Swift" */,
+				0F547B1B2B495DAB00813C28 /* XCRemoteSwiftPackageReference "SwiftKeychainWrapper" */,
 			);
 			productRefGroup = 0F547A5C2B458B1100813C28 /* Products */;
 			projectDirPath = "";
@@ -455,34 +615,49 @@
 			buildActionMask = 2147483647;
 			files = (
 				0F547AA82B458B9B00813C28 /* AuthViewModel.swift in Sources */,
+				0F547B082B491CBC00813C28 /* BaseServer.swift in Sources */,
 				0F547AB42B458BA200813C28 /* SignupViewModel.swift in Sources */,
 				0F547A8C2B458B8E00813C28 /* NextButton.swift in Sources */,
+				0F547B242B4BDC2D00813C28 /* WorkSpaceInitialViewController.swift in Sources */,
 				0F547A822B458B8800813C28 /* PlaceholderText.swift in Sources */,
 				0F547A842B458B8800813C28 /* LeftPadding + Extension.swift in Sources */,
 				0F547AAB2B458B9C00813C28 /* OnboardingViewController.swift in Sources */,
 				0F547AD02B469D2600813C28 /* ToastMessage.swift in Sources */,
 				0F547A992B458B9400813C28 /* ConstantImage.swift in Sources */,
+				0F547B022B490CFF00813C28 /* AuthRouter.swift in Sources */,
+				0F547B162B4933CB00813C28 /* UserResponse.swift in Sources */,
+				0F547B0D2B4924DA00813C28 /* CustomError.swift in Sources */,
 				0F547A912B458B8E00813C28 /* SignupTitleLabel.swift in Sources */,
 				0F547A982B458B9400813C28 /* ConstantIcon.swift in Sources */,
+				0F547B602B4C515F00813C28 /* TitleLabel.swift in Sources */,
 				0F547AB62B458BA200813C28 /* SignupView.swift in Sources */,
-				0F547A8F2B458B8E00813C28 /* TitleLabel.swift in Sources */,
+				0F547A8F2B458B8E00813C28 /* NavigationTitleLabel.swift in Sources */,
 				0F547A8E2B458B8E00813C28 /* Divider.swift in Sources */,
+				0F577D3C2B4D701F0094484D /* ErrorResponse.swift in Sources */,
 				0F547A7B2B458B7000813C28 /* BaseCollectionViewCell.swift in Sources */,
 				0F547AA92B458B9C00813C28 /* AuthViewController.swift in Sources */,
 				0F547A972B458B9400813C28 /* ConstantColor.swift in Sources */,
 				0F547A9A2B458B9400813C28 /* ConstantTypo.swift in Sources */,
 				0F547A8D2B458B8E00813C28 /* CloseButton.swift in Sources */,
+				0F577D432B4E5A430094484D /* ToastAlert.swift in Sources */,
 				0F547A7A2B458B7000813C28 /* BaseTableViewCell.swift in Sources */,
 				0F547A5F2B458B1100813C28 /* AppDelegate.swift in Sources */,
 				0F547A832B458B8800813C28 /* LineHeight.swift in Sources */,
 				0F547A7D2B458B7000813C28 /* BaseView.swift in Sources */,
 				0F547A612B458B1100813C28 /* SceneDelegate.swift in Sources */,
+				0F547B622B4C51C400813C28 /* SubTitleLabel.swift in Sources */,
 				0F547ABB2B458BBA00813C28 /* APIKey.swift in Sources */,
+				0F547B202B49611100813C28 /* Keychain.swift in Sources */,
+				0F547B5E2B4C50EB00813C28 /* WorkSpaceInitialView.swift in Sources */,
+				0F577D2F2B4D18BE0094484D /* Network.swift in Sources */,
 				0F547A7C2B458B7000813C28 /* BaseViewController.swift in Sources */,
 				0F547AB52B458BA200813C28 /* SignupViewController.swift in Sources */,
+				0F547B002B48735E00813C28 /* APIConstants.swift in Sources */,
+				0F547B0F2B4929CD00813C28 /* Router.swift in Sources */,
 				0F547AAC2B458B9C00813C28 /* OnboardingView.swift in Sources */,
 				0F547AAA2B458B9C00813C28 /* AuthView.swift in Sources */,
 				0F547A902B458B8E00813C28 /* SignupTextField.swift in Sources */,
+				0F547B132B49338E00813C28 /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -552,7 +727,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -609,7 +784,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -725,6 +900,30 @@
 				minimumVersion = 2.20.0;
 			};
 		};
+		0F547AF92B48660D00813C28 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.8.1;
+			};
+		};
+		0F547AFC2B486FA500813C28 /* XCRemoteSwiftPackageReference "Toast-Swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/scalessec/Toast-Swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.1;
+			};
+		};
+		0F547B1B2B495DAB00813C28 /* XCRemoteSwiftPackageReference "SwiftKeychainWrapper" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/jrendel/SwiftKeychainWrapper.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -802,6 +1001,21 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 0F547AD32B46CA0D00813C28 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
 			productName = KakaoSDKUser;
+		};
+		0F547AFA2B48660D00813C28 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0F547AF92B48660D00813C28 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+		0F547AFD2B486FA500813C28 /* Toast */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0F547AFC2B486FA500813C28 /* XCRemoteSwiftPackageReference "Toast-Swift" */;
+			productName = Toast;
+		};
+		0F547B1C2B495DAB00813C28 /* SwiftKeychainWrapper */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0F547B1B2B495DAB00813C28 /* XCRemoteSwiftPackageReference "SwiftKeychainWrapper" */;
+			productName = SwiftKeychainWrapper;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

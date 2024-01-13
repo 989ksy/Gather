@@ -37,8 +37,6 @@ final class AuthViewController: BaseViewController, UISheetPresentationControlle
     func bindVM() {
         
         let input = AuthViewModel.Input(
-            oauthToken: oauthToken ?? "어스 토큰 없음",
-            deviceToken: deviceToken ?? "디바이스토큰 없음",
             singupTap: mainView.signUpButton.rx.tap,
             kakaoTap: mainView.kakaoLoginButton.rx.tap,
             appleTap: mainView.appleLoginButton.rx.tap

@@ -24,7 +24,7 @@ class SignupView: BaseView {
     
     //회원가입 레이블
     let titleLabel = {
-        let label = TitleLabel()
+        let label = NavigationTitleLabel()
         label.text = "회원가입"
         return label
     }()
@@ -77,6 +77,7 @@ class SignupView: BaseView {
     let contactTextField = {
         let field = SignupTextField()
         field.placeholder = PlaceholderText.phoneNum.rawValue
+        field.keyboardType = .numberPad
         return field
     }()
     

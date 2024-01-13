@@ -18,9 +18,6 @@ final class AuthViewModel {
     
     struct Input {
         
-        let oauthToken: String
-        let deviceToken: String
-        
         let singupTap: ControlEvent<Void> //회원가입
         let kakaoTap: ControlEvent<Void> //카카오로그인
         let appleTap: ControlEvent<Void> //애플로그인
@@ -39,9 +36,7 @@ final class AuthViewModel {
         
         let oauthToken1 = PublishSubject<String>()
         let deviceToken1 = PublishSubject<String>()
-        
-//        print("====👀 kakao data", data)
-        
+                
         input.kakaoTap
             .throttle(.seconds(1),
                       scheduler: MainScheduler.instance)
@@ -82,9 +77,6 @@ final class AuthViewModel {
                                     print("======👀 [사용자 액세스토큰/oauthToken]", accessToken)
                                     print("======👀 [사용자 리프레시토큰/deviceToken]", refereshToken)
                                     
-                                    //                                    self.oauthToken = accessToken //액세스토큰
-                                    //                                    self.deviceToken = refereshToken //리프레시
-                                    
                                     //✅ 이메일/닉네임/토큰 저장하기
                                     KeychainStorage.shared.userEmail = email
                                     KeychainStorage.shared.userNickname = nickname
@@ -94,14 +86,12 @@ final class AuthViewModel {
                             
                         }
                         
-                        
-                        
                     }
                 }
             }
             .disposed(by: disposeBag)
             
-        
+
         
         
         let test = Observable.combineLatest(oauthToken1, deviceToken1)
@@ -124,7 +114,7 @@ final class AuthViewModel {
                 print(result)
                 switch result {
                 case .success(let response):
-                    
+
                     isLoggedIn.onNext(true)
                     print("성공")
                     

@@ -22,8 +22,13 @@ final class SignupViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        mainView.contactTextField.delegate = self //닉네임 텍스트필드 딜리게이트
+        
         bindVM()
+        
     }
+    
     
     func bindVM() {
         
@@ -34,6 +39,8 @@ final class SignupViewController: BaseViewController {
                 mainView.emailTextField.rx.text.orEmpty,
             emailValidationTap:
                 mainView.validationCheckButton.rx.tap,
+            signupTap:
+                mainView.signUpButton.rx.tap,
             nickText:
                 mainView.nickTextField.rx.text.orEmpty,
             phoneNumbText:
@@ -47,7 +54,7 @@ final class SignupViewController: BaseViewController {
         let output = viewModel.transform(input: input)
         
         //닫기버튼 탭했을 때
-        input.closeButtonTap
+        output.closeButtonTapped
             .subscribe(with: self) { owner, _ in
                 //Auth 화면으로 전환
                 self.dismiss(animated: true)
@@ -66,10 +73,52 @@ final class SignupViewController: BaseViewController {
             }
             .disposed(by: disposeBag)
         
+        //이메일 중복확인
+        
+        
         
     }
     
     
+}
+
+
+extension SignupViewController: UITextFieldDelegate {
+    
+    //전화번호
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
+        if let text = textField.text, let textRange = Range(range, in: text) {
+            
+            let updatedText = text.replacingCharacters(in: textRange, with: string)
+            
+            let validText = updatedText.components(separatedBy: CharacterSet.decimalDigits.inverted).joined()
+            
+            if let formattedNumber = formatPhoneNumber(validText) {
+                textField.text = formattedNumber
+                return false
+            }
+        }
+        return true
+    }
+
+    func formatPhoneNumber(_ phoneNumber: String) -> String? {
+       
+        guard phoneNumber.count <= 11 && phoneNumber.hasPrefix("01") else {
+            return nil
+        }
+        
+        var formattedNumber = ""
+
+        for (index, char) in phoneNumber.enumerated() {
+            if index == 3 || index == 7 {
+                formattedNumber += "-"
+            }
+            formattedNumber += String(char)
+        }
+        
+        return formattedNumber
+    }
     
     
 }
