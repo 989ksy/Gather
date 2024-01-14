@@ -20,7 +20,7 @@ final class Network {
     //AF Request
     func request<T: Decodable>(
         type: T.Type? = nil,
-        router: Router,
+        router: NetworkRouter,
         completion: @escaping NetworkCompletion<T>
     ) {
         AF.request(
@@ -36,7 +36,6 @@ final class Network {
                 completion(.success(data))
             case .failure(let e):
                 print("failure : \(e)")
-                
                 let statusCode = response.response?.statusCode ?? 500
                 let error = self.makeCustomErrorResponse(
                     response: response,
@@ -49,10 +48,8 @@ final class Network {
     
     func requestSingle<T: Decodable>(
         type: T.Type,
-        router: Router
+        router: NetworkRouter
     ) -> Single<Result<T, CustomErrorResponse>> {
-        
-        
         return Single.create { [weak self] single in
             self?.request(type: T.self, router: router) { result in
                 switch result {
@@ -66,7 +63,48 @@ final class Network {
         }
     }
     
+    func requestEmptyResponse(
+        router: NetworkRouter
+    ) -> Single<Void> {
+        return Single.create { single in
+            AF.request(router)
+                .validate()
+                .response { response in
+                    let statusCode = response.response?.statusCode
+                    print("statusCode:", statusCode!)
+                    
+                    if statusCode == 200 {
+                        print("-----👏 EmptyResponse 네트워크 통신 성공")
+                        single(.success(()))
+                        
+                    } else {
+                        let result = response.result
+                        
+                        if case .failure(let failure) = result {
+                            print("-----🥺 EmptyResponse 네트워크 통신 실패")
+                            
+                            // ErrorResponse 디코딩
+                            let statusCode = response.response?.statusCode ?? 500
+                            let error = self.makeCustomErrorResponse(
+                                response: response,
+                                statusCode: statusCode)
+                            
+                            // Emit an error
+                            single(.failure(error))
+                            
+                        } else {
+                            print("-----🥺 에러 디코딩 실패")
+                            
+                            // Emit an error if needed
+                            single(.failure(NSError(domain: "ErrorErrorError", code: 1, userInfo: nil)))
+                        }
+                    }
+                }
+            return Disposables.create()
+        }
+    }
     
+
 }
 
 
@@ -86,10 +124,10 @@ extension Network {
             print("decoding error value: \(serverError)")
             
             if let customError = CustomError(rawValue: serverError.errorCode) {
-                    print("---- 👿 문제:", customError.errorDescription)
-                } else {
-                    print("Error code not found in CustomError enum")
-                }
+                print("---- 👿 문제:", customError.errorDescription)
+            } else {
+                print("Error code not found in CustomError enum")
+            }
             
             customErrorResponse = CustomErrorResponse(
                 statusCode: statusCode,

@@ -8,11 +8,11 @@
 import Foundation
 import Alamofire
 
-enum Router: URLRequestConvertible {
+enum NetworkRouter: URLRequestConvertible {
     
     private static let key = APIKey.sesacKey
     
-    case join // 회원가입
+    case join (model: SignupInput) // 회원가입
     case emailValidation (model: EmailValidation) //이메일중복확인
     case login // 로그인
     case kakaoLogin (model: KakaoLogin)//카카오로그인
@@ -29,18 +29,12 @@ enum Router: URLRequestConvertible {
     /* Base URL 뒤에 붙는 path */
     private var path: String {
         switch self {
-        case .join:
-            return "users/join"
-        case .emailValidation:
-            return "users/validation/email"
-        case .login:
-            return "users/login"
-        case .kakaoLogin:
-            return "users/login/kakao"
-        case .appleLogin:
-            return "users/login/apple"
-        case .logout:
-            return "users/logout"
+        case .join: return "users/join"
+        case .emailValidation: return "users/validation/email"
+        case .login: return "users/login"
+        case .kakaoLogin: return "users/login/kakao"
+        case .appleLogin: return "users/login/apple"
+        case .logout: return "users/logout"
         }
     }
     
@@ -57,7 +51,6 @@ enum Router: URLRequestConvertible {
             return [
                 "Content-Type" : "application/json",
                 "SesacKey" : "\(APIKey.sesacKey)"
-
             ]
             
         case .logout:
@@ -90,12 +83,17 @@ enum Router: URLRequestConvertible {
     private var parameters: Parameters? {
         
         switch self {
-        case .join,
-                .login,
-                
+        case .login,
                 .appleLogin,
                 .logout :
             return nil
+        case .join(let model):
+            return ["email": model.email,
+                    "password": model.password,
+                    "nickname": model.nickname,
+                    "phone": model.phone,
+                    "deviceToken": model.deviceToken
+            ]
             
         case .emailValidation(let model):
             return ["email": model.email]

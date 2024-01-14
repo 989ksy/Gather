@@ -9,7 +9,7 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-class SignupViewModel {
+class SignupViewModel: ViewModelType {
     
     let disposeBag = DisposeBag()
     
@@ -45,12 +45,18 @@ class SignupViewModel {
         let passwordValidation: Observable<Bool>
         let passwordCheckValidation: Observable<Bool>
         let emailValidationCheck: PublishRelay<Bool>
+        
+        let isValidForSignup: Observable<Bool>
+        
         let closeButtonTapped: BehaviorRelay<Bool> //닫기버튼누름
+        let signUpButtonTapped: BehaviorRelay<Bool>// 가입하기 버튼 누름
     }
     
     func transform(input: Input) -> Output {
         
-        //이메일 정규식 확인
+        //MARK: - 이메일
+        
+        //조건: @와 .com 포함
         let emailValidation = input.emailText
             .map{
                 $0.range(of: self.emailRegex,
@@ -58,45 +64,39 @@ class SignupViewModel {
             }
         
         //이메일 중복 확인 네트워크
-        
         let emailValidationCheck = PublishRelay<Bool>()
-                
-//        input.emailValidationTap
-//            .throttle(.seconds(1), scheduler: MainScheduler.instance)
-//            .withLatestFrom(input.emailText, resultSelector: { _, query in
-//                return query
-//            })
-//            .map { query in
-//                return "\(query)"
-//            }
-//            .flatMap { email in
-//                Network.shared.requestEmail(email: email, router: .emailValidation(model: .init(email: email)))
-//            }
-//            .subscribe(with: self) { owner, result in
-//                emailValidationCheck.accept(true)
-//                print("----🎉 이메일 중복확인 성공")
-//            }
-//            .disposed(by: disposeBag)
         
+        input.emailValidationTap
+            .throttle(.seconds(1), scheduler: MainScheduler.instance)
+            .withLatestFrom(input.emailText, resultSelector: { _, query in
+                return query
+            })
+            .map { query in
+                return "\(query)"
+            }
+            .flatMap{
+                Network.shared.requestEmptyResponse(router: .emailValidation(model: EmailValidation(email: $0)))
+            }
+            .subscribe(with: self) { owner, result in
+                emailValidationCheck.accept(true)
+                print("----🎉 이메일 중복확인 성공")
+            }
+            .disposed(by: disposeBag)
         
-        //닉네임 조건확인
+        //MARK: - 닉네임
+        
+        //조건: 최소 1글자 최대 30글자
         let nickValidation = input.nickText
             .map { $0.count > 0 && $0.count < 31 }
         
-        //비밀번호 조건확인
+        
+        //MARK: - 비밀번호
+        
+        //조건: 최소 8자 이상, 하나 이상의 대문자, 소문자, 숫자, 특수문자
         let passwordValidation = input.passwordText
             .map {
                 $0.range(of: self.passwordRegex,
-                         options: .regularExpression) != nil
-            }
-        
-        //핸드폰 번호
-        let phoneValidation = input.phoneNumbText
-            .map{ 
-                $0.count < 13 &&
-                $0.range(
-                    of: self.phoneRegex,
-                    options: .regularExpression) != nil
+                         options: .regularExpression) != nil && $0.count >= 8
             }
         
         //비밀번호 더블체크
@@ -104,6 +104,81 @@ class SignupViewModel {
             
             return pwText == checkText && !pwText.isEmpty && !checkText.isEmpty
         }
+        
+        //MARK: - 연락처 번호
+        
+        //핸드폰 번호
+        let phoneValidation = input.phoneNumbText
+            .map{
+                $0.count < 13 &&
+                $0.range(
+                    of: self.phoneRegex,
+                    options: .regularExpression) != nil
+            }
+        
+        //MARK: - 가입하기
+        
+        // 가입조건 충족?
+        //(기본: 빈값 X)
+        let isSignupAvailable = Observable.combineLatest(
+            input.emailText,
+            input.nickText,
+            input.passwordText,
+            input.passwordValidText
+        ) { (email, nick, pw, pwCheck) in
+            if !email.isEmpty && !nick.isEmpty && !pw.isEmpty && !pwCheck.isEmpty {
+                return true
+            } else {
+                return false
+            }
+        }
+        
+        let signupButtonTapped = BehaviorRelay<Bool>(value: false)
+        
+        //가입하기 탭했을 때
+        input.signupTap
+            .throttle(.seconds(3), latest: false, scheduler: MainScheduler.instance)
+            .withLatestFrom (
+                Observable.combineLatest(
+                    input.emailText,
+                    input.passwordText,
+                    input.nickText,
+                    input.phoneNumbText
+                )
+            )
+            .flatMapLatest { email, password, nickname, phone in
+                Network.shared.requestSingle(
+                    type: SignupResponse.self,
+                    router: .join(
+                        model: .init(
+                            email: email,
+                            password: password,
+                            nickname: nickname,
+                            phone: phone,
+                            deviceToken: ""
+                        )
+                    )
+                )
+            }
+            .subscribe(with: self) { owner, result in
+                
+                switch result {
+                    
+                case .success(let response):
+                    
+                    signupButtonTapped.accept(true)
+                    
+                    KeychainStorage.shared.userEmail = response.email
+                    KeychainStorage.shared.userToken = response.token.accessToken
+                    KeychainStorage.shared.userRefreshToken = response.token.refreshToken
+                    KeychainStorage.shared.userNickname = response.nickname
+
+                case .failure(let error):
+                    print(error)
+                }
+            }
+            .disposed(by: disposeBag)
+        
         
         //닫기버튼 탭했을 때
         var closeButtonTapped = BehaviorRelay<Bool>(value: false)
@@ -114,14 +189,17 @@ class SignupViewModel {
             }
             .disposed(by: disposeBag)
         
+        
         return Output(
             emailValidation: emailValidation,
-            nickValidation: nickValidation, 
+            nickValidation: nickValidation,
             phoneValidation: phoneValidation,
             passwordValidation: passwordValidation,
             passwordCheckValidation: passwordDoubleCheck,
             emailValidationCheck: emailValidationCheck,
-            closeButtonTapped: closeButtonTapped
+            isValidForSignup: isSignupAvailable,
+            closeButtonTapped: closeButtonTapped,
+            signUpButtonTapped: signupButtonTapped
         )
     }
     

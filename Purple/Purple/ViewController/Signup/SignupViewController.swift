@@ -61,21 +61,42 @@ final class SignupViewController: BaseViewController {
             }
             .disposed(by: disposeBag)
         
-        //이메일
+        //이메일중복버튼 작동연결
         output.emailValidation
             .bind(to: mainView.validationCheckButton.rx.isEnabled)
             .disposed(by: disposeBag)
         
-        //이메일 정규식 반응_ 중복확인버튼 활성화
+        //이메일 중복확인버튼 활성화
         output.emailValidation
             .subscribe(with: self) { owner, bool in
+                
                 owner.mainView.validationCheckButton.backgroundColor = bool ? ConstantColor.purpleBrand : ConstantColor.inActiveBrand
+                
             }
             .disposed(by: disposeBag)
         
-        //이메일 중복확인
+        //가입하기 버튼연결
+        output.isValidForSignup
+            .bind(to: mainView.signUpButton.rx.isEnabled)
+            .disposed(by: disposeBag)
         
+        output.isValidForSignup
+            .subscribe(with: self) { owner, bool in
+  
+                owner.mainView.signUpButton.backgroundColor = bool ? ConstantColor.purpleBrand : ConstantColor.inActiveBrand
+            }
+            .disposed(by: disposeBag)
         
+        output.signUpButtonTapped
+            .bind(to: mainView.signUpButton.rx.isEnabled)
+            .disposed(by: disposeBag)
+        
+        output.signUpButtonTapped
+            .subscribe(with: self) { owner, bool in
+                let vc = WorkSpaceInitialViewController()
+                self.view.window?.rootViewController = vc
+            }
+            .disposed(by: disposeBag)
         
     }
     

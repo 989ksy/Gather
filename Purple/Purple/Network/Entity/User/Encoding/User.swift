@@ -7,6 +7,16 @@
 
 import Foundation
 
+//회원가입
+
+struct SignupInput: Encodable {
+    let email: String
+    let password: String
+    let nickname: String
+    let phone: String
+    let deviceToken: String
+}
+
 //이메일 중복
 struct EmailValidation: Encodable {
     let email: String
