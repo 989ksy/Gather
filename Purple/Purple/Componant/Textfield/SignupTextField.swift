@@ -25,6 +25,8 @@ class SignupTextField: UITextField {
         backgroundColor = ConstantColor.whiteBrand
         layer.cornerRadius = 8
         borderStyle = .none
+        autocapitalizationType = .none
+        
     }
     
 }
