@@ -6,13 +6,15 @@
 //
 
 import Foundation
+
 import RxSwift
 import RxCocoa
+
 import KakaoSDKCommon
 import KakaoSDKAuth
 import KakaoSDKUser
 
-final class AuthViewModel {
+final class AuthViewModel: ViewModelType {
     
     let disposeBag = DisposeBag()
     
@@ -21,12 +23,15 @@ final class AuthViewModel {
         let singupTap: ControlEvent<Void> //회원가입
         let kakaoTap: ControlEvent<Void> //카카오로그인
         let appleTap: ControlEvent<Void> //애플로그인
+        let emailTap: ControlEvent<Void> //이메일로그인
         
     }
     
     struct Output {
         
         let isLoggedIn: Observable<Bool>
+        let signupTapped: PublishRelay<Bool>
+        let loginTapped: PublishRelay<Bool>
         
     }
     
@@ -36,7 +41,35 @@ final class AuthViewModel {
         
         let oauthToken1 = PublishSubject<String>()
         let deviceToken1 = PublishSubject<String>()
+        
+        //MARK: - 로그인 버튼
+        
+        let loginButtonTapped = PublishRelay<Bool>()
+        
+        input.emailTap
+            .subscribe(with: self) { owner, _ in
+                loginButtonTapped.accept(true)
+            }
+            .disposed(by: disposeBag)
+        
+        
+        
+        //MARK: - 회원가입 버튼
+        
+        let signupButtonTapped = PublishRelay<Bool>()
+        
+        input.singupTap
+            .subscribe(with: self) { owner, _ in
                 
+                signupButtonTapped.accept(true)
+                
+            }
+            .disposed(by: disposeBag)
+                
+        
+        //MARK: - 카카오로그인
+        
+        //네트워크 통신
         input.kakaoTap
             .throttle(.seconds(1),
                       scheduler: MainScheduler.instance)
@@ -92,8 +125,6 @@ final class AuthViewModel {
             .disposed(by: disposeBag)
             
 
-        
-        
         let test = Observable.combineLatest(oauthToken1, deviceToken1)
         
         test
@@ -128,7 +159,11 @@ final class AuthViewModel {
         
             
         
-        return Output(isLoggedIn: isLoggedIn)
+        return Output(
+            isLoggedIn: isLoggedIn,
+            signupTapped: signupButtonTapped,
+            loginTapped: loginButtonTapped
+        )
     }
     
     

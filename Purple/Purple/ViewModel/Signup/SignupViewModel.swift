@@ -19,7 +19,7 @@ class SignupViewModel: ViewModelType {
     let emailRegex = #"^([a-zA-Z0-9._-])+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,20}$"#
     
     //비밀번호 정규식
-    let passwordRegex =  "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[$@$!%*?&])(?=.*[0-9])[A-Za-z\\d$@$!%*?&]{8}"
+    let passwordRegex =  "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[$@$!%*?&])[A-Za-z\\d$@$!%*?&]{8,}$"
     
     //핸드폰번호 정규식
     let phoneRegex = "/^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/"
@@ -168,7 +168,7 @@ class SignupViewModel: ViewModelType {
                     
                     signupButtonTapped.accept(true)
                     
-                    KeychainStorage.shared.userEmail = response.email
+                    KeychainStorage.shared.userID = "\(response.userID)"
                     KeychainStorage.shared.userToken = response.token.accessToken
                     KeychainStorage.shared.userRefreshToken = response.token.refreshToken
                     KeychainStorage.shared.userNickname = response.nickname

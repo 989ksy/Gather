@@ -49,6 +49,27 @@ final class KeychainStorage {
         }
     }
     
+    //MARK: - userID
+    
+    var userID: String {
+        get {
+            if let nickname = KeychainWrapper.standard.string(forKey: KeychainKeys.userIDKey) {
+                return nickname
+            }
+            else {
+                return "userID 없음"
+            }
+        }
+        set {
+            if !newValue.isEmpty {
+                KeychainWrapper.standard.set(newValue, forKey: KeychainKeys.userIDKey)
+            } else {
+                KeychainWrapper.standard.removeObject(forKey: KeychainKeys.userIDKey)
+            }
+        }
+    }
+    
+    
     
     //MARK: - User Email
     

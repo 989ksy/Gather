@@ -6,11 +6,14 @@
 //
 
 import UIKit
+
 import KakaoSDKCommon
 import KakaoSDKAuth
 import KakaoSDKUser
+
 import RxSwift
 import RxCocoa
+
 import Toast
 
 final class AuthViewController: BaseViewController, UISheetPresentationControllerDelegate {
@@ -39,26 +42,52 @@ final class AuthViewController: BaseViewController, UISheetPresentationControlle
         let input = AuthViewModel.Input(
             singupTap: mainView.signUpButton.rx.tap,
             kakaoTap: mainView.kakaoLoginButton.rx.tap,
-            appleTap: mainView.appleLoginButton.rx.tap
+            appleTap: mainView.appleLoginButton.rx.tap, 
+            emailTap: mainView.emailLoginButton.rx.tap
         )
         
         let output = viewModel.transform(input: input)
         
+        //로그인 버튼 tap
+        //로그인화면으로 화면전환
+        output.loginTapped
+            .subscribe(with: self) { owner, value in
+                if value {
+                    let vc = EmailLoginViewController()
+                    vc.modalPresentationStyle = .pageSheet
+                    
+                    if let sheet = vc.sheetPresentationController {
+                        sheet.detents = [.large()]
+                        sheet.delegate = self
+                        sheet.prefersGrabberVisible = true
+                    }
+                    
+                    self.present(vc, animated: true, completion: nil)
+                }
+            }
+            .disposed(by: disposeBag)
+        
+        
         // 회원가입 버튼 tap
         // 회원가입 화면으로 화면전환
-        input.singupTap
-            .subscribe(with: self) { owner, _ in
+        output.signupTapped
+            .subscribe(with: self) { owner, value in
                 
-                let vc = SignupViewController() //회원가입VC
-                vc.modalPresentationStyle = .pageSheet
-                
-                if let sheet = vc.sheetPresentationController {
-                    sheet.detents = [.large()]
-                    sheet.delegate = self
-                    sheet.prefersGrabberVisible = true
+                if value {
+                    
+                    let vc = SignupViewController() //회원가입VC
+                    vc.modalPresentationStyle = .pageSheet
+                    
+                    if let sheet = vc.sheetPresentationController {
+                        sheet.detents = [.large()]
+                        sheet.delegate = self
+                        sheet.prefersGrabberVisible = true
+                    }
+                    
+                    self.present(vc, animated: true, completion: nil)
+                    
                 }
                 
-                self.present(vc, animated: true, completion: nil)
             }
             .disposed(by: disposeBag)
         

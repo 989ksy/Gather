@@ -29,7 +29,7 @@ final class Network {
         )
         .validate()
         .responseDecodable(of: T.self) { response in
-            print("0-----", response)
+            print("기본 request-----", response)
             switch response.result {
             case .success(let data):
                 print("success : \(data)")
@@ -54,8 +54,11 @@ final class Network {
             self?.request(type: T.self, router: router) { result in
                 switch result {
                 case .success(let success):
+                    print("-------- requestSingle 성공")
                     single(.success(.success(success)))
                 case .failure(let error):
+                    print("-------- requestSingle 실패")
+                    
                     single(.success(.failure(error)))
                 }
             }
@@ -140,3 +143,4 @@ extension Network {
         return customErrorResponse
     }
 }
+

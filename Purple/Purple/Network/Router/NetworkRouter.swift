@@ -14,7 +14,7 @@ enum NetworkRouter: URLRequestConvertible {
     
     case join (model: SignupInput) // 회원가입
     case emailValidation (model: EmailValidation) //이메일중복확인
-    case login // 로그인
+    case emailLogin (model: EmailLogin) // 로그인
     case kakaoLogin (model: KakaoLogin)//카카오로그인
     case appleLogin //애플로그인
     case logout //로그아웃
@@ -29,12 +29,12 @@ enum NetworkRouter: URLRequestConvertible {
     /* Base URL 뒤에 붙는 path */
     private var path: String {
         switch self {
-        case .join: return "users/join"
-        case .emailValidation: return "users/validation/email"
-        case .login: return "users/login"
-        case .kakaoLogin: return "users/login/kakao"
-        case .appleLogin: return "users/login/apple"
-        case .logout: return "users/logout"
+        case .join: return "/v1/users/join"
+        case .emailValidation: return "/v1/users/validation/email"
+        case .emailLogin: return "/v2/users/login"
+        case .kakaoLogin: return "/v1/users/login/kakao"
+        case .appleLogin: return "/v1/users/login/apple"
+        case .logout: return "/v1/users/logout"
         }
     }
     
@@ -44,7 +44,7 @@ enum NetworkRouter: URLRequestConvertible {
         switch self {
         case .join,
                 .emailValidation,
-                .login,
+                .emailLogin,
                 .kakaoLogin,
                 .appleLogin:
             
@@ -67,7 +67,7 @@ enum NetworkRouter: URLRequestConvertible {
         switch self {
         case .join,
                 .emailValidation,
-                .login,
+                .emailLogin,
                 .kakaoLogin,
                 .appleLogin:
             
@@ -83,10 +83,17 @@ enum NetworkRouter: URLRequestConvertible {
     private var parameters: Parameters? {
         
         switch self {
-        case .login,
-                .appleLogin,
+        case    .appleLogin,
                 .logout :
             return nil
+            
+        case.emailLogin(let model):
+            return [
+                "email": model.email,
+                "password": model.password,
+                "deviceToken": model.deviceToken
+            ]
+            
         case .join(let model):
             return ["email": model.email,
                     "password": model.password,

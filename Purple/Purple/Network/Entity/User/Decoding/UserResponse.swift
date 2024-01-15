@@ -7,6 +7,20 @@
 
 import Foundation
 
+struct EmailLoginResponse: Decodable {
+    
+    let userID: Int
+    let email, nickname: String
+    let profileImage, phone, vendor: String?
+    let createdAt: String
+    let token: Token
+
+    enum CodingKeys: String, CodingKey {
+        case userID = "user_id"
+        case email, nickname, profileImage, phone, vendor, createdAt, token
+    }
+}
+
 struct SignupResponse: Decodable {
     
     let userID: Int

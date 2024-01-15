@@ -7,8 +7,14 @@
 
 import Foundation
 
-//회원가입
+//이메일 로그인
+struct EmailLogin: Encodable {
+    let email: String
+    let password: String
+    let deviceToken: String
+}
 
+//회원가입
 struct SignupInput: Encodable {
     let email: String
     let password: String
