@@ -7,10 +7,15 @@
 
 import UIKit
 
-struct ConstantImage {
+enum ConstantImage: String {
     
-    static let onboardingImage = UIImage(named: "OnboardingImage")
-    static let launchingImage = UIImage(named: "LaunchingImage")
-    static let emptyImage = UIImage(named: "EmptyImage")
+    case onboarding = "OnboardingImage"
+    case launching = "LaunchingImage"
+    case empty = "EmptyImage"
+    case rectangleProfile = "RectangleImage"
+    
+    var image: UIImage? {
+        return UIImage(named: self.rawValue)
+    }
     
 }

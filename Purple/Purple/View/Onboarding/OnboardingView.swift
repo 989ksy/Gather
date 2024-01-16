@@ -24,7 +24,7 @@ final class OnboardingView: BaseView {
     let onboardingImage: UIImageView = {
         let view = UIImageView()
         view.contentMode = .scaleAspectFit
-        view.image = ConstantImage.onboardingImage
+        view.image = ConstantImage.onboarding.image
         return view
     }()
     
