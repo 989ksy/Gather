@@ -40,13 +40,13 @@ final class WorkSpaceInitialView: BaseView {
     
     let subLabel: UILabel = {
         let label = SubTitleLabel()
-        label.text = "옹골찬 고래밥님의 조직을 위해 새로운 새싹톡 워크스페이스를\n시작할 준비가 완료되었어요!"
+        label.text = "\(KeychainStorage.shared.userNickname)님의 조직을 위해 새로운 게더 워크스페이스를\n시작할 준비가 완료되었어요!"
         return label
     }()
     
     let initialImage: UIImageView = {
         let view = UIImageView()
-        view.image = ConstantImage.launchingImage
+        view.image = ConstantImage.launching.image
         return view
     }()
     

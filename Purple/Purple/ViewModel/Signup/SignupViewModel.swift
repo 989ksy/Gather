@@ -181,7 +181,7 @@ class SignupViewModel: ViewModelType {
         
         
         //닫기버튼 탭했을 때
-        var closeButtonTapped = BehaviorRelay<Bool>(value: false)
+        let closeButtonTapped = BehaviorRelay<Bool>(value: false)
         
         input.closeButtonTap
             .subscribe(with: self) { owner, _ in

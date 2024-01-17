@@ -144,7 +144,7 @@ final class AuthViewModel: ViewModelType {
                 print("--------")
                 print(result)
                 switch result {
-                case .success(let response):
+                case .success(_):
 
                     isLoggedIn.onNext(true)
                     print("성공")
