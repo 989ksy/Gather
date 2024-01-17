@@ -27,6 +27,7 @@ class CustomNavigationBarItemView: UIView {
     
     let circleProfileImageView = {
         let view = UIImageView()
+        view.image = ConstantImage.circleProfile.image
         view.layer.cornerRadius = 16
         view.clipsToBounds = true
         view.layer.borderWidth = 2
