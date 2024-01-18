@@ -35,6 +35,7 @@ final class HomeListView: UIView {
         super.init(frame: frame)
         configureViews()
         setConstraints()
+
     }
     
     required init?(coder: NSCoder) {
@@ -45,6 +46,7 @@ final class HomeListView: UIView {
         addSubview(iconImageView)
         addSubview(titleLabel)
         addSubview(customButton)
+//        backgroundColor = ConstantColor.bgSecondary
     }
     
     func setConstraints() {
