@@ -10,7 +10,7 @@ import SnapKit
 
 class CustomNavigationBarItemView: UIView {
     
-    let groupProfileImageView = {
+    let groupThumImageView = {
         let view = UIImageView()
         view.layer.cornerRadius = 8
         view.image = ConstantImage.rectangleProfile.image
@@ -25,7 +25,12 @@ class CustomNavigationBarItemView: UIView {
         return label
     }()
     
-    let circleProfileImageView = {
+    let circleThumnailButton = {
+        let btn = UIButton()
+        return btn
+    }()
+    
+    let circleThumImageView = {
         let view = UIImageView()
         view.image = ConstantImage.circleProfile.image
         view.layer.cornerRadius = 16
@@ -43,9 +48,11 @@ class CustomNavigationBarItemView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        addSubview(groupProfileImageView)
+        addSubview(groupThumImageView)
         addSubview(titleLabel)
-        addSubview(circleProfileImageView)
+    
+        addSubview(circleThumImageView)
+        addSubview(circleThumnailButton)
         addSubview(divider)
         
         setConstraints()
@@ -62,23 +69,29 @@ class CustomNavigationBarItemView: UIView {
     
     func setConstraints() {
         
-        groupProfileImageView.snp.makeConstraints { make in
+        groupThumImageView.snp.makeConstraints { make in
             make.size.equalTo(32)
             make.leading.equalToSuperview().offset(16)
             make.bottom.equalTo(divider.snp.top).offset(-14)
         }
         
         titleLabel.snp.makeConstraints { make in
-            make.leading.equalTo(groupProfileImageView.snp.trailing).offset(8)
-            make.trailing.equalTo(circleProfileImageView.snp.leading).inset(12)
+            make.leading.equalTo(groupThumImageView.snp.trailing).offset(8)
+            make.trailing.equalTo(circleThumImageView.snp.leading).inset(12)
             make.height.equalTo(35)
-            make.centerY.equalTo(groupProfileImageView)
+            make.centerY.equalTo(groupThumImageView)
         }
         
-        circleProfileImageView.snp.makeConstraints { make in
+        circleThumImageView.snp.makeConstraints { make in
             make.size.equalTo(32)
             make.trailing.equalToSuperview().inset(16)
-            make.centerY.equalTo(groupProfileImageView)
+            make.centerY.equalTo(groupThumImageView)
+        }
+        
+        circleThumnailButton.snp.makeConstraints { make in
+            make.size.equalTo(circleThumImageView)
+            make.trailing.equalToSuperview().inset(16)
+            make.centerY.equalTo(groupThumImageView)
         }
         
         divider.snp.makeConstraints { make in

@@ -8,9 +8,11 @@
 import UIKit
 import KakaoSDKCommon
 import KakaoSDKAuth
+import SideMenu
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
+    
     
     //카카오톡에서 프로젝트 앱으로 돌아왔을때 로그인 처리를 완료하기 위해
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {

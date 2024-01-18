@@ -13,6 +13,7 @@ enum ConstantImage: String {
     case launching = "LaunchingImage"
     case empty = "EmptyImage"
     case rectangleProfile = "RectangleImage"
+    case circleProfile = "CircleImage"
     
     var image: UIImage? {
         return UIImage(named: self.rawValue)

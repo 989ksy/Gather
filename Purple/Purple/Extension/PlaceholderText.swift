@@ -15,4 +15,7 @@ enum PlaceholderText: String {
     case password = "비밀번호를 입력하세요"
     case checkPassword = "비밀번호를 한 번 더 입력하세요"
     
+    case workspaceName = "워크스페이스 이름을 입력하세요(필수)"
+    case workspaceDescription = "워크스페이스를 설명하세요 (옵션)"
+    
 }
