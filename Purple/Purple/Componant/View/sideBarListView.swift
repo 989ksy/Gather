@@ -63,13 +63,15 @@ final class sidebarListView: UIView {
         addSubview(thumImageView)
         addSubview(threeDotsButton)
         addSubview(stackView)
+        stackView.addArrangedSubview(titleLabel)
+        stackView.addArrangedSubview(dateLabel)
     }
     
     func setConstraints() {
         
         thumImageView.snp.makeConstraints { make in
             make.size.equalTo(44)
-            make.leading.equalToSuperview().offset(8)
+            make.leading.equalToSuperview().offset(10)
             make.centerY.equalToSuperview()
         }
         

@@ -46,7 +46,6 @@ final class SideMenuView: BaseView {
             forCellReuseIdentifier:
                 SideMenuTableViewCell.identifier
         )
-        view.rowHeight = 52
         return view
     }()
     
@@ -56,13 +55,21 @@ final class SideMenuView: BaseView {
     }()
     
     override func configureView() {
+        backgroundColor = ConstantColor.bgSecondary
+        layer.cornerRadius = 25
+        clipsToBounds = true
+        layer.maskedCorners = [.layerMaxXMinYCorner, .layerMaxXMaxYCorner]
         
         addSubview(workspaceTitleBackView)
         workspaceTitleBackView.addSubview(workspaceTitle)
+        
         addSubview(addButton)
         addSubview(guideButton)
-        addSubview(sideMenuTableView)
+        
         addSubview(noDataView)
+        addSubview(sideMenuTableView)
+
+
         
     }
     

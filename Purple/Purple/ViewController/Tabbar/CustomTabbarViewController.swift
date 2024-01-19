@@ -23,7 +23,7 @@ class CustomTabbarViewController: UITabBarController, UITabBarControllerDelegate
         
         //탭바 설정
         //홈
-        let homeTab = HomeInitialViewController()
+        let homeTab = HomeDefaultViewController()
         let homeTabItem = UITabBarItem(title: "홈", image: ConstantIcon.homeCustom, tag: 0)
         homeTab.tabBarItem = homeTabItem
         homeTab.tabBarItem.selectedImage = ConstantIcon.homeActive?.withRenderingMode(.alwaysOriginal)

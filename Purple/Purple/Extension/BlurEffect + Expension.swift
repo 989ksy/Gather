@@ -8,7 +8,7 @@
 import UIKit
 import SideMenu
 
-extension HomeInitialViewController: SideMenuNavigationControllerDelegate {
+extension HomeDefaultViewController: SideMenuNavigationControllerDelegate {
     
     func sideMenuWillAppear(menu: SideMenuNavigationController, animated: Bool) {
         blurEffectView.frame = view.bounds
