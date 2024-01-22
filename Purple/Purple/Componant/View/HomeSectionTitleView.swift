@@ -46,7 +46,8 @@ final class HomeSectionTitleView: UIView {
         sectionTitleLabel.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(8)
             make.height.equalTo(28)
-            make.centerY.equalToSuperview()
+            make.top.equalToSuperview().inset(14)
+//            make.centerY.equalToSuperview()
         }
         
         foldButton.snp.makeConstraints { make in

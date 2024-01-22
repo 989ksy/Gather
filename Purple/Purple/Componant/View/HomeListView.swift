@@ -11,6 +11,7 @@ import SnapKit
 final class HomeListView: UIView {
     
     //리스트뷰
+    //아이콘 + 내용 레이블
     
     let customButton = {
         let btn = UIButton()
@@ -27,7 +28,6 @@ final class HomeListView: UIView {
         let label = UILabel()
         label.font = ConstantTypo.body
         label.textColor = UIColor.textSecondary
-        label.text = "테스트"
         return label
     }()
     
@@ -46,13 +46,14 @@ final class HomeListView: UIView {
         addSubview(iconImageView)
         addSubview(titleLabel)
         addSubview(customButton)
-//        backgroundColor = ConstantColor.bgSecondary
+        
+
     }
     
     func setConstraints() {
         
         iconImageView.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(16)
+            make.leading.equalToSuperview().offset(14)
             make.size.equalTo(18)
             make.centerY.equalToSuperview()
         }
@@ -67,6 +68,7 @@ final class HomeListView: UIView {
         customButton.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
+        
         
     }
 }

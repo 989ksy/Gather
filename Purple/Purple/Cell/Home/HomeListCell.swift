@@ -12,21 +12,46 @@ final class HomeListCell: BaseTableViewCell {
     
     static let identifier = "HomeListCell"
     
-    let listView = {
+    let chanelListView = {
         let view = HomeListView()
         return view
     }()
     
+    let directionMessageView = {
+        let view = DirectMessageView()
+        return view
+    }()
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        //채널
+        chanelListView.isHidden = true
+        chanelListView.iconImageView.image = nil
+        chanelListView.titleLabel.text = nil
+        
+        //메세지
+        directionMessageView.isHidden = true
+        directionMessageView.messageLabel.text = nil
+        directionMessageView.thumImage.image = nil
+        
+    }
+    
     
     override func configureView() {
         
-        addSubview(listView)
+        addSubview(chanelListView)
+        addSubview(directionMessageView)
         
     }
     
     override func setConstraints() {
         
-        listView.snp.makeConstraints { make in
+        chanelListView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        
+        directionMessageView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
         
