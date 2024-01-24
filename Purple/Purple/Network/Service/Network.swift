@@ -13,7 +13,7 @@ final class Network {
     
     static let shared = Network()
     
-    private init() {}
+    private init() { }
     
     typealias NetworkCompletion<T> = (Result<T, CustomErrorResponse>) -> Void
     
@@ -34,6 +34,7 @@ final class Network {
             case .success(let data):
                 print("success : \(data)")
                 completion(.success(data))
+                
             case .failure(let e):
                 print("failure : \(e)")
                 let statusCode = response.response?.statusCode ?? 500
@@ -41,15 +42,74 @@ final class Network {
                     response: response,
                     statusCode: statusCode)
                 completion(.failure(error))
+                
             }
         }
     }
     
+    //multipart
+    func requestMultipart<T: Decodable> (
+        type: T.Type,
+        router: NetworkRouter
+        
+    ) -> Single<Result<T, CustomErrorResponse>> {
+        
+        print("--- ✅ requestMultipart 입장해 제발")
+        
+        return Single.create { single in
+            
+            AF.upload(
+                multipartFormData: router.multipartFormData,
+                with: router
+            )
+            .validate()
+            .responseDecodable(of: T.self) { result in
+                
+                let statusCode = result.response?.statusCode
+                
+                switch result.result {
+                    
+                case .success(let data):
+                    
+                    print("-------- requestMultiDataForm 성공")
+                    single(.success(.success(data)))
+                    
+                case .failure(_):
+                    
+                    print("-------- requestMultiDataForm 실패")
+                    
+                    if let statusCode = result.response?.statusCode {
+                        
+                        let customError = self.makeCustomErrorResponse(
+                            response: result,
+                            statusCode: statusCode
+                        )
+                        
+                        single(.success(.failure(customError)))
+                        
+                        print("-------- 👿 문제:", customError)
+                        
+                    } else {
+                        
+                        single(.success(.failure(
+                            CustomErrorResponse(
+                                statusCode: 500,
+                                errorCode: "UnknownError"
+                            ))))
+                    }
+                }
+            }
+            return Disposables.create()
+        }
+    }
     
+    
+    //싱글
     func requestSingle<T: Decodable>(
         type: T.Type,
         router: NetworkRouter
     ) -> Single<Result<T, CustomErrorResponse>> {
+        
         return Single.create { [weak self] single in
             self?.request(type: T.self, router: router) { result in
                 switch result {
@@ -58,7 +118,6 @@ final class Network {
                     single(.success(.success(success)))
                 case .failure(let error):
                     print("-------- requestSingle 실패")
-                    
                     single(.success(.failure(error)))
                 }
             }
@@ -66,6 +125,7 @@ final class Network {
         }
     }
     
+    //빈배열 반환 통신
     func requestEmptyResponse(
         router: NetworkRouter
     ) -> Single<Void> {
@@ -107,13 +167,15 @@ final class Network {
         }
     }
     
-
+    
 }
 
 
 
 
 extension Network {
+    
+    //에러반환
     private func makeCustomErrorResponse<T>(response: DataResponse<T, AFError>, statusCode: Int) -> CustomErrorResponse {
         
         var customErrorResponse = CustomErrorResponse(

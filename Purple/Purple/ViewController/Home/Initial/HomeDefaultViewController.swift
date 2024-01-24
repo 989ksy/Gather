@@ -96,7 +96,7 @@ extension HomeDefaultViewController: UITableViewDelegate, UITableViewDataSource 
                         
             //여닫기
             headerView.sectionIndex = section //섹션 넘김
-            headerView.delegate = self
+            headerView.delegate = self //딜리게이트
             headerView.isOpened = isOpen[section] //불값에 따라 화살표 아이콘
             
             headerView.sectionTitleLabel.text = sectionList[section] //섹션 타이틀
@@ -133,9 +133,13 @@ extension HomeDefaultViewController: UITableViewDelegate, UITableViewDataSource 
     //헤더 높이
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if section == 0 || section == 1 {
+            
             return 56
+            
         } else {
+            
             return 41
+            
         }
     }
     
@@ -212,6 +216,23 @@ extension HomeDefaultViewController: UITableViewDelegate, UITableViewDataSource 
         
         //선택 시 회색셀렉션 제거
         tableView.reloadRows(at: [indexPath], with: .none)
+        
+        if indexPath.section == 0 && indexPath.row == dummyDataList.count + 1  {
+                
+                let alert = UIAlertController(title: .none, message: .none, preferredStyle: .actionSheet)
+                let createChannel = UIAlertAction(title: "채널생성", style: .default)
+                let exploreChannel = UIAlertAction(title: "채널탐색", style: .default)
+                let cancel = UIAlertAction(title: "취소", style: .cancel)
+                
+                alert.addAction(createChannel)
+                alert.addAction(exploreChannel)
+                alert.addAction(cancel)
+                
+            self.present(alert, animated: true)
+            
+            
+        }
+        
         
     }
     

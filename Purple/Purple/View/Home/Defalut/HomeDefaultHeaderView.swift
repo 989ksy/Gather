@@ -30,8 +30,7 @@ final class HomeDefaultHeaderView: UITableViewHeaderFooterView {
     
     //섹션 인덱스
     var delegate: HeaderViewDelegate?
-    
-    let tapGestureRecofnizer = UITapGestureRecognizer()
+    let tapGestureRecognizer = UITapGestureRecognizer() //섹션 누르면 반응
     var sectionIndex = 0 //섹션값 저장할 거임
     
     //MARK: - UI
@@ -88,8 +87,8 @@ final class HomeDefaultHeaderView: UITableViewHeaderFooterView {
         self.configureView()
         self.setConstraints()
         
-        layerView.addGestureRecognizer(tapGestureRecofnizer)
-        tapGestureRecofnizer
+        layerView.addGestureRecognizer(tapGestureRecognizer)
+        tapGestureRecognizer
             .addTarget(self, action: #selector(didSelectSection))
         
         

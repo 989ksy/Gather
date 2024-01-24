@@ -16,6 +16,7 @@ final class WorkspaceAddViewController: BaseViewController {
     let viewModel = WorkspaceAddViewModel()
     
     let disposeBag = DisposeBag()
+
     
     
     override func loadView() {
@@ -37,8 +38,9 @@ final class WorkspaceAddViewController: BaseViewController {
                 .workspaceNameTextfield.rx.text.orEmpty,
             descriptionText:
                 mainView.writeSectionView
-                .workspaceDescriptionTextfield.rx.text.orEmpty, 
-            //imageInput: mainView.writeSectionView.profileImageView.rx.image
+                .workspaceDescriptionTextfield.rx.text.orEmpty,
+            thumImageInput:
+                viewModel.imageInput.asObservable(),
             cameraTap:
                 mainView.writeSectionView
                 .cameraButton.rx.tap,
@@ -53,15 +55,15 @@ final class WorkspaceAddViewController: BaseViewController {
         
         //MARK: - 완료 버튼
         
-        output.nameValidation
+        output.buttonColorValidation
             .bind(to: self.mainView.writeSectionView.completeButton.rx.isEnabled)
             .disposed(by: disposeBag)
         
-        output.nameValidation
+        output.buttonColorValidation
             .subscribe(with: self) { owner, value in
                 if value {
                     
-                    self.mainView.writeSectionView.completeButton.backgroundColor = value ? .brandPurple : .brandInactive
+                    owner.mainView.writeSectionView.completeButton.backgroundColor = value ? .brandPurple : .brandInactive
 
                 }
             }
@@ -132,6 +134,10 @@ extension WorkspaceAddViewController: PHPickerViewControllerDelegate {
                     DispatchQueue.main.async {
                         self.mainView.writeSectionView.profileImageView.image = image
                         self.mainView.writeSectionView.profileIconView.image = nil
+                        
+                        //이미지 -> 데이터 넘겨
+                        self.viewModel.imageInput.accept(image.jpegData(compressionQuality: 0.1)!)
+                        
                     }
                 }
             }

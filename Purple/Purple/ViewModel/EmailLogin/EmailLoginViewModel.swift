@@ -128,6 +128,11 @@ class EmailLoginViewModel: ViewModelType {
                     KeychainStorage.shared.userToken = result.token.accessToken
                     KeychainStorage.shared.userID = "\(result.userID)"
                     
+                    
+                    print("-----")
+                    print(KeychainStorage.shared.userToken)
+                    print("-----")
+                    
                 case .failure(let error):
                     print(error)
                     

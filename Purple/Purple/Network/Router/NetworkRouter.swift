@@ -10,8 +10,7 @@ import Alamofire
 
 enum NetworkRouter: URLRequestConvertible {
     
-    private static let key = APIKey.sesacKey
-    
+    //==== User
     case join (model: SignupInput) // 회원가입
     case emailValidation (model: EmailValidation) //이메일중복확인
     case emailLogin (model: EmailLogin) // 로그인
@@ -19,30 +18,41 @@ enum NetworkRouter: URLRequestConvertible {
     case appleLogin //애플로그인
     case logout //로그아웃
     
+    //==== Workspace
+    case createWorkSpace (model: createWorkSpaceInput)
     
-    /* Base URL */
+    
+    //MARK: - Base URL
+    
     private var baseURL: URL {
         return URL(string: BaseServer.base)!
     }
     
+    //MARK: - Base URL 뒤에 붙는 path
     
-    /* Base URL 뒤에 붙는 path */
     private var path: String {
         switch self {
+            
+            //====User
         case .join: return "/v1/users/join"
         case .emailValidation: return "/v1/users/validation/email"
         case .emailLogin: return "/v2/users/login"
         case .kakaoLogin: return "/v1/users/login/kakao"
         case .appleLogin: return "/v1/users/login/apple"
         case .logout: return "/v1/users/logout"
+            
+            //====WorkSpace
+        case .createWorkSpace: return "/v1/workspaces"
         }
     }
     
-    /* API 요청 헤더 */
+    //MARK: - API 요청 헤더
     private var header: HTTPHeaders {
         
         switch self {
-        case .join,
+        case
+            //====user
+                .join,
                 .emailValidation,
                 .emailLogin,
                 .kakaoLogin,
@@ -53,18 +63,30 @@ enum NetworkRouter: URLRequestConvertible {
                 "SesacKey" : "\(APIKey.sesacKey)"
             ]
             
-        case .logout:
+        case
+                .logout:
             return [
-                HTTPHeaderField.authentication.rawValue : "",
+                "Authorization" : "",
+                "SesacKey" : "\(APIKey.sesacKey)"
+            ]
+            
+            //====workspace
+        case .createWorkSpace:
+            return [
+                "Content-Type" : "multipart/form-data",
+                "Authorization": KeychainStorage.shared.userToken!,
                 "SesacKey" : "\(APIKey.sesacKey)"
             ]
         }
         
     }
     
-    /* API 요청 방식 (method) */
+    //MARK: - API 요청 방식 (method)
+    
     private var method: HTTPMethod {
         switch self {
+            
+            //====user
         case .join,
                 .emailValidation,
                 .emailLogin,
@@ -75,19 +97,25 @@ enum NetworkRouter: URLRequestConvertible {
             
         case .logout:
             return .get
+            
+            //====workspace
+        case .createWorkSpace:
+            return .post
         }
         
     }
     
-    //서버에 보낼 데이터
+    //MARK: - 서버에 보낼 데이터
     private var parameters: Parameters? {
         
         switch self {
-        case    .appleLogin,
+            
+            //====user
+        case .appleLogin,
                 .logout :
             return nil
             
-        case.emailLogin(let model):
+        case .emailLogin(let model):
             return [
                 "email": model.email,
                 "password": model.password,
@@ -95,11 +123,12 @@ enum NetworkRouter: URLRequestConvertible {
             ]
             
         case .join(let model):
-            return ["email": model.email,
-                    "password": model.password,
-                    "nickname": model.nickname,
-                    "phone": model.phone,
-                    "deviceToken": model.deviceToken
+            return [
+                "email": model.email,
+                "password": model.password,
+                "nickname": model.nickname,
+                "phone": model.phone,
+                "deviceToken": model.deviceToken
             ]
             
         case .emailValidation(let model):
@@ -110,13 +139,37 @@ enum NetworkRouter: URLRequestConvertible {
                 "oauthToken": model.oauthToken,
                 "deviceToken": model.deviceToken
             ]
+            
+            //====workspace
+        case .createWorkSpace(let model):
+            
+            return [
+                "name": model.name,
+                "description": model.description,
+                "image": model.image
+            ]
         }
         
     }
     
+    //MARK: - multipartDataForm
     
-
-    //request 구성하여 리턴
+    var multipartFormData: MultipartFormData {
+        
+        let multipartFormData = MultipartFormData()
+        
+        if self.header["Content-Type"] == "multipart/form-data" {
+            return makeMultiPartFormData()
+        }
+        
+        return multipartFormData
+        
+    }
+    
+    
+    
+    //MARK: - request 구성하여 리턴
+    
     func asURLRequest() throws -> URLRequest {
         
         let url = baseURL.appendingPathComponent(path)
@@ -125,7 +178,7 @@ enum NetworkRouter: URLRequestConvertible {
         request.method = method
         
         
-        if method == .post {
+        if method == .post && self.header["Content-Type"] != "multipart/form-data"  {
             
             let jsonData = try? JSONSerialization.data(withJSONObject: parameters)
             
@@ -136,7 +189,37 @@ enum NetworkRouter: URLRequestConvertible {
         }
         
         return try URLEncoding.default.encode(request, with: parameters)
+        
+    }
+    
+    
+    
+    //MARK: - multipartDataForm 보조
+
+    
+    private func makeMultiPartFormData() -> MultipartFormData {
+        
+        let multipart = MultipartFormData()
+        
+        for (key, value) in self.parameters! {
             
+            if let imageData = value as? Data {
+                multipart.append(
+                    imageData,
+                    withName: key,
+                    fileName: "image.jpeg",
+                    mimeType: "image/jpeg"
+                )
+            }
+            
+            else {
+                multipart.append("\(value)".data(using: .utf8)!, withName: key)
+            }
+            
+        }
+        
+        return multipart
+        
     }
     
     
