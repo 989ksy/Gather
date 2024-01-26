@@ -17,7 +17,7 @@ extension UIViewController {
             style.messageColor = ConstantColor.whiteBrand!
             style.messageFont = ConstantTypo.body
             style.messageAlignment = .center
-            self.view.makeToast(message, duration: 3.0, position: .center, style: style)
+            self.view.makeToast(message, duration: 3.0, position: .bottom, style: style)
         }
     }
     
