@@ -7,6 +7,8 @@
 
 import Foundation
 
+//MARK: - 이메일 로그인
+
 struct EmailLoginResponse: Decodable {
     
     let userID: Int
@@ -21,6 +23,8 @@ struct EmailLoginResponse: Decodable {
     }
 }
 
+//MARK: - 회원가입
+
 struct SignupResponse: Decodable {
     
     let userID: Int
@@ -34,6 +38,8 @@ struct SignupResponse: Decodable {
         case email, nickname, profileImage, phone, vendor, createdAt, token
     }
 }
+
+//MARK: - 회원가입
 
 struct KakaoLoginResponse: Decodable {
     
@@ -57,3 +63,20 @@ struct Token: Decodable {
     let accessToken, refreshToken: String
 }
 
+
+//MARK: - 내 프로필 조회
+
+struct readMyProfileResponse: Decodable {
+    
+    let userID: Int
+    let email, nickname: String
+    let profileImage, phone, vendor: String?
+    let sesacCoin: Int
+    let createdAt: String
+
+    enum CodingKeys: String, CodingKey {
+        case userID = "user_id"
+        case email, nickname, profileImage, phone, vendor, sesacCoin, createdAt
+    }
+    
+}

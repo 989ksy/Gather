@@ -114,16 +114,17 @@ final class Network {
             self?.request(type: T.self, router: router) { result in
                 switch result {
                 case .success(let success):
-                    print("-------- requestSingle 성공")
+                    print("-----👏 requestSingle 성공")
                     single(.success(.success(success)))
                 case .failure(let error):
-                    print("-------- requestSingle 실패")
+                    print("-----🥺 requestSingle 실패")
                     single(.success(.failure(error)))
                 }
             }
             return Disposables.create()
         }
     }
+    
     
     //빈배열 반환 통신
     func requestEmptyResponse(
@@ -188,7 +189,7 @@ extension Network {
             let serverError = try JSONDecoder().decode(ErrorResponse.self, from: data)
             print("decoding error value: \(serverError)")
             
-            if let customError = CustomError(rawValue: serverError.errorCode) {
+            if let customError = CustomError(rawValue: serverError.errorCode ?? "error") {
                 print("---- 👿 문제:", customError.errorDescription)
             } else {
                 print("Error code not found in CustomError enum")

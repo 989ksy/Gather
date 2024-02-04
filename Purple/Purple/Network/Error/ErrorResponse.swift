@@ -8,10 +8,10 @@
 import Foundation
 
 struct ErrorResponse: Error, Decodable {
-    var errorCode: String
+    var errorCode: String?
 }
 
 struct CustomErrorResponse: Error {
     var statusCode: Int
-    var errorCode: String
+    var errorCode: String?
 }

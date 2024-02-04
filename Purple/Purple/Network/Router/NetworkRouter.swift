@@ -17,9 +17,15 @@ enum NetworkRouter: URLRequestConvertible {
     case kakaoLogin (model: KakaoLogin)//카카오로그인
     case appleLogin //애플로그인
     case logout //로그아웃
+    case readMyProfile //내 프로필 정보 조회
     
     //==== Workspace
-    case createWorkSpace (model: createWorkSpaceInput)
+    case createWorkSpace (model: createWorkSpaceInput) //워크스페이스 생성
+    case readAllMyWorkSpace //내가 속한 워크스페이스 조회
+    case readOneWorkSpace (workspaceID: Int) // 내가 속한 워크스페이스 1개 조회
+    
+    //==== Channel
+    case readMyChannels (workspaceID: Int) //내가 속한 모든 채널 조회
     
     
     //MARK: - Base URL
@@ -33,26 +39,32 @@ enum NetworkRouter: URLRequestConvertible {
     private var path: String {
         switch self {
             
-            //====User
+            //==== User
         case .join: return "/v1/users/join"
         case .emailValidation: return "/v1/users/validation/email"
         case .emailLogin: return "/v2/users/login"
         case .kakaoLogin: return "/v1/users/login/kakao"
         case .appleLogin: return "/v1/users/login/apple"
         case .logout: return "/v1/users/logout"
+        case .readMyProfile: return "/v1/users/my"
             
-            //====WorkSpace
+            //==== WorkSpace
         case .createWorkSpace: return "/v1/workspaces"
-        }
+        case .readAllMyWorkSpace: return "/v1/workspaces"
+        case .readOneWorkSpace (let workspaceID): return "/v1/workspaces/\(workspaceID)"
+            
+            //==== Channel
+        case .readMyChannels(let workspaceID):
+            return "/v1/workspaces/\(workspaceID)/channels/my"
+        }//
     }
     
     //MARK: - API 요청 헤더
     private var header: HTTPHeaders {
         
         switch self {
-        case
-            //====user
-                .join,
+            //==== user
+        case .join,
                 .emailValidation,
                 .emailLogin,
                 .kakaoLogin,
@@ -63,17 +75,36 @@ enum NetworkRouter: URLRequestConvertible {
                 "SesacKey" : "\(APIKey.sesacKey)"
             ]
             
-        case
-                .logout:
+        case .logout:
             return [
                 "Authorization" : "",
                 "SesacKey" : "\(APIKey.sesacKey)"
             ]
             
-            //====workspace
+        case .readMyProfile:
+            return [
+                "Authorization": KeychainStorage.shared.userToken!,
+                "SesacKey" : "\(APIKey.sesacKey)"
+            ]
+            
+            //==== workspace
         case .createWorkSpace:
             return [
                 "Content-Type" : "multipart/form-data",
+                "Authorization": KeychainStorage.shared.userToken!,
+                "SesacKey" : "\(APIKey.sesacKey)"
+            ]
+        case .readAllMyWorkSpace,
+                .readOneWorkSpace
+            :
+            return [
+                "Authorization": KeychainStorage.shared.userToken!,
+                "SesacKey" : "\(APIKey.sesacKey)"
+            ]
+            
+            //==== Channel
+        case .readMyChannels:
+            return [
                 "Authorization": KeychainStorage.shared.userToken!,
                 "SesacKey" : "\(APIKey.sesacKey)"
             ]
@@ -86,7 +117,7 @@ enum NetworkRouter: URLRequestConvertible {
     private var method: HTTPMethod {
         switch self {
             
-            //====user
+            // ====user
         case .join,
                 .emailValidation,
                 .emailLogin,
@@ -95,12 +126,21 @@ enum NetworkRouter: URLRequestConvertible {
             
             return .post
             
-        case .logout:
+        case .logout,
+                .readMyProfile:
             return .get
             
-            //====workspace
+            // ====workspace
         case .createWorkSpace:
             return .post
+            
+        case .readAllMyWorkSpace,
+                .readOneWorkSpace:
+            return .get
+            
+            //==== Channel
+        case .readMyChannels:
+            return .get
         }
         
     }
@@ -112,7 +152,8 @@ enum NetworkRouter: URLRequestConvertible {
             
             //====user
         case .appleLogin,
-                .logout :
+                .logout,
+                .readMyProfile:
             return nil
             
         case .emailLogin(let model):
@@ -142,12 +183,20 @@ enum NetworkRouter: URLRequestConvertible {
             
             //====workspace
         case .createWorkSpace(let model):
-            
             return [
                 "name": model.name,
                 "description": model.description,
                 "image": model.image
             ]
+        case .readAllMyWorkSpace:
+            return nil
+            
+        case .readOneWorkSpace(let workspaceID):
+            return ["id": workspaceID]
+        
+            //==== Channel
+        case .readMyChannels(let workspaceID):
+            return ["id": workspaceID]
         }
         
     }
