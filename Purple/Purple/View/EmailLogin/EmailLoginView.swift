@@ -38,26 +38,26 @@ class EmailLoginView: BaseView {
     
     //이메일
     let emailTitleLabel = {
-        let label = SignupTitleLabel()
+        let label = commonTitleLabel()
         label.text = "이메일"
         return label
     }()
     
     let emailTextField = {
-        let field = SignupTextField()
+        let field = commonTextField()
         field.placeholder = PlaceholderText.email.rawValue
         return field
     }()
     
     //닉네임
     let passwordTitleLabel = {
-        let label = SignupTitleLabel()
+        let label = commonTitleLabel()
         label.text = "비밀번호"
         return label
     }()
     
     let passwordTextField = {
-        let field = SignupTextField()
+        let field = commonTextField()
         field.placeholder = PlaceholderText.nick.rawValue
         return field
     }()

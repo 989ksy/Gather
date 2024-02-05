@@ -59,9 +59,11 @@ class EmailLoginViewController: BaseViewController {
             .disposed(by: disposeBag)
         
 
-        //MARK: - 로그인
+        //MARK: - 로그인 + 화면전환
+
         
-        output.isLoggined
+        //워크스페이스 생성 갯수가 0개
+        output.goToEmpty
             .subscribe(with: self) { owner, value in
                 
                 if value {
@@ -71,37 +73,69 @@ class EmailLoginViewController: BaseViewController {
                     let vc = HomeEmptyViewController()
                     self.view.window?.rootViewController = vc
                     
+                    print("--- empty 화면전환 성공")
+                    
                 } else {
                     
-                    print("이메일 또는 비밀번호가 올바르지 않습니다.")
-//                    self.setToastAlert(message: "이메일 또는 비밀번호가 올바르지 않습니다.")
+                    print("워크스페이스 0개인데 화면전환 못함~!")
                     
                 }
+                
+            }
+            .disposed(by: disposeBag)
+        
+        //워크스페이스 생성 갯수가 1개
+        output.goToHomeDefaultForOne
+            .subscribe(with: self) { owner, value in
+                
+                if value {
+                    
+                    self.dismiss(animated: true)
+                    
+                    let vc = HomeDefaultViewController()
+                    vc.type = .one
+                    
+                    vc.workspaceIdForOne = UserDefaults.standard.integer(forKey: "workspaceID")
+                    
+                    print("+++ workspaceID", vc.workspaceIdForOne )
+                                        
+                    self.view.window?.rootViewController = vc
+                    
+                    print("--- one 화면전환 성공")
+                    
+                } else {
+                    
+                    print("워크스페이스 1개인데 홈화면 전환 못함~!")
+                    
+                }
+                
             }
             .disposed(by: disposeBag)
         
         
-        
-        
-//        output.isEmailWrong
-//            .subscribe(with: self) { owner, value in
-//                if value == false {
-//                    self.setToastAlert(message: "이메일 형식이 올바르지 않습니다.")
-//                    owner.mainView.emailTitleLabel.textColor = .red
-//                }
-//            }
-//            .disposed(by: disposeBag)
-//        
-//        output.isPasswordWrong
-//            .subscribe(with: self) { owner, value in
-//                if value == false {
-//                    self.setToastAlert(message: "비밀번호는 최소 8자 이상,\n하나 이상의 대소문자/숫자/특수 문자를 설정해주세요.")
-//                    owner.mainView.emailTitleLabel.textColor = .red
-//                }
-//            }
-//            .disposed(by: disposeBag)
-        
-        
+        //워크스페이스 생성 갯수가 여러 개
+        output.goToHomeDefaultForMultiple
+            .subscribe(with: self) { owner, value in
+                
+                if value {
+                    
+                    self.dismiss(animated: true)
+                    
+                    let vc = HomeDefaultViewController()
+                    vc.type = .multi
+                    
+                    self.view.window?.rootViewController = vc
+                    
+                    print("--- multi 화면전환 성공")
+                    
+                } else {
+                    
+                    print("워크스페이스 여러 개인데 홈화면 전환 못함~!")
+                    
+                }
+
+            }
+            .disposed(by: disposeBag)
         
         
         

@@ -103,6 +103,28 @@ final class Network {
         }
     }
     
+    //싱글 배열
+    
+    func requestSingleArray<T: Decodable>(
+        type: T.Type,
+        router: NetworkRouter
+    ) -> Single<Result<[T], CustomErrorResponse>> {
+        
+        return Single.create { [weak self] single in
+            self?.request(type: [T].self, router: router) { result in
+                switch result {
+                case .success(let success):
+                    print("-----👏 requestSingle 성공")
+                    single(.success(.success(success)))
+                case .failure(let error):
+                    print("-----🥺 requestSingle 실패")
+                    single(.success(.failure(error)))
+                    print(error.errorCode!)
+                }
+            }
+            return Disposables.create()
+        }
+    }
     
     //싱글
     func requestSingle<T: Decodable>(

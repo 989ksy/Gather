@@ -37,13 +37,13 @@ class SignupView: BaseView {
     
     //이메일
     let emailTitleLabel = {
-        let label = SignupTitleLabel()
+        let label = commonTitleLabel()
         label.text = "이메일"
         return label
     }()
     
     let emailTextField = {
-        let field = SignupTextField()
+        let field = commonTextField()
         field.placeholder = PlaceholderText.email.rawValue
         return field
     }()
@@ -56,26 +56,26 @@ class SignupView: BaseView {
     
     //닉네임
     let nickTitleLabel = {
-        let label = SignupTitleLabel()
+        let label = commonTitleLabel()
         label.text = "닉네임"
         return label
     }()
     
     let nickTextField = {
-        let field = SignupTextField()
+        let field = commonTextField()
         field.placeholder = PlaceholderText.nick.rawValue
         return field
     }()
     
     //연락처
     let contactTitleLabel = {
-        let label = SignupTitleLabel()
+        let label = commonTitleLabel()
         label.text = "연락처"
         return label
     }()
     
     let contactTextField = {
-        let field = SignupTextField()
+        let field = commonTextField()
         field.placeholder = PlaceholderText.phoneNum.rawValue
         field.keyboardType = .numberPad
         return field
@@ -83,13 +83,13 @@ class SignupView: BaseView {
     
     //비밀번호
     let passwordTitleLabel = {
-        let label = SignupTitleLabel()
+        let label = commonTitleLabel()
         label.text = "비밀번호"
         return label
     }()
     
     let passwordTextField = {
-        let field = SignupTextField()
+        let field = commonTextField()
         field.isSecureTextEntry = true
         field.placeholder = PlaceholderText.password.rawValue
         return field
@@ -97,13 +97,13 @@ class SignupView: BaseView {
     
     //비밀번호확인
     let passwordValidationTitleLabel = {
-        let label = SignupTitleLabel()
+        let label = commonTitleLabel()
         label.text = "비밀번호 확인"
         return label
     }()
     
     let passwordValidationTextField = {
-        let field = SignupTextField()
+        let field = commonTextField()
         field.isSecureTextEntry = true
         field.placeholder = PlaceholderText.checkPassword.rawValue
         return field

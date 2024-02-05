@@ -41,36 +41,6 @@ final class WorkspaceAddViewModel: ViewModelType {
         let buttonColorValidation: Observable<Bool>
     }
     
-    
-//    private func createWorkspace(
-//        name: String,
-//        description: String,
-//        image: Data
-//    ) -> Observable<createWorkSpaceResponse> {
-//        
-//        return Network.shared.requestMultipart(
-//            type: createWorkSpaceResponse.self,
-//            router: .createWorkSpace(
-//                model: createWorkSpaceInput(
-//                    name: name,
-//                    description: description,
-//                    image: image
-//                )
-//            )
-//        )
-//        .asObservable()
-//        .flatMap { result in
-//            
-//            switch result {
-//            case .success(let response):
-//                return Observable.just(response)
-//            case .failure(let error):
-//                return Observable.error(error)
-//            }
-//            
-//        }
-//    }
-    
     func transform(input: Input) -> Output {
         
         //MARK: - 조건
@@ -147,7 +117,6 @@ final class WorkspaceAddViewModel: ViewModelType {
                 
             })
             .disposed(by: disposeBag)
-        
         
         //MARK: - 카메라버튼
         

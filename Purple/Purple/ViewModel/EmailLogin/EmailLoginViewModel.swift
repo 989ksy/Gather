@@ -26,7 +26,7 @@ class EmailLoginViewModel: ViewModelType {
     
     //비밀번호 정규식
     let passwordRegex = #"^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).{6,}$"#
-
+    
     
     struct Input {
         
@@ -43,7 +43,9 @@ class EmailLoginViewModel: ViewModelType {
         let isPasswordWrong: Observable<Bool>
         let loginValidation: Observable<Bool> //로그인 조건 부합?
         
-        let isLoggined: BehaviorSubject<Bool> //로그인 가능?
+        let goToEmpty: BehaviorSubject<Bool> //empty화면으로 가
+        let goToHomeDefaultForOne: BehaviorSubject<Bool> //워크스페이스 1개
+        let goToHomeDefaultForMultiple: BehaviorSubject<Bool>//워크스페이스 여러개
         
         let loginButtonTapped: BehaviorSubject<Bool>
         let closeButtonTapped: BehaviorSubject<Bool>
@@ -58,13 +60,13 @@ class EmailLoginViewModel: ViewModelType {
                 of: self.emailRegexCom,
                 options: .regularExpression
             ) != nil ||
-                   email.range(
-                    of: self.emailRegexCoKr,
-                    options: .regularExpression
+            email.range(
+                of: self.emailRegexCoKr,
+                options: .regularExpression
             ) != nil ||
-                   email.range(
-                    of: self.emailRegexNet,
-                    options: .regularExpression
+            email.range(
+                of: self.emailRegexNet,
+                options: .regularExpression
             ) != nil
         }
         
@@ -98,14 +100,21 @@ class EmailLoginViewModel: ViewModelType {
         
         //로그인하기 버튼
         let loginButtonTapped = BehaviorSubject(value: false)
-        let isLoggined = BehaviorSubject(value: false)
+        
+        let goToHomeEmpty = BehaviorSubject(value: false) //워크스페이스 0개 일 경우
+        let goToHomeOne = BehaviorSubject(value: false) //워크스페이스 1개일 경우
+        let goToHomeMulti = BehaviorSubject(value: false)// 워크스페이스 여러개일 경우
         
         let loginValue = Observable.combineLatest(input.emailText, input.passwordText).map { userInput in
             return userInput
         }
         
         input.loginTap
-            .throttle(.seconds(2), latest: false, scheduler: MainScheduler.instance)
+            .throttle(
+                .seconds(2),
+                latest: false,
+                scheduler: MainScheduler.instance
+            )
             .withLatestFrom(loginValue)
             .flatMap { userInput in
                 Network.shared.requestSingle(
@@ -119,24 +128,77 @@ class EmailLoginViewModel: ViewModelType {
                     )
                 )
             }
-            .subscribe(with: self) { owner, response in
+            .filter { response in
+                
                 switch response {
                 case .success(let result):
                     
-                    isLoggined.onNext(true)
-                    
                     KeychainStorage.shared.userToken = result.token.accessToken
+                    KeychainStorage.shared.userRefreshToken = result.token.refreshToken
                     KeychainStorage.shared.userID = "\(result.userID)"
-                    
-                    
+                                        
+                    print("-----로그인 성공")
+                    print("-----userToken 저장:",KeychainStorage.shared.userToken)
                     print("-----")
-                    print(KeychainStorage.shared.userToken)
-                    print("-----")
+                    
+                    return true
                     
                 case .failure(let error):
-                    print(error)
+                    print("----로그인 실패", error)
                     
+                    return false
                 }
+                
+            }
+            .flatMapLatest({
+                result in
+                Network.shared.requestSingle(
+                    type: [createWorkSpaceResponse].self,
+                    router: .readAllMyWorkSpace
+                )
+            })
+            .subscribe(with: self) { owner, result in
+                print("--- 로그인은 일단 성공, 그런데 어디로 전환?")
+                
+                switch result {
+                    
+                case .success(let response):
+                    
+                    if response.isEmpty{
+                        
+                        goToHomeEmpty.onNext(true)
+                        
+                        print("--- empty 화면으로 전환")
+                        
+                    } else if response.count == 1 {
+                        
+                        goToHomeOne.onNext(true)
+                        
+                        //workspaceID 저장
+                        guard let workspaceid = response.first?.workspaceID else { return }
+                        
+                        UserDefaults.standard.setValue(workspaceid, forKey: "workspaceID")
+                        
+                        print("--- 워크스페이스 1개일 때 화면으로 전환")
+                        
+                    } else {
+                        
+                        goToHomeMulti.onNext(true)
+                        
+                        
+                        print("--- 워크스페이스 여러 개일 때 화면으로 전환")
+
+                        
+                    }
+                    
+                    
+                case .failure(let error):
+                    
+                    print("-----------다 실패ㅠㅠ")
+                    print("errorCode: ", error.errorCode )
+                    print("statusCode: ", error.statusCode )
+                }
+                
             }
             .disposed(by: disposeBag)
         
@@ -154,7 +216,9 @@ class EmailLoginViewModel: ViewModelType {
         return Output(isEmailWrong: emailValidation,
                       isPasswordWrong: passwordValidation,
                       loginValidation: loginValidation,
-                      isLoggined: isLoggined,
+                      goToEmpty: goToHomeEmpty,
+                      goToHomeDefaultForOne: goToHomeOne,
+                      goToHomeDefaultForMultiple: goToHomeMulti,
                       loginButtonTapped: loginButtonTapped,
                       closeButtonTapped: closeButtonTapped)
         

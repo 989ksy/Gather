@@ -18,4 +18,5 @@ enum PlaceholderText: String {
     case workspaceName = "워크스페이스 이름을 입력하세요(필수)"
     case workspaceDescription = "워크스페이스를 설명하세요 (옵션)"
     
+    case inviteMember = "초대하려는 팀원의 이메일을 입력하세요."
 }
