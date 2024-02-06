@@ -69,6 +69,7 @@ class EmailLoginViewController: BaseViewController {
                 if value {
                     
                     self.dismiss(animated: true)
+
                     
                     let vc = HomeEmptyViewController()
                     self.view.window?.rootViewController = vc
@@ -140,6 +141,8 @@ class EmailLoginViewController: BaseViewController {
         
         
     }
+    
+    
     
     
     

@@ -7,12 +7,14 @@
 
 import Foundation
 
-struct readMyChannelResponse: Decodable {
+//채널생성
+//내가 속한 모든 채널 조회
+struct readChannelResponse: Decodable {
     
     let workspaceID: Int
     let channelID: Int
     let name: String
-    let description: String
+    let description: String?
     let ownerID: Int
     let privateNm: Int
     let createdAt: String

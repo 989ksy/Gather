@@ -30,6 +30,14 @@ struct ToastMessage {
         case passwordCheckError = "작성하신 비밀번호가 일치하지 않습니다."
         case signedMember = "이미 가입된 회원입니다. 로그인을 진행해주세요."
         case undefinedError = "에러가 발생했어요. 잠시 후 다시 시도해주세요."//기타 오류
+    }
+    
+    //채널 생성화면
+    
+    enum createChannel: String {
+        
+        case nameDuplication = "워크스페이스에 이미 있는 채널 이름입니다. 다른 이름을 입력해주세요."
+        case complecated = "채널이 생성되었습니다."
         
     }
     

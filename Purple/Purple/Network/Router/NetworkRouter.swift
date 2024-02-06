@@ -12,9 +12,9 @@ enum NetworkRouter: URLRequestConvertible {
     
     //==== User
     case join (model: SignupInput) // 회원가입
-    case emailValidation (model: EmailValidation) //이메일중복확인
-    case emailLogin (model: EmailLogin) // 로그인
-    case kakaoLogin (model: KakaoLogin)//카카오로그인
+    case emailValidation (model: EmailValidationInput) //이메일중복확인
+    case emailLogin (model: EmailLoginInput) // 로그인
+    case kakaoLogin (model: KakaoLoginInput)//카카오로그인
     case appleLogin //애플로그인
     case logout //로그아웃
     case readMyProfile //내 프로필 정보 조회
@@ -25,7 +25,9 @@ enum NetworkRouter: URLRequestConvertible {
     case readOneWorkSpace (workspaceID: Int) // 내가 속한 워크스페이스 1개 조회
     
     //==== Channel
+    case createChannels (workspaceID: Int, model: createChannelInput)// 채널생성
     case readMyChannels (workspaceID: Int) //내가 속한 모든 채널 조회
+    case readAllChannels (workspaceID: Int) //모든 채널 조회
     
     
     //MARK: - Base URL
@@ -54,9 +56,13 @@ enum NetworkRouter: URLRequestConvertible {
         case .readOneWorkSpace (let workspaceID): return "/v1/workspaces/\(workspaceID)"
             
             //==== Channel
+        case .createChannels(let workspaceID, _):
+            return "/v1/workspaces/\(workspaceID)/channels"
         case .readMyChannels(let workspaceID):
             return "/v1/workspaces/\(workspaceID)/channels/my"
-        }//
+        case .readAllChannels(let workspaceID):
+            return "/v1/workspaces/\(workspaceID)/channels"
+        }
     }
     
     //MARK: - API 요청 헤더
@@ -103,11 +109,16 @@ enum NetworkRouter: URLRequestConvertible {
             ]
             
             //==== Channel
-        case .readMyChannels:
+        case .createChannels,
+                .readMyChannels,
+                .readAllChannels:
             return [
+                "Content-Type" : "application/json",
                 "Authorization": KeychainStorage.shared.userToken!,
                 "SesacKey" : "\(APIKey.sesacKey)"
             ]
+            
+        
         }
         
     }
@@ -138,9 +149,16 @@ enum NetworkRouter: URLRequestConvertible {
                 .readOneWorkSpace:
             return .get
             
+            
             //==== Channel
-        case .readMyChannels:
+        case .readMyChannels,
+                .readAllChannels
+            :
             return .get
+            
+        case .createChannels:
+            return .post
+            
         }
         
     }
@@ -150,7 +168,7 @@ enum NetworkRouter: URLRequestConvertible {
         
         switch self {
             
-            //====user
+        //==========user
         case .appleLogin,
                 .logout,
                 .readMyProfile:
@@ -181,21 +199,30 @@ enum NetworkRouter: URLRequestConvertible {
                 "deviceToken": model.deviceToken
             ]
             
-            //====workspace
+        //========== workspace
         case .createWorkSpace(let model):
             return [
                 "name": model.name,
                 "description": model.description,
                 "image": model.image
             ]
+            
         case .readAllMyWorkSpace:
             return nil
             
         case .readOneWorkSpace(let workspaceID):
             return ["id": workspaceID]
         
-            //==== Channel
+        //========= Channel
         case .readMyChannels(let workspaceID):
+            return ["id": workspaceID]
+            
+        case .createChannels(let workspaceID, let model):
+            return [
+                    "name": model.name,
+                    "description": model.description
+            ]
+        case .readAllChannels(let workspaceID):
             return ["id": workspaceID]
         }
         
@@ -232,6 +259,7 @@ enum NetworkRouter: URLRequestConvertible {
             let jsonData = try? JSONSerialization.data(withJSONObject: parameters)
             
             request.httpBody = jsonData
+            
             
             return request
             

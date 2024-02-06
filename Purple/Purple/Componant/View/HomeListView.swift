@@ -46,7 +46,6 @@ final class HomeListView: UIView {
         addSubview(iconImageView)
         addSubview(titleLabel)
         addSubview(customButton)
-        
 
     }
     
