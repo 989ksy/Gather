@@ -21,7 +21,7 @@ class CustomNavigationBarItemView: UIView {
     
     let titleLabel = {
         let label = TitleLabel()
-        label.text = "Title"
+        label.text = "No Workspace"
         return label
     }()
     

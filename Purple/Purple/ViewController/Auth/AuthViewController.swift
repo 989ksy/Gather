@@ -16,7 +16,7 @@ import RxCocoa
 
 import Toast
 
-final class AuthViewController: BaseViewController, UISheetPresentationControllerDelegate {
+final class AuthViewController: BaseViewController {
     
     let mainView = AuthView()
     let viewModel = AuthViewModel()
@@ -53,16 +53,7 @@ final class AuthViewController: BaseViewController, UISheetPresentationControlle
         output.loginTapped
             .subscribe(with: self) { owner, value in
                 if value {
-                    let vc = EmailLoginViewController()
-                    vc.modalPresentationStyle = .pageSheet
-                    
-                    if let sheet = vc.sheetPresentationController {
-                        sheet.detents = [.large()]
-                        sheet.delegate = self
-                        sheet.prefersGrabberVisible = true
-                    }
-                    
-                    self.present(vc, animated: true, completion: nil)
+                    self.transitionLargeSheetVC(EmailLoginViewController())
                 }
             }
             .disposed(by: disposeBag)
@@ -108,7 +99,6 @@ final class AuthViewController: BaseViewController, UISheetPresentationControlle
                 print(value)
                 
                 if value {
-                    
                     let vc = WorkSpaceInitialViewController()
                     self.view.window?.rootViewController = vc
                     

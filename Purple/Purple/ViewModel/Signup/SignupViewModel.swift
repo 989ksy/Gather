@@ -75,7 +75,7 @@ class SignupViewModel: ViewModelType {
                 return "\(query)"
             }
             .flatMap{
-                Network.shared.requestEmptyResponse(router: .emailValidation(model: EmailValidation(email: $0)))
+                Network.shared.requestEmptyResponse(router: .emailValidation(model: EmailValidationInput(email: $0)))
             }
             .subscribe(with: self) { owner, result in
                 emailValidationCheck.accept(true)

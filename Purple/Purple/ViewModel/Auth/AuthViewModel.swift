@@ -130,7 +130,7 @@ final class AuthViewModel: ViewModelType {
         test
             .flatMap { value in
                 print("--------",value)
-                let data = KakaoLogin(oauthToken: value.0, deviceToken: value.1)
+                let data = KakaoLoginInput(oauthToken: value.0, deviceToken: value.1)
                 
                 print(value.0)
                 print(value.1)

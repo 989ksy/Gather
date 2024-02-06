@@ -9,7 +9,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-final class OnboardingViewController: BaseViewController, UISheetPresentationControllerDelegate {
+final class OnboardingViewController: BaseViewController {
     
     let mainView = OnboardingView()
     let disposeBag = DisposeBag()
@@ -35,27 +35,11 @@ final class OnboardingViewController: BaseViewController, UISheetPresentationCon
             .rx
             .tap
             .subscribe(with: self) { owner, _ in
-                let vc = AuthViewController()
-                vc.modalPresentationStyle = .pageSheet
                 
-                let customDetentId = UISheetPresentationController.Detent.Identifier("custom")
-                let customDetent = UISheetPresentationController.Detent.custom(identifier: customDetentId) { context in
-                    return 279
-                }
-                self.sheetPresentationController?.detents = [customDetent]
+                self.transitionCustomSheetVC(AuthViewController())
                 
-                if let sheet = vc.sheetPresentationController {
-                    //지원할 크기 지정
-                    sheet.detents = [customDetent]
-                    //크기 변하는거 감지
-                    sheet.delegate = self
-                    sheet.prefersGrabberVisible = true
-                }
-                
-                self.present(vc, animated: true, completion: nil)
             }
             .disposed(by: disposeBag)
-        
     }
     
     

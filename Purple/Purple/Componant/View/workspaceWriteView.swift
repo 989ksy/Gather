@@ -31,25 +31,25 @@ class workspaceWriteView: UIView {
     }()
     
     let workspaceNameLabel = {
-        let label = SignupTitleLabel()
+        let label = commonTitleLabel()
         label.text = "워크스페이스 이름"
         return label
     }()
     
     let workspaceNameTextfield = {
-        let field = SignupTextField()
+        let field = commonTextField()
         field.placeholder = PlaceholderText.workspaceName.rawValue
         return field
     }()
     
     let workspaceDescriptionLabel = {
-        let label = SignupTitleLabel()
+        let label = commonTitleLabel()
         label.text = "워크스페이스 설명"
         return label
     }()
     
     let workspaceDescriptionTextfield = {
-        let field = SignupTextField()
+        let field = commonTextField()
         field.placeholder = PlaceholderText.workspaceDescription.rawValue
         return field
     }()

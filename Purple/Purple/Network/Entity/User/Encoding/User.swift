@@ -8,7 +8,7 @@
 import Foundation
 
 //이메일 로그인
-struct EmailLogin: Encodable {
+struct EmailLoginInput: Encodable {
     let email: String
     let password: String
     let deviceToken: String
@@ -24,11 +24,11 @@ struct SignupInput: Encodable {
 }
 
 //이메일 중복
-struct EmailValidation: Encodable {
+struct EmailValidationInput: Encodable {
     let email: String
 }
 
 //카카오 로그인
-struct KakaoLogin: Encodable {
+struct KakaoLoginInput: Encodable {
     let oauthToken, deviceToken: String
 }

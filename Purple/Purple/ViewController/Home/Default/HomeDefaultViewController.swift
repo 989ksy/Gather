@@ -18,19 +18,11 @@ enum transitionType: String {
     case multi
 }
 
-final class HomeDefaultViewController: BaseViewController, HeaderViewDelegate, UISheetPresentationControllerDelegate {
+final class HomeDefaultViewController: BaseViewController, HeaderViewDelegate {
     
-    let dummyDataList = ["일반", "스유 뽀개기", "오예스"] //cell 더미데이터
+    let dummyDataList = ["일반", "양현종", "이우성"] //cell 더미데이터
     
-    var channelList = [readMyChannelResponse(
-        workspaceID: 0,
-        channelID: 0,
-        name: "",
-        description: "",
-        ownerID: 0,
-        privateNm: 0,
-        createdAt: ""
-    )]
+    var channelList: [readChannelResponse] = []
     
     var workspaceIdForOne: Int? //로그인 -> WorksapceID 받음
     
@@ -40,6 +32,7 @@ final class HomeDefaultViewController: BaseViewController, HeaderViewDelegate, U
     
     let blurEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
     
+    //워크스페이스 개수별 화면 재사용
     var type: transitionType = .one
     
     override func loadView() {
@@ -54,7 +47,24 @@ final class HomeDefaultViewController: BaseViewController, HeaderViewDelegate, U
         
         setNavigationbarView()
         bind()
-                
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(channelListUpdate),
+            name: NSNotification.Name("channelListUpdate"),
+            object: nil
+        )
+        
+    }
+    
+    @objc
+    func channelListUpdate() {
+        
+        DispatchQueue.main.async {
+            self.mainView.homeTableView.reloadData()
+        }
+        
+        print("업데이트 되엇냐")
     }
     
     //네비게이션바 영역 값전달
@@ -70,7 +80,7 @@ final class HomeDefaultViewController: BaseViewController, HeaderViewDelegate, U
             guard let workspaceId = workspaceIdForOne else { return }
             
             viewModel.getTitleForOne(workspaceID: workspaceId)
-                        
+            
             viewModel.workspaceIdForOneContainer
                 .subscribe(with: self) { owner, response in
                     
@@ -86,7 +96,7 @@ final class HomeDefaultViewController: BaseViewController, HeaderViewDelegate, U
                         placeHolderImage: ConstantImage.rectangleProfile.image
                     )
                     
-//                    owner.mainView.navigationbarView.groupThumImageView.kf.setImage(with: thumURL)
+                    //                    owner.mainView.navigationbarView.groupThumImageView.kf.setImage(with: thumURL)
                     
                     print("====!!!! 사진", thumURL)
                     
@@ -115,13 +125,14 @@ final class HomeDefaultViewController: BaseViewController, HeaderViewDelegate, U
                 .subscribe(with: self) { owner, response in
                     
                     self.channelList = response
+                    owner.mainView.homeTableView.reloadData()
                     
                 }
                 .disposed(by: disposeBag)
             
             
             
-                                                
+            
         case .multi:
             
             print("✅ 워크스페이스 여러 개_ 네비게이션뷰")
@@ -187,12 +198,12 @@ extension HomeDefaultViewController: UITableViewDelegate, UITableViewDataSource 
         guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: HomeDefaultHeaderView.identifier) as? HomeDefaultHeaderView else { return UITableViewHeaderFooterView() }
         
         switch type {
-
+            
         case .one:
             
             //채널
             if section == 0 {
-                            
+                
                 //여닫기
                 headerView.sectionIndex = section //섹션 넘김
                 headerView.delegate = self //딜리게이트
@@ -204,7 +215,7 @@ extension HomeDefaultViewController: UITableViewDelegate, UITableViewDataSource 
                 headerView.foldImageView.isHidden = false
                 headerView.addMemberButtonView.isHidden = true
                 
-            } 
+            }
             
             //다이렉트 메세지
             else if section == 1 {
@@ -237,17 +248,7 @@ extension HomeDefaultViewController: UITableViewDelegate, UITableViewDataSource 
                         
                         print("팀원 초대창 나옴")
                         
-                        let vc = InviteMemberViewController()
-                        vc.modalPresentationStyle = .pageSheet
-                        
-                        if let sheet = vc.sheetPresentationController {
-                            sheet.detents = [.large()]
-                            sheet.delegate = self
-                            sheet.prefersGrabberVisible = true
-                        }
-                        
-                        self.present(vc, animated: true, completion: nil)
-
+                        self.transitionLargeSheetVC(InviteMemberViewController())
                     }
                     .disposed(by: disposeBag)
                 
@@ -262,7 +263,7 @@ extension HomeDefaultViewController: UITableViewDelegate, UITableViewDataSource 
         case .multi:
             
             if section == 0 || section == 1 {
-                            
+                
                 //여닫기
                 headerView.sectionIndex = section //섹션 넘김
                 headerView.delegate = self //딜리게이트
@@ -278,7 +279,7 @@ extension HomeDefaultViewController: UITableViewDelegate, UITableViewDataSource 
                 
                 headerView.sectionTitleLabel.isHidden = true
                 headerView.addMemberButtonView.isHidden = false
-
+                
                 
                 headerView.addMemberButtonView.titleLabel.text = viewModel.sectionList[section]
                 headerView.addMemberButtonView.iconImageView.image = ConstantIcon.plusCustom
@@ -295,7 +296,7 @@ extension HomeDefaultViewController: UITableViewDelegate, UITableViewDataSource 
     
     //섹션 접었다 폈다
     func didTouchSection(_ sectionIndex: Int) {
-                
+        
         self.viewModel.isOpen[sectionIndex].toggle()
         self.mainView.homeTableView.reloadSections([sectionIndex], with: .none)
         
@@ -327,7 +328,7 @@ extension HomeDefaultViewController: UITableViewDelegate, UITableViewDataSource 
             
             if section == 0 {
                 // 첫번째 섹션일 경우 채널리스트
-                return channelList.count + 1
+                return channelList.count + 2
                 
             } else if section == 1 {
                 
@@ -346,33 +347,17 @@ extension HomeDefaultViewController: UITableViewDelegate, UITableViewDataSource 
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: HomeListCell.identifier, for: indexPath) as? HomeListCell else { return UITableViewCell() }
         
+        //채널
         if indexPath.section == 0 {
             
+            // 공통 로직
             cell.directionMessageView.isHidden = true
             cell.chanelListView.isHidden = false
+
+            // 셀 구성 함수 호출
+            configureChannelCell(cell: cell, indexPath: indexPath)
             
-            if indexPath.row < [channelList].count {
-                
-                let data = [channelList][indexPath.row]
-                
-                for item in data {
-                    
-                    cell.chanelListView.titleLabel.text = item.name
-                    cell.chanelListView.iconImageView.image = ConstantIcon.hashThin
-
-                }
-
-            } else if indexPath.row == 0 {
-                
-                cell.chanelListView.titleLabel.text = "일반"
-                cell.chanelListView.iconImageView.image = ConstantIcon.hashThin
-                
-            } else {
-                
-                cell.chanelListView.titleLabel.text = "채널 추가"
-                cell.chanelListView.iconImageView.image = ConstantIcon.plusCustom
-
-            }
+            
         } else if indexPath.section == 1 {
             
             if indexPath.row < dummyDataList.count {
@@ -384,7 +369,7 @@ extension HomeDefaultViewController: UITableViewDelegate, UITableViewDataSource 
                 
                 cell.directionMessageView.messageLabel.text = data
                 cell.directionMessageView.thumImage.image = UIImage(systemName: "star")
-
+                
                 
             } else {
                 
@@ -395,7 +380,7 @@ extension HomeDefaultViewController: UITableViewDelegate, UITableViewDataSource 
                 cell.chanelListView.iconImageView.image = ConstantIcon.plusCustom
             }
         }
-
+        
         
         return cell
     }
@@ -407,6 +392,7 @@ extension HomeDefaultViewController: UITableViewDelegate, UITableViewDataSource 
         
     }
     
+    //셀 선택 시
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         switch type {
@@ -415,33 +401,28 @@ extension HomeDefaultViewController: UITableViewDelegate, UITableViewDataSource 
             
             //채널추가 눌렀을 때 액션시트
             if indexPath.section == 0 && indexPath.row == self.channelList.count + 1  {
-                    
-                    let alert = UIAlertController(title: .none, message: .none, preferredStyle: .actionSheet)
-                    let createChannel = UIAlertAction(title: "채널생성", style: .default)
-                    let exploreChannel = UIAlertAction(title: "채널탐색", style: .default)
-                    let cancel = UIAlertAction(title: "취소", style: .cancel)
-                    
-                    alert.addAction(createChannel)
-                    alert.addAction(exploreChannel)
-                    alert.addAction(cancel)
-                    
-                self.present(alert, animated: true)
+                
+                self.presentActionSheet(
+                    titleCreate: "채널생성",
+                    titleExplore: "채널탐색",
+                    workspaceID: workspaceIdForOne!
+                )
                 
             }
             
         case .multi:
             
             if indexPath.section == 0 && indexPath.row == dummyDataList.count + 1  {
-                    
-                    let alert = UIAlertController(title: .none, message: .none, preferredStyle: .actionSheet)
-                    let createChannel = UIAlertAction(title: "채널생성", style: .default)
-                    let exploreChannel = UIAlertAction(title: "채널탐색", style: .default)
-                    let cancel = UIAlertAction(title: "취소", style: .cancel)
-                    
-                    alert.addAction(createChannel)
-                    alert.addAction(exploreChannel)
-                    alert.addAction(cancel)
-                    
+                
+                let alert = UIAlertController(title: .none, message: .none, preferredStyle: .actionSheet)
+                let createChannel = UIAlertAction(title: "채널생성", style: .default)
+                let exploreChannel = UIAlertAction(title: "채널탐색", style: .default)
+                let cancel = UIAlertAction(title: "취소", style: .cancel)
+                
+                alert.addAction(createChannel)
+                alert.addAction(exploreChannel)
+                alert.addAction(cancel)
+                
                 self.present(alert, animated: true)
                 
             }

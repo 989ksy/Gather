@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SignupTitleLabel: UILabel {
+class commonTitleLabel: UILabel {
     
     override init(frame: CGRect) {
         super.init(frame: frame)

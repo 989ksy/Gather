@@ -10,7 +10,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class HomeEmptyViewController: BaseViewController, UISheetPresentationControllerDelegate {
+class HomeEmptyViewController: BaseViewController {
     
     let mainView = HomeEmptyView()
     let disposeBag = DisposeBag()
@@ -47,16 +47,7 @@ class HomeEmptyViewController: BaseViewController, UISheetPresentationController
                 
                 if value {
                     
-                    let vc = WorkspaceAddViewController()
-                    vc.modalPresentationStyle = .pageSheet
-                    
-                    if let sheet = vc.sheetPresentationController {
-                        sheet.detents = [.large()]
-                        sheet.delegate = self
-                        sheet.prefersGrabberVisible = true
-                    }
-                    
-                    self.present(vc, animated: true, completion: nil)
+                    self.transitionLargeSheetVC(WorkspaceAddViewController())
                     
                 }
                 

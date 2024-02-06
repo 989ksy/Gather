@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SignupTextField: UITextField {
+class commonTextField: UITextField {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
