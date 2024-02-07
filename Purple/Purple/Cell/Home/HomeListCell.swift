@@ -45,6 +45,18 @@ final class HomeListCell: BaseTableViewCell {
         
     }
     
+    func configureCell(with channel: readChannelResponse) {
+        
+        chanelListView.titleLabel.text = channel.name
+        chanelListView.titleLabel.textColor = ConstantColor.blackBrand
+        chanelListView.titleLabel.font = ConstantTypo.bodyBold
+        chanelListView.iconImageView.image = ConstantIcon.hashThick?.withTintColor(ConstantColor.blackBrand ?? .black)
+        directionMessageView.isHidden = true
+        
+        
+    }
+    
+    
     override func setConstraints() {
         
         chanelListView.snp.makeConstraints { make in

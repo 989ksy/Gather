@@ -19,4 +19,6 @@ enum PlaceholderText: String {
     case workspaceDescription = "워크스페이스를 설명하세요 (옵션)"
     
     case inviteMember = "초대하려는 팀원의 이메일을 입력하세요."
+    case channelName = "채널 이름을 입력하세요 (필수)"
+    case channelDescription = "채널을 설명하세요 (옵션)"
 }

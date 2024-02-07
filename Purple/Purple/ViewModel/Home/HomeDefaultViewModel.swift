@@ -13,7 +13,7 @@ import RxCocoa
 final class HomeDefaultViewModel: ViewModelType {
     
     let sectionList: [String] = ["채널", "다이렉트 메세지", "팀원추가"]
-    var isOpen = [true, true] //섹션 폴딩값
+    var isOpen = [true, false] //섹션 폴딩값
     
     let disposeBag = DisposeBag()
     
@@ -49,19 +49,7 @@ final class HomeDefaultViewModel: ViewModelType {
     )
     
     //채널리스트 받음
-    //    var channelListForOneContainer = BehaviorSubject(
-    //        value: readMyChannelResponse(
-    //            workspaceID: 0,
-    //            channelID: 0,
-    //            name: "",
-    //            description: "",
-    //            ownerID: 0,
-    //            privateNm: 0,
-    //            createdAt: ""
-    //        )
-    //    )
-    
-    let channelListForOneContainer = BehaviorSubject<[readMyChannelResponse]>(value: [])
+    let channelListForOneContainer = BehaviorSubject<[readChannelResponse]>(value: [])
     
     //네비게이션뷰 name 가져옴
     func getTitleForOne(workspaceID: Int) {
@@ -110,27 +98,27 @@ final class HomeDefaultViewModel: ViewModelType {
     
     
     func getChannelForOne(workspaceID: Int) {
-//        
-//        Network.shared.requestSingle(
-//            type: [readMyChannelResponse].self,
-//            router: .readMyChannels(workspaceID: workspaceID)
-//        )
-//        .subscribe(with: self) { owner, response in
-//            
-//            switch response {
-//                
-//            case .success(let data):
-//                
-//                owner.channelListForOneContainer.onNext(data)
-//                
-//                print("---- 내가 속한 모든 채널 조회 성공:", data)
-//                
-//            case .failure(let error):
-//                print("---- 내가 속한 모든 채널 조회 실패:", error)
-//            }
-//            
-//        }
-//        .disposed(by: disposeBag)
+        
+        Network.shared.requestSingle(
+            type: [readChannelResponse].self,
+            router: .readMyChannels(workspaceID: workspaceID)
+        )
+        .subscribe(with: self) { owner, response in
+            
+            switch response {
+                
+            case .success(let data):
+                
+                owner.channelListForOneContainer.onNext(data)
+                
+                print("---- 내가 속한 모든 채널 조회 성공:", data)
+                
+            case .failure(let error):
+                print("---- 내가 속한 모든 채널 조회 실패:", error)
+            }
+            
+        }
+        .disposed(by: disposeBag)
         
     }
     
