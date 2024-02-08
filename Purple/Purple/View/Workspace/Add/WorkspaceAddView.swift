@@ -17,7 +17,7 @@ class WorkspaceAddView: BaseView {
     }()
     
     let writeSectionView = {
-        let view = workspaceWriteView()
+        let view = WorkspaceWriteView()
         return view
     }()
     

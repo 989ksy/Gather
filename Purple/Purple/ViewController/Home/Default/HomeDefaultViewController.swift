@@ -20,7 +20,7 @@ enum transitionType: String {
 
 final class HomeDefaultViewController: BaseViewController, HeaderViewDelegate {
     
-    let dummyDataList = ["일반", "양현종", "이우성"] //cell 더미데이터
+    let dummyDataList = ["나성범", "양현종", "이우성"] //cell 더미데이터
     
     var channelList: [readChannelResponse] = []
     
@@ -69,6 +69,7 @@ final class HomeDefaultViewController: BaseViewController, HeaderViewDelegate {
     
     //네비게이션바 영역 값전달
     func setNavigationbarView() {
+        
         
         switch type {
             
@@ -137,6 +138,61 @@ final class HomeDefaultViewController: BaseViewController, HeaderViewDelegate {
             
             print("✅ 워크스페이스 여러 개_ 네비게이션뷰")
             
+//            //워크스페이스 타이틀
+//            guard let workspaceId = workspaceIdForOne else { return }
+//            
+//            viewModel.getTitleForOne(workspaceID: workspaceId)
+//            
+//            viewModel.workspaceIdForOneContainer
+//                .subscribe(with: self) { owner, response in
+//                    
+//                    //타이틀
+//                    self.mainView.navigationbarView.titleLabel.text = response.name
+//                    print("title For multi:", response.name)
+//                    
+//                    //썸네일
+//                    let thumURL = URL(string: BaseServer.base + response.thumbnail)
+//                    
+//                    owner.mainView.navigationbarView.groupThumImageView.loadImage(
+//                        from: thumURL!,
+//                        placeHolderImage: ConstantImage.rectangleProfile.image
+//                    )
+//                    
+//                    //                    owner.mainView.navigationbarView.groupThumImageView.kf.setImage(with: thumURL)
+//                    
+//                    print("====!!!! 사진", thumURL)
+//                    
+//                    
+//                }
+//                .disposed(by: disposeBag)
+//            
+//            //프로필 정보 가져오기
+//            
+//            viewModel.profileForOneContainer
+//                .subscribe(with: self) { owner, response in
+//                    
+//                    let profileURL = URL(string: BaseServer.base + (response.profileImage ?? ""))
+//                    
+//                    self.mainView.navigationbarView.circleThumImageView.loadImage(
+//                        from: profileURL!,
+//                        placeHolderImage: UIImage(systemName: "star.fill"))
+//                }
+//            
+//                .disposed(by: disposeBag)
+//            
+//            //채널
+//            viewModel.getChannelForOne(workspaceID: workspaceId)
+//            
+//            viewModel.channelListForOneContainer
+//                .subscribe(with: self) { owner, response in
+//                    
+//                    self.channelList = response
+//                    owner.mainView.homeTableView.reloadData()
+//                    
+//                }
+//                .disposed(by: disposeBag)
+//            
+//            
         }
         
         
@@ -280,7 +336,6 @@ extension HomeDefaultViewController: UITableViewDelegate, UITableViewDataSource 
                 headerView.sectionTitleLabel.isHidden = true
                 headerView.addMemberButtonView.isHidden = false
                 
-                
                 headerView.addMemberButtonView.titleLabel.text = viewModel.sectionList[section]
                 headerView.addMemberButtonView.iconImageView.image = ConstantIcon.plusCustom
                 
@@ -346,6 +401,9 @@ extension HomeDefaultViewController: UITableViewDelegate, UITableViewDataSource 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: HomeListCell.identifier, for: indexPath) as? HomeListCell else { return UITableViewCell() }
+        
+        cell.selectionStyle = .none //선택 시 회색 되는 거 없애
+
         
         //채널
         if indexPath.section == 0 {
@@ -414,23 +472,14 @@ extension HomeDefaultViewController: UITableViewDelegate, UITableViewDataSource 
             
             if indexPath.section == 0 && indexPath.row == dummyDataList.count + 1  {
                 
-                let alert = UIAlertController(title: .none, message: .none, preferredStyle: .actionSheet)
-                let createChannel = UIAlertAction(title: "채널생성", style: .default)
-                let exploreChannel = UIAlertAction(title: "채널탐색", style: .default)
-                let cancel = UIAlertAction(title: "취소", style: .cancel)
-                
-                alert.addAction(createChannel)
-                alert.addAction(exploreChannel)
-                alert.addAction(cancel)
-                
-                self.present(alert, animated: true)
+                self.presentActionSheet(
+                    titleCreate: "채널생성",
+                    titleExplore: "채널탐색",
+                    workspaceID: workspaceIdForOne!
+                )
                 
             }
         }
-        
-        //선택 시 회색셀렉션 제거
-        tableView.reloadRows(at: [indexPath], with: .none)
-        
         
     }
     

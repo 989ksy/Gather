@@ -11,7 +11,7 @@ import SnapKit
 final class HomeDefaultView: BaseView {
     
     let navigationbarView = {
-        let view = CustomNavigationBarItemView()
+        let view = WorkspaceNavigationBarView()
         return view
     }()
     

@@ -26,6 +26,7 @@ final class ExploreViewController: BaseViewController {
         view.backgroundColor = ConstantColor.bgSecondary
         return view
     }()
+    
     let exploreTableView = {
         let view = UITableView()
         view.register(
@@ -51,9 +52,7 @@ final class ExploreViewController: BaseViewController {
         exploreTableView.dataSource = self
         
         bind()
-        
-        print("***************", self.viewModel.channelList)
-        
+                
     }
     
     
@@ -101,7 +100,6 @@ final class ExploreViewController: BaseViewController {
         view.addSubview(exploreTableView)
         
     }
-    
     override func setConstraints() {
         
         emptyView.snp.makeConstraints { make in
@@ -144,13 +142,25 @@ extension ExploreViewController: UITableViewDataSource, UITableViewDelegate {
             for: indexPath
         ) as? HomeListCell else { return UITableViewCell() }
         
+        cell.selectionStyle = .none //선택 시 회색 되는 거 없애
+        
         let channel = viewModel.channelList[indexPath.row]
         
-        cell.configureCell(with: channel)
+        cell.configureChannelCell(with: channel)
         
         return cell
         
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let vc = JoinChannelViewController()
+        
+        vc.modalPresentationStyle = .overCurrentContext
+        vc.channelName = viewModel.channelList[indexPath.row].name
+        
+        present(vc, animated: true)
+        
+    }
     
 }

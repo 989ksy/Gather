@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class workspaceWriteView: UIView {
+class WorkspaceWriteView: UIView {
     
     let profileImageView = {
         let view = UIImageView()

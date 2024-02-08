@@ -31,6 +31,5 @@ struct ConstantColor {
     //MARK: - View
     
     static let seperator = UIColor(named: "ViewSeperator")
-    static let alpha = UIColor(named: "ViewAlpha")
-    
+    static let alphaBlack = UIColor.brandBlack.withAlphaComponent(0.5)    
 }

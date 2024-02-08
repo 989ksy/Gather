@@ -14,6 +14,8 @@ struct ConstantTypo {
     static let bodyBold = UIFont.systemFont(ofSize: 13, weight: .bold) //18
     static let body = UIFont.systemFont(ofSize: 13, weight: .regular) // 18
     static let caption = UIFont.systemFont(ofSize: 12, weight: .regular) // 12
+    static let caption2 = UIFont.systemFont(ofSize: 11, weight: .regular) // 12
+
     
     
 }

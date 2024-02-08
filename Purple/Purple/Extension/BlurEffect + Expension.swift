@@ -14,7 +14,7 @@ extension HomeDefaultViewController: SideMenuNavigationControllerDelegate {
         blurEffectView.frame = view.bounds
         blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         view.addSubview(blurEffectView)
-        self.tabBarController?.tabBar.backgroundColor = ConstantColor.alpha
+        self.tabBarController?.tabBar.backgroundColor = ConstantColor.alphaBlack
         self.tabBarController?.tabBar.isHidden = true
         
     }

@@ -60,6 +60,9 @@ struct ConstantIcon {
     static let plusCustom = UIImage(named: "PropertyPlus")
     static let helpCustom = UIImage(named: "PropertyHelp")
     static let emailCustom = UIImage(named: "PropertyEmail")
+    static let sendInactive = UIImage(named: "PropertySendInactive")
+    static let sendActive = UIImage(named: "PropertySendActive")?.withTintColor(ConstantColor.purpleBrand ?? .purple)
+    
     
     //MARK: - Profile
     

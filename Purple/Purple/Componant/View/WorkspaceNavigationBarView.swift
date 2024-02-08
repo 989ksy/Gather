@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class CustomNavigationBarItemView: UIView {
+class WorkspaceNavigationBarView: UIView {
     
     let groupThumImageView = {
         let view = UIImageView()

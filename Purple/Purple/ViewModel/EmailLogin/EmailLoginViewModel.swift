@@ -10,7 +10,7 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-class EmailLoginViewModel: ViewModelType {
+final class EmailLoginViewModel: ViewModelType {
     
     let disposeBag = DisposeBag()
     
@@ -92,9 +92,6 @@ class EmailLoginViewModel: ViewModelType {
                 of: self.passwordRegex,
                 options: .regularExpression) != nil
             
-            print("Email Valid: \(isEmailValid), Password Valid: \(isPasswordValid)")
-            print("password: \(password)")
-            
             return isEmailValid && isPasswordValid
         }
         
@@ -175,19 +172,41 @@ class EmailLoginViewModel: ViewModelType {
                         goToHomeOne.onNext(true)
                         
                         //workspaceID 저장
-                        guard let workspaceid = response.first?.workspaceID else { return }
+                        guard let id = response.first?.workspaceID else { return }
                         
-                        UserDefaults.standard.setValue(workspaceid, forKey: "workspaceID")
+                        UserDefaults.standard.setValue(id, forKey: "workspaceID")
                         
                         print("--- 워크스페이스 1개일 때 화면으로 전환")
-                        
+
                     } else {
                         
                         goToHomeMulti.onNext(true)
                         
+                        print("+++++++++++++++++++++$", response)
                         
-                        print("--- 워크스페이스 여러 개일 때 화면으로 전환")
+                        var latestWorkspaceID: Int? //가장 최신 id값
+                        var latestDate: Date? //가장 최신 날짜
+                                                
+                        let dateFormatter = DateFormatter()
+                        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+                        
+                        for item in response {
+                            
+                            let createdAtString = item.createdAt
+                            let createdAt = dateFormatter.date(from: createdAtString)
+                            
+                            if latestDate == nil || createdAt! > latestDate! {
+                                
+                                latestDate = createdAt
+                                latestWorkspaceID = item.workspaceID
+                                
+                                UserDefaults.standard.setValue(latestWorkspaceID, forKey: "workspaceID")
 
+                            }
+                            
+                        }
+                        
+                        print("--- 워크스페이스 여러 개일 때 화면으로 전환 - 최신 워크스페이스 ID:", latestWorkspaceID)
                         
                     }
                     

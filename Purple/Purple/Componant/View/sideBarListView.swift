@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-final class sidebarListView: UIView {
+final class SidebarListView: UIView {
     
     let thumImageView = {
         let view = UIImageView()

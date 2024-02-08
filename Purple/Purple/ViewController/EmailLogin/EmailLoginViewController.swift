@@ -69,7 +69,6 @@ class EmailLoginViewController: BaseViewController {
                 if value {
                     
                     self.dismiss(animated: true)
-
                     
                     let vc = HomeEmptyViewController()
                     self.view.window?.rootViewController = vc
@@ -124,6 +123,8 @@ class EmailLoginViewController: BaseViewController {
                     
                     let vc = HomeDefaultViewController()
                     vc.type = .multi
+                    
+                    vc.workspaceIdForOne = UserDefaults.standard.integer(forKey: "workspaceID")
                     
                     self.view.window?.rootViewController = vc
                     

@@ -70,6 +70,9 @@ extension SideMenuViewController: UITableViewDelegate, UITableViewDataSource {
         print("\(data.title)")
 //        cell.thumImageView.image = data.thum
         
+        cell.selectionStyle = .none //선택 시 회색 되는 거 없애
+
+        
         return cell
         
     }
