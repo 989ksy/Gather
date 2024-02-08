@@ -21,9 +21,9 @@ struct dummyDataList {
 
 final class ChannelChattingViewController: BaseViewController {
     
-    
+    //테스트용
     let dummyList: [dummyDataList] = [
-        dummyDataList(profile: ConstantImage.launching.image!, name: "나성범", content: "타이거즈 나성범 안타 안타 날려라 날려라 나성범 타이거즈 나성범 홈런~~~~~ 아 타이거즈 나성범 안타 안타 날려라 날려라 나성범 타이거즈 나성범 홈런~~~~~ 아 타이거즈 나성범 안타 안타 날려라 날려라 나성범 타이거즈 나성범 홈런~~~~~ 아타이거즈 나성범 안타 안타 날려라 날려라 나성범 타이거즈 나성범 홈런~~~~~ 아 타이거즈 나성범 안타 안타 날려라 날려라 나성범 타이거즈 나성범 홈런~~~~~ 아 타이거즈 나성범 안타 안타 날려라 날려라 나성범 타이거즈 나성범 홈런~~~~~ 아타이거즈 나성범 안타 안타 날려라 날려라 나성범 타이거즈 나성범 홈런~~~~~ 아 타이거즈 나성범 안타 안타 날려라 날려라 나성범 타이거즈 나성범 홈런~~~~~ 아 타이거즈 나성범 안타 안타 날려라 날려라 나성범 타이거즈 나성범 홈런~~~~~ 아타이거즈 나성범 안타 안타 날려라 날려라 나성범 타이거즈 나성범 홈런~~~~~ 아 타이거즈 나성범 안타 안타 날려라 날려라 나성범 타이거즈 나성범 홈런~~~~~ 아 타이거즈 나성범 안타 안타 날려라 날려라 나성범 타이거즈 나성범 홈런~~~~~ 아타이거즈 나성범 안타 안타 날려라 날려라 나성범 타이거즈 나성범 홈런~~~~~ 아 타이거즈 나성범 안타 안타 날려라 날려라 나성범 타이거즈 나성범 홈런~~~~~ 아 타이거즈 나성범 안타 안타 날려라 날려라 나성범 타이거즈 나성범 홈런~~~~~ 아타이거즈 나성범 안타 안타 날려라 날려라 나성범 타이거즈 나성범 홈런~~~~~ 아 타이거즈 나성범 안타 안타 날려라 날려라 나성범 타이거즈 나성범 홈런~~~~~ 아 타이거즈 나성범 안타 안타 날려라 날려라 나성범 타이거즈 나성범 홈런~~~~~ 아", date: "08:16 오전"),
+        dummyDataList(profile: ConstantImage.launching.image!, name: "나성범", content: "타이거즈 나성범 안타 안타 날려라 날려라 나성범 타이거즈 나성범 홈런~~~~~ 아 타이거즈 나성범 안타 안타 날려라 날려라 나성범 타이거즈 나성범 홈런~~~~~ 아 타이거즈 나성범 안타 안타 날려라 날려라 나성범 타이거즈 나성범 홈런~~~~~ 아타이거즈 나성범 안타 안타 날려라 날려라 나성범 타이거즈 나성범 홈런~~~~~ 아 타이거즈 나성범 안타 안타 날려라 날려라 나성범 타이거즈 나성범 홈런~~~~~ 아 타이거즈 나성범 안타 안타 날려라 날려라 나성범 타이거즈 나성범 홈런~~~~~ 아타이거즈 나성범 안타 안타 날려라 날려라 나성범 타이거즈 나성범 홈런~~~~~ 아 타이거즈 나성범 안타 안타 날려라 날려라 나성범 타이거즈 나성범 홈런~~~~~ 아 타이거즈 나성범 안타 안타 날려라 날려라 나성범 타이거즈 나성범 홈런~~~~~ 아타이거즈 나성범 안타 안타 날려라 날려라 나성범 타이거즈 나성범 홈런~~~~~ 아 타이거", date: "08:16 오전"),
         dummyDataList(profile: UIImage(systemName: "heart.fill")!, name: "양현종", content: "양현종 대투수 짱~", date: "08:16 오전"),
         dummyDataList(profile: UIImage(systemName: "star")!, name: "이의리", content: "네모 안에 공을 넣어", date: "08:17 오전"),
         dummyDataList(profile: UIImage(systemName: "star.fill")!, name: "최형우", content: "낡지마 최형우", date: "08:17 오전"),
@@ -34,7 +34,6 @@ final class ChannelChattingViewController: BaseViewController {
         dummyDataList(profile: UIImage(systemName: "star")!, name: "이범호", content: "잘생겼다 이범호", date: "08:25 오전"),
         dummyDataList(profile: ConstantImage.onboarding.image!, name: "김도영", content: "그런 날 있잖아 홈런 치고 챔필런 하고 싶은 그런 날", date: "08:29 오전")
     ]
-    
     
     
     
