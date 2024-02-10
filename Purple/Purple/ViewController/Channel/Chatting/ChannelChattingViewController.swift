@@ -134,6 +134,7 @@ extension ChannelChattingViewController: UITableViewDelegate, UITableViewDataSou
         cell.userNameLabel.text = data.name
         cell.dateLabel.text = data.date
         
+                
         return cell
         
     }

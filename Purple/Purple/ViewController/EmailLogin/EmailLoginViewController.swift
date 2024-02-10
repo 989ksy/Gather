@@ -73,7 +73,7 @@ class EmailLoginViewController: BaseViewController {
                     let vc = HomeEmptyViewController()
                     self.view.window?.rootViewController = vc
                     
-                    print("--- empty 화면전환 성공")
+                    print("--- ✅ empty 화면전환 성공")
                     
                 } else {
                     
@@ -85,7 +85,7 @@ class EmailLoginViewController: BaseViewController {
             .disposed(by: disposeBag)
         
         //워크스페이스 생성 갯수가 1개
-        output.goToHomeDefaultForOne
+        output.goToHomeDefault
             .subscribe(with: self) { owner, value in
                 
                 if value {
@@ -93,61 +93,28 @@ class EmailLoginViewController: BaseViewController {
                     self.dismiss(animated: true)
                     
                     let vc = HomeDefaultViewController()
-                    vc.type = .one
                     
-                    vc.workspaceIdForOne = UserDefaults.standard.integer(forKey: "workspaceID")
+                    vc.homeWorkspaceId = UserDefaults.standard.integer(forKey: "workspaceID")
                     
-                    print("+++ workspaceID", vc.workspaceIdForOne )
+                    
+                    print("+++ workspaceID", vc.homeWorkspaceId )
                                         
                     self.view.window?.rootViewController = vc
                     
-                    print("--- one 화면전환 성공")
+                    print("--- ✅ HomeDefault 화면전환 성공")
                     
                 } else {
                     
-                    print("워크스페이스 1개인데 홈화면 전환 못함~!")
+                    print("워크스페이스 있는데 홈화면 전환 못함~!")
                     
                 }
                 
             }
             .disposed(by: disposeBag)
         
-        
-        //워크스페이스 생성 갯수가 여러 개
-        output.goToHomeDefaultForMultiple
-            .subscribe(with: self) { owner, value in
-                
-                if value {
-                    
-                    self.dismiss(animated: true)
-                    
-                    let vc = HomeDefaultViewController()
-                    vc.type = .multi
-                    
-                    vc.workspaceIdForOne = UserDefaults.standard.integer(forKey: "workspaceID")
-                    
-                    self.view.window?.rootViewController = vc
-                    
-                    print("--- multi 화면전환 성공")
-                    
-                } else {
-                    
-                    print("워크스페이스 여러 개인데 홈화면 전환 못함~!")
-                    
-                }
-
-            }
-            .disposed(by: disposeBag)
         
         
         
     }
-    
-    
-    
-    
-    
-    
-    
     
 }

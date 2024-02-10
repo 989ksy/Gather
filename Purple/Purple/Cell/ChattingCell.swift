@@ -74,6 +74,16 @@ final class ChattingCell: BaseTableViewCell {
 
     }
     
+//    func configureCell(cell: ChattingCell, indexPath: IndexPath) {
+//        
+//        
+//        profileImageView.image = cell.profileImageView.image
+//        messageTextView.text = cell.messageTextView.text
+//        userNameLabel.text = cell.userNameLabel.text
+//        dateLabel.text = cell.dateLabel.text
+//        
+//    }
+    
     override func setConstraints() {
         
         profileImageView.snp.makeConstraints { make in

@@ -13,6 +13,7 @@ import RxCocoa
 final class EmailLoginViewModel: ViewModelType {
     
     let disposeBag = DisposeBag()
+    var workspaceID: Int?
     
     //이메일 정규식
     //(@, .com 포함)
@@ -44,8 +45,7 @@ final class EmailLoginViewModel: ViewModelType {
         let loginValidation: Observable<Bool> //로그인 조건 부합?
         
         let goToEmpty: BehaviorSubject<Bool> //empty화면으로 가
-        let goToHomeDefaultForOne: BehaviorSubject<Bool> //워크스페이스 1개
-        let goToHomeDefaultForMultiple: BehaviorSubject<Bool>//워크스페이스 여러개
+        let goToHomeDefault: BehaviorSubject<Bool>
         
         let loginButtonTapped: BehaviorSubject<Bool>
         let closeButtonTapped: BehaviorSubject<Bool>
@@ -99,8 +99,7 @@ final class EmailLoginViewModel: ViewModelType {
         let loginButtonTapped = BehaviorSubject(value: false)
         
         let goToHomeEmpty = BehaviorSubject(value: false) //워크스페이스 0개 일 경우
-        let goToHomeOne = BehaviorSubject(value: false) //워크스페이스 1개일 경우
-        let goToHomeMulti = BehaviorSubject(value: false)// 워크스페이스 여러개일 경우
+        let goToHomeDefault = BehaviorSubject(value: false)// 워크스페이스 여러개일 경우
         
         let loginValue = Observable.combineLatest(input.emailText, input.passwordText).map { userInput in
             return userInput
@@ -167,22 +166,11 @@ final class EmailLoginViewModel: ViewModelType {
                         
                         print("--- empty 화면으로 전환")
                         
-                    } else if response.count == 1 {
-                        
-                        goToHomeOne.onNext(true)
-                        
-                        //workspaceID 저장
-                        guard let id = response.first?.workspaceID else { return }
-                        
-                        UserDefaults.standard.setValue(id, forKey: "workspaceID")
-                        
-                        print("--- 워크스페이스 1개일 때 화면으로 전환")
-
                     } else {
                         
-                        goToHomeMulti.onNext(true)
+                        goToHomeDefault.onNext(true)
                         
-                        print("+++++++++++++++++++++$", response)
+                        print("--- 홈디폴트", response)
                         
                         var latestWorkspaceID: Int? //가장 최신 id값
                         var latestDate: Date? //가장 최신 날짜
@@ -201,12 +189,14 @@ final class EmailLoginViewModel: ViewModelType {
                                 latestWorkspaceID = item.workspaceID
                                 
                                 UserDefaults.standard.setValue(latestWorkspaceID, forKey: "workspaceID")
+                                
+                                self.workspaceID = latestWorkspaceID
 
                             }
                             
                         }
                         
-                        print("--- 워크스페이스 여러 개일 때 화면으로 전환 - 최신 워크스페이스 ID:", latestWorkspaceID)
+                        print("---- 홈디폴트로 전환, 최신 워크스페이스 ID:", latestWorkspaceID)
                         
                     }
                     
@@ -236,8 +226,7 @@ final class EmailLoginViewModel: ViewModelType {
                       isPasswordWrong: passwordValidation,
                       loginValidation: loginValidation,
                       goToEmpty: goToHomeEmpty,
-                      goToHomeDefaultForOne: goToHomeOne,
-                      goToHomeDefaultForMultiple: goToHomeMulti,
+                      goToHomeDefault: goToHomeDefault,
                       loginButtonTapped: loginButtonTapped,
                       closeButtonTapped: closeButtonTapped)
         

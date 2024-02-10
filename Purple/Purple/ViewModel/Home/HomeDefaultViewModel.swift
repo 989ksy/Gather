@@ -21,7 +21,7 @@ final class HomeDefaultViewModel: ViewModelType {
     //MARK: - 워크스페이스가 1개일 경우
     
     //워크스페이스ID로 통신한 값 담음
-    var workspaceIdForOneContainer = BehaviorSubject(
+    var workspaceContainer = BehaviorSubject(
         value: readOneWorkspaceResponse(
             workspaceID: 0,
             name: "",
@@ -35,7 +35,7 @@ final class HomeDefaultViewModel: ViewModelType {
     )
     
     //프로필정보 받음
-    var profileForOneContainer = BehaviorSubject(
+    var profileContainer = BehaviorSubject(
         value: readMyProfileResponse(
             userID: 0,
             email: "",
@@ -62,12 +62,13 @@ final class HomeDefaultViewModel: ViewModelType {
             
             switch response {
             case .success(let data):
-                self.workspaceIdForOneContainer.onNext(data)
+                self.workspaceContainer.onNext(data)
                 
-                print("--------------🏠 워크스페이스 한 개 일 경우:", data)
+                print("--------------🏠 워크스페이스:", data)
                 
             case .failure(let error):
                 print(error)
+                print("--------------🏠 워크스페이스 이름 가져오기 실패")
             }
         }
         .disposed(by: disposeBag)
@@ -85,7 +86,7 @@ final class HomeDefaultViewModel: ViewModelType {
             switch response {
                 
             case .success(let data):
-                self.profileForOneContainer.onNext(data)
+                self.profileContainer.onNext(data)
                 print("---- 내 프로필 정보 조회 성공!")
                 
             case .failure(let error):

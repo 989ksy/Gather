@@ -12,28 +12,19 @@ import RxCocoa
 import SideMenu
 import Kingfisher
 
-//워크스페이스 수에 따른 화면 재사용
-enum transitionType: String {
-    case one
-    case multi
-}
-
 final class HomeDefaultViewController: BaseViewController, HeaderViewDelegate {
     
     let dummyDataList = ["나성범", "양현종", "이우성"] //cell 더미데이터
     
     var channelList: [readChannelResponse] = []
     
-    var workspaceIdForOne: Int? //로그인 -> WorksapceID 받음
+    var homeWorkspaceId: Int? //로그인 -> WorksapceID 받음
     
     let mainView = HomeDefaultView()
     let viewModel = HomeDefaultViewModel()
     let disposeBag = DisposeBag()
     
     let blurEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
-    
-    //워크스페이스 개수별 화면 재사용
-    var type: transitionType = .one
     
     override func loadView() {
         self.view = mainView
@@ -64,136 +55,70 @@ final class HomeDefaultViewController: BaseViewController, HeaderViewDelegate {
             self.mainView.homeTableView.reloadData()
         }
         
-        print("업데이트 되엇냐")
+        print("업데이트!")
     }
     
     //네비게이션바 영역 값전달
     func setNavigationbarView() {
         
+        print("--- 네비게이션뷰")
         
-        switch type {
-            
-        case .one:
-            
-            print("✅ 워크스페이스 한개_ 네비게이션뷰")
-            
-            //워크스페이스 타이틀
-            guard let workspaceId = workspaceIdForOne else { return }
-            
-            viewModel.getTitleForOne(workspaceID: workspaceId)
-            
-            viewModel.workspaceIdForOneContainer
-                .subscribe(with: self) { owner, response in
-                    
-                    //타이틀
-                    self.mainView.navigationbarView.titleLabel.text = response.name
-                    print("title For One:", response.name)
-                    
-                    //썸네일
-                    let thumURL = URL(string: BaseServer.base + response.thumbnail)
-                    
-                    owner.mainView.navigationbarView.groupThumImageView.loadImage(
-                        from: thumURL!,
-                        placeHolderImage: ConstantImage.rectangleProfile.image
-                    )
-                    
-                    //                    owner.mainView.navigationbarView.groupThumImageView.kf.setImage(with: thumURL)
-                    
-                    print("====!!!! 사진", thumURL)
-                    
-                    
-                }
-                .disposed(by: disposeBag)
-            
-            //프로필 정보 가져오기
-            
-            viewModel.profileForOneContainer
-                .subscribe(with: self) { owner, response in
-                    
-                    let profileURL = URL(string: BaseServer.base + (response.profileImage ?? ""))
-                    
-                    self.mainView.navigationbarView.circleThumImageView.loadImage(
-                        from: profileURL!,
-                        placeHolderImage: UIImage(systemName: "star.fill"))
-                }
-            
-                .disposed(by: disposeBag)
-            
-            //채널
-            viewModel.getChannelForOne(workspaceID: workspaceId)
-            
-            viewModel.channelListForOneContainer
-                .subscribe(with: self) { owner, response in
-                    
-                    self.channelList = response
-                    owner.mainView.homeTableView.reloadData()
-                    
-                }
-                .disposed(by: disposeBag)
-            
-            
-            
-            
-        case .multi:
-            
-            print("✅ 워크스페이스 여러 개_ 네비게이션뷰")
-            
-//            //워크스페이스 타이틀
-//            guard let workspaceId = workspaceIdForOne else { return }
-//            
-//            viewModel.getTitleForOne(workspaceID: workspaceId)
-//            
-//            viewModel.workspaceIdForOneContainer
-//                .subscribe(with: self) { owner, response in
-//                    
-//                    //타이틀
-//                    self.mainView.navigationbarView.titleLabel.text = response.name
-//                    print("title For multi:", response.name)
-//                    
-//                    //썸네일
-//                    let thumURL = URL(string: BaseServer.base + response.thumbnail)
-//                    
-//                    owner.mainView.navigationbarView.groupThumImageView.loadImage(
-//                        from: thumURL!,
-//                        placeHolderImage: ConstantImage.rectangleProfile.image
-//                    )
-//                    
-//                    //                    owner.mainView.navigationbarView.groupThumImageView.kf.setImage(with: thumURL)
-//                    
-//                    print("====!!!! 사진", thumURL)
-//                    
-//                    
-//                }
-//                .disposed(by: disposeBag)
-//            
-//            //프로필 정보 가져오기
-//            
-//            viewModel.profileForOneContainer
-//                .subscribe(with: self) { owner, response in
-//                    
-//                    let profileURL = URL(string: BaseServer.base + (response.profileImage ?? ""))
-//                    
-//                    self.mainView.navigationbarView.circleThumImageView.loadImage(
-//                        from: profileURL!,
-//                        placeHolderImage: UIImage(systemName: "star.fill"))
-//                }
-//            
-//                .disposed(by: disposeBag)
-//            
-//            //채널
-//            viewModel.getChannelForOne(workspaceID: workspaceId)
-//            
-//            viewModel.channelListForOneContainer
-//                .subscribe(with: self) { owner, response in
-//                    
-//                    self.channelList = response
-//                    owner.mainView.homeTableView.reloadData()
-//                    
-//                }
-//                .disposed(by: disposeBag)
-//            
-//            
-        }
+        //워크스페이스 타이틀
+        guard let workspaceId = homeWorkspaceId else { return }
+        
+        viewModel.getTitleForOne(workspaceID: workspaceId)
+        
+        viewModel.workspaceContainer
+            .subscribe(with: self) { owner, response in
+                
+                //타이틀
+                self.mainView.navigationbarView.titleLabel.text = response.name
+                print("title:", response.name)
+                
+                //썸네일
+                let thumURL = URL(string: BaseServer.base + response.thumbnail)
+                
+                owner.mainView.navigationbarView.groupThumImageView.loadImage(
+                    from: thumURL!,
+                    placeHolderImage: ConstantImage.rectangleProfile.image
+                )
+                
+                owner.mainView.navigationbarView.groupThumImageView.loadImage(
+                    from: thumURL!,
+                    placeHolderImage:
+                        ConstantImage.rectangleProfile.image)
+                
+                print("====!!!! 사진", thumURL)
+                
+                
+            }
+            .disposed(by: disposeBag)
+        
+        //프로필 정보 가져오기
+        
+        viewModel.profileContainer
+            .subscribe(with: self) { owner, response in
+                
+                let profileURL = URL(string: BaseServer.base + (response.profileImage ?? ""))
+                
+                self.mainView.navigationbarView.circleThumImageView.loadImage(
+                    from: profileURL!,
+                    placeHolderImage: UIImage(systemName: "star.fill"))
+            }
+        
+            .disposed(by: disposeBag)
+        
+        //채널
+        viewModel.getChannelForOne(workspaceID: workspaceId)
+        
+        viewModel.channelListForOneContainer
+            .subscribe(with: self) { owner, response in
+                
+                self.channelList = response
+                owner.mainView.homeTableView.reloadData()
+                
+            }
+            .disposed(by: disposeBag)
         
         
     }
@@ -253,99 +178,66 @@ extension HomeDefaultViewController: UITableViewDelegate, UITableViewDataSource 
         //헤더뷰 등록
         guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: HomeDefaultHeaderView.identifier) as? HomeDefaultHeaderView else { return UITableViewHeaderFooterView() }
         
-        switch type {
+        
+        //채널
+        if section == 0 {
             
-        case .one:
+            //여닫기
+            headerView.sectionIndex = section //섹션 넘김
+            headerView.delegate = self //딜리게이트
+            headerView.isOpened = viewModel.isOpen[section] //불값에 따라 화살표 아이콘
             
-            //채널
-            if section == 0 {
-                
-                //여닫기
-                headerView.sectionIndex = section //섹션 넘김
-                headerView.delegate = self //딜리게이트
-                headerView.isOpened = viewModel.isOpen[section] //불값에 따라 화살표 아이콘
-                
-                headerView.sectionTitleLabel.text = viewModel.sectionList[section] //섹션 타이틀
-                
-                headerView.sectionTitleLabel.isHidden = false
-                headerView.foldImageView.isHidden = false
-                headerView.addMemberButtonView.isHidden = true
-                
-            }
+            headerView.sectionTitleLabel.text = viewModel.sectionList[section] //섹션 타이틀
             
-            //다이렉트 메세지
-            else if section == 1 {
-                
-                //여닫기
-                headerView.sectionIndex = section //섹션 넘김
-                headerView.delegate = self //딜리게이트
-                headerView.isOpened = viewModel.isOpen[section] //불값에 따라 화살표 아이콘
-                
-                headerView.sectionTitleLabel.text = viewModel.sectionList[section] //섹션 타이틀
-                
-                headerView.sectionTitleLabel.isHidden = false
-                headerView.foldImageView.isHidden = false
-                headerView.addMemberButtonView.isHidden = true
-                
-            }
+            headerView.sectionTitleLabel.isHidden = false
+            headerView.foldImageView.isHidden = false
+            headerView.addMemberButtonView.isHidden = true
             
-            //팀원추가
-            else {
-                
-                headerView.sectionTitleLabel.isHidden = true
-                headerView.addMemberButtonView.isHidden = false
-                
-                headerView.addMemberButtonView.titleLabel.text = viewModel.sectionList[section]
-                headerView.addMemberButtonView.iconImageView.image = ConstantIcon.plusCustom
-                
-                //팀원초대 화면전환
-                headerView.addMemberButtonView.customButton.rx.tap
-                    .subscribe(with: self) { owner, _ in
-                        
-                        print("팀원 초대창 나옴")
-                        
-                        self.transitionLargeSheetVC(InviteMemberViewController())
-                    }
-                    .disposed(by: disposeBag)
-                
-                headerView.foldImageView.isHidden = true
-                headerView.dividerUp.isHidden = true
-                headerView.dividerBottom.isHidden = true
-            }
-            
-            return headerView
-            
-            
-        case .multi:
-            
-            if section == 0 || section == 1 {
-                
-                //여닫기
-                headerView.sectionIndex = section //섹션 넘김
-                headerView.delegate = self //딜리게이트
-                headerView.isOpened = viewModel.isOpen[section] //불값에 따라 화살표 아이콘
-                
-                headerView.sectionTitleLabel.text = viewModel.sectionList[section] //섹션 타이틀
-                
-                headerView.sectionTitleLabel.isHidden = false
-                headerView.foldImageView.isHidden = false
-                headerView.addMemberButtonView.isHidden = true
-                
-            } else {
-                
-                headerView.sectionTitleLabel.isHidden = true
-                headerView.addMemberButtonView.isHidden = false
-                
-                headerView.addMemberButtonView.titleLabel.text = viewModel.sectionList[section]
-                headerView.addMemberButtonView.iconImageView.image = ConstantIcon.plusCustom
-                
-                headerView.foldImageView.isHidden = true
-                headerView.dividerUp.isHidden = true
-                headerView.dividerBottom.isHidden = true
-            }
-            
-            return headerView
         }
+        
+        //다이렉트 메세지
+        else if section == 1 {
+            
+            //여닫기
+            headerView.sectionIndex = section //섹션 넘김
+            headerView.delegate = self //딜리게이트
+            headerView.isOpened = viewModel.isOpen[section] //불값에 따라 화살표 아이콘
+            
+            headerView.sectionTitleLabel.text = viewModel.sectionList[section] //섹션 타이틀
+            
+            headerView.sectionTitleLabel.isHidden = false
+            headerView.foldImageView.isHidden = false
+            headerView.addMemberButtonView.isHidden = true
+            
+        }
+        
+        //팀원추가
+        else {
+            
+            headerView.sectionTitleLabel.isHidden = true
+            headerView.addMemberButtonView.isHidden = false
+            
+            headerView.addMemberButtonView.titleLabel.text = viewModel.sectionList[section]
+            headerView.addMemberButtonView.iconImageView.image = ConstantIcon.plusCustom
+            
+            //팀원초대 화면전환
+            headerView.addMemberButtonView.customButton.rx.tap
+                .subscribe(with: self) { owner, _ in
+                    
+                    print("팀원 초대창 나옴")
+                    
+                    self.transitionLargeSheetVC(InviteMemberViewController())
+                }
+                .disposed(by: disposeBag)
+            
+            headerView.foldImageView.isHidden = true
+            headerView.dividerUp.isHidden = true
+            headerView.dividerBottom.isHidden = true
+        }
+        
+        return headerView
+        
+        
         
     }
     
@@ -403,7 +295,7 @@ extension HomeDefaultViewController: UITableViewDelegate, UITableViewDataSource 
         guard let cell = tableView.dequeueReusableCell(withIdentifier: HomeListCell.identifier, for: indexPath) as? HomeListCell else { return UITableViewCell() }
         
         cell.selectionStyle = .none //선택 시 회색 되는 거 없애
-
+        
         
         //채널
         if indexPath.section == 0 {
@@ -411,7 +303,7 @@ extension HomeDefaultViewController: UITableViewDelegate, UITableViewDataSource 
             // 공통 로직
             cell.directionMessageView.isHidden = true
             cell.chanelListView.isHidden = false
-
+            
             // 셀 구성 함수 호출
             configureChannelCell(cell: cell, indexPath: indexPath)
             
@@ -453,32 +345,15 @@ extension HomeDefaultViewController: UITableViewDelegate, UITableViewDataSource 
     //셀 선택 시
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        switch type {
+        //채널추가 눌렀을 때 액션시트
+        if indexPath.section == 0 && indexPath.row == self.channelList.count + 1  {
             
-        case .one:
+            self.presentActionSheet(
+                titleCreate: "채널생성",
+                titleExplore: "채널탐색",
+                workspaceID: homeWorkspaceId!
+            )
             
-            //채널추가 눌렀을 때 액션시트
-            if indexPath.section == 0 && indexPath.row == self.channelList.count + 1  {
-                
-                self.presentActionSheet(
-                    titleCreate: "채널생성",
-                    titleExplore: "채널탐색",
-                    workspaceID: workspaceIdForOne!
-                )
-                
-            }
-            
-        case .multi:
-            
-            if indexPath.section == 0 && indexPath.row == dummyDataList.count + 1  {
-                
-                self.presentActionSheet(
-                    titleCreate: "채널생성",
-                    titleExplore: "채널탐색",
-                    workspaceID: workspaceIdForOne!
-                )
-                
-            }
         }
         
     }
@@ -486,4 +361,3 @@ extension HomeDefaultViewController: UITableViewDelegate, UITableViewDataSource 
     
     
 }
-
