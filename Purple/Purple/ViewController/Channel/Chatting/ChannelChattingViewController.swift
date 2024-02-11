@@ -35,8 +35,6 @@ final class ChannelChattingViewController: BaseViewController {
         dummyDataList(profile: ConstantImage.onboarding.image!, name: "김도영", content: "그런 날 있잖아 홈런 치고 챔필런 하고 싶은 그런 날", date: "08:29 오전")
     ]
     
-    
-    
     let mainView = ChannelChattingView()
     let viewModel = ChannelChattingViewModel()
         
@@ -77,7 +75,9 @@ final class ChannelChattingViewController: BaseViewController {
             .subscribe(with: self) { owner, value in
                 
                 if value {
-                    self.dismiss(animated: true)
+                    
+                    self.navigationController?.popViewController(animated: true)
+                    
                 }
                 
             }

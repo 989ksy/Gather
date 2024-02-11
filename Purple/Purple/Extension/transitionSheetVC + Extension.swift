@@ -9,6 +9,25 @@ import UIKit
 
 extension UIViewController: UISheetPresentationControllerDelegate {
     
+    func transitionNavFullScreen(_ vc: UIViewController) {
+        
+        let vc = UINavigationController(rootViewController: vc)
+        vc.modalPresentationStyle = .fullScreen
+        vc.isNavigationBarHidden = true
+        
+        self.navigationController?.pushViewController(vc, animated: true)
+        
+    }
+    
+    func transitionNav(_ vc: UIViewController) {
+        
+        let vc = UINavigationController(rootViewController: vc)
+        vc.isNavigationBarHidden = true
+        
+        self.navigationController?.pushViewController(vc, animated: true)
+        
+    }
+    
 
     func transitionLargeSheetVC(_ vc: UIViewController){
         

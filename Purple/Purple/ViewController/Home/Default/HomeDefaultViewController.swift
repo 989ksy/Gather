@@ -17,8 +17,8 @@ final class HomeDefaultViewController: BaseViewController, HeaderViewDelegate {
     let dummyDataList = ["나성범", "양현종", "이우성"] //cell 더미데이터
     
     var channelList: [readChannelResponse] = []
-    
-    var homeWorkspaceId: Int? //로그인 -> WorksapceID 받음
+        
+    let homeWorkspaceID = UserDefaults.standard.integer(forKey: "workspaceID")
     
     let mainView = HomeDefaultView()
     let viewModel = HomeDefaultViewModel()
@@ -60,13 +60,8 @@ final class HomeDefaultViewController: BaseViewController, HeaderViewDelegate {
     
     //네비게이션바 영역 값전달
     func setNavigationbarView() {
-        
-        print("--- 네비게이션뷰")
-        
-        //워크스페이스 타이틀
-        guard let workspaceId = homeWorkspaceId else { return }
-        
-        viewModel.getTitleForOne(workspaceID: workspaceId)
+
+        viewModel.getTitleForOne(workspaceID: homeWorkspaceID)
         
         viewModel.workspaceContainer
             .subscribe(with: self) { owner, response in
@@ -109,7 +104,7 @@ final class HomeDefaultViewController: BaseViewController, HeaderViewDelegate {
             .disposed(by: disposeBag)
         
         //채널
-        viewModel.getChannelForOne(workspaceID: workspaceId)
+        viewModel.getChannelForOne(workspaceID: homeWorkspaceID)
         
         viewModel.channelListForOneContainer
             .subscribe(with: self) { owner, response in
@@ -351,10 +346,38 @@ extension HomeDefaultViewController: UITableViewDelegate, UITableViewDataSource 
             self.presentActionSheet(
                 titleCreate: "채널생성",
                 titleExplore: "채널탐색",
-                workspaceID: homeWorkspaceId!
+                workspaceID: homeWorkspaceID
+                
             )
             
+        } else if indexPath.section == 0 {
+            
+            //채팅창으로 화면전환
+            if indexPath.row == 0 {
+                
+                print("일반 눌림")
+                
+                let vc = ChannelChattingViewController()
+                vc.channelName = "일반"
+                
+                self.transitionNav(vc)
+                                
+                
+            } else if indexPath.row > 0 {
+                
+                let vc = ChannelChattingViewController()
+                vc.channelName = channelList[indexPath.row - 1].name
+                
+                print("---- \(indexPath.row)", vc.channelName)
+                
+                self.transitionNav(vc)
+                
+            }
+            
+            
         }
+        
+        
         
     }
     

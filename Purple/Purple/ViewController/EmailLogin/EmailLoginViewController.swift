@@ -73,7 +73,7 @@ class EmailLoginViewController: BaseViewController {
                     let vc = HomeEmptyViewController()
                     self.view.window?.rootViewController = vc
                     
-                    print("--- ✅ empty 화면전환 성공")
+                    print("--- ✅ EmailVC  -> empty 화면전환 성공")
                     
                 } else {
                     
@@ -92,16 +92,13 @@ class EmailLoginViewController: BaseViewController {
                     
                     self.dismiss(animated: true)
                     
-                    let vc = HomeDefaultViewController()
+                    let vc = UINavigationController(rootViewController: CustomTabbarViewController())
                     
-                    vc.homeWorkspaceId = UserDefaults.standard.integer(forKey: "workspaceID")
-                    
-                    
-                    print("+++ workspaceID", vc.homeWorkspaceId )
+                    vc.isNavigationBarHidden = true
                                         
                     self.view.window?.rootViewController = vc
                     
-                    print("--- ✅ HomeDefault 화면전환 성공")
+                    print("--- ✅EmailVC  -> HomeDefault 화면전환 성공")
                     
                 } else {
                     

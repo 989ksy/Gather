@@ -155,9 +155,11 @@ extension ExploreViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let vc = JoinChannelViewController()
+
         
         vc.modalPresentationStyle = .overCurrentContext
         vc.channelName = viewModel.channelList[indexPath.row].name
+        
         
         present(vc, animated: true)
         

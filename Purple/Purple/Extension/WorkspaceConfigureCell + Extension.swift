@@ -53,7 +53,9 @@ extension HomeDefaultViewController {
             let vc = CreateChannelViewController()
             vc.workspaceID = workspaceID //아이디 넘겨
             
-            self.transitionLargeSheetVC(vc)
+//            self.transitionLargeSheetVC(vc)
+            
+            self.transitionVCFull(vc)
             
         }
         
