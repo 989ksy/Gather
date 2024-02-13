@@ -360,7 +360,14 @@ extension HomeDefaultViewController: UITableViewDelegate, UITableViewDataSource 
                 let vc = ChannelChattingViewController()
                 vc.channelName = "일반"
                 
-                self.transitionNav(vc)
+                let nav = UINavigationController(rootViewController: vc)
+                nav.isNavigationBarHidden = true
+                
+                self.navigationController?.pushViewController(vc, animated: true)
+                
+                
+                
+//                self.transitionNav(vc)
                                 
                 
             } else if indexPath.row > 0 {
@@ -368,9 +375,11 @@ extension HomeDefaultViewController: UITableViewDelegate, UITableViewDataSource 
                 let vc = ChannelChattingViewController()
                 vc.channelName = channelList[indexPath.row - 1].name
                 
-                print("---- \(indexPath.row)", vc.channelName)
+                print("---- 채널 채팅방 눌림 \(indexPath.row):", vc.channelName!)
                 
-                self.transitionNav(vc)
+                self.navigationController?.pushViewController(vc, animated: true)
+                self.navigationController?.isNavigationBarHidden = true
+                
                 
             }
             

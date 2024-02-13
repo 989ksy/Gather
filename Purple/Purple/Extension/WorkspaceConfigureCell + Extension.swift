@@ -53,19 +53,22 @@ extension HomeDefaultViewController {
             let vc = CreateChannelViewController()
             vc.workspaceID = workspaceID //아이디 넘겨
             
-//            self.transitionLargeSheetVC(vc)
+            self.transitionLargeSheetVC(vc)
             
-            self.transitionVCFull(vc)
-            
+                        
         }
         
         //채널탐색 화면 띄움
         let exploreChannel = UIAlertAction(title: titleExplore, style: .default) { _ in
             
             let vc = ExploreViewController()
-            vc.workspaceID = workspaceID //아이디 넘겨
             
-            self.transitionVCFull(vc)
+            vc.modalPresentationStyle = .fullScreen
+            
+            vc.workspaceID = workspaceID //아이디 넘겨
+                        
+            self.navigationController?.pushViewController(vc, animated: true)
+            self.navigationController?.isNavigationBarHidden = true
             
         }
         

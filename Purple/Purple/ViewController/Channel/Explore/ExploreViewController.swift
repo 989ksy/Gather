@@ -70,10 +70,13 @@ final class ExploreViewController: BaseViewController {
         
         let output = viewModel.transform(input: input)
         
+        //닫힘 버튼 선택 시
         output.closeButtonTapped
             .subscribe(with: self) { owner, value in
                 if value {
-                    self.dismiss(animated: true)
+                    
+                    self.navigationController?.popViewController(animated: true)
+                    
                 }
             }
             .disposed(by: viewModel.disposeBag)
@@ -160,9 +163,9 @@ extension ExploreViewController: UITableViewDataSource, UITableViewDelegate {
         vc.modalPresentationStyle = .overCurrentContext
         vc.channelName = viewModel.channelList[indexPath.row].name
         
-        
-        present(vc, animated: true)
-        
+        self.navigationController?.pushViewController(vc, animated: true)
+        self.navigationController?.isNavigationBarHidden = true
+                
     }
     
 }

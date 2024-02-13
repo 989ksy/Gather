@@ -49,8 +49,8 @@ final class JoinChannelViewController: BaseViewController {
             .tap
             .subscribe(with: self) { owner, _ in
                 print("---- 참여 취소")
-                
-                self.dismiss(animated: true)
+                                
+                self.navigationController?.popViewController(animated: true)
                 
             }
             .disposed(by: disposeBag)
@@ -66,8 +66,8 @@ final class JoinChannelViewController: BaseViewController {
                 vc.modalPresentationStyle = .fullScreen
                 vc.channelName = self.channelName
                 
-                self.present(vc, animated: true)
-                
+                self.navigationController?.pushViewController(vc, animated: true)
+                                
             }
             .disposed(by: disposeBag)
         
