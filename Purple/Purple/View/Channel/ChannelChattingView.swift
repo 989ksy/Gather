@@ -51,12 +51,20 @@ final class ChannelChattingView: BaseView {
         view.backgroundColor = ConstantColor.bgPrimary
         view.textColor = ConstantColor.txtPrimary
         view.font = ConstantTypo.body
-        view.text = "메세지를 입력하세요"
+//        view.text = "메세지를 입력하세요오"
         
         view.isScrollEnabled = false
         view.translatesAutoresizingMaskIntoConstraints = false
         
         return view
+    }()
+    
+    let placeholderLabel = {
+        let label = UILabel()
+        label.textColor = ConstantColor.txtPrimary
+        label.font = ConstantTypo.body
+        label.text = "메세지를 입력하세요"
+        return label
     }()
     
     let addButton = {
@@ -82,6 +90,7 @@ final class ChannelChattingView: BaseView {
         addSubview(chatBackView)
         chatBackView.addSubview(addButton)
         chatBackView.addSubview(chatTextView)
+        chatTextView.addSubview(placeholderLabel)
         chatBackView.addSubview(sendButton)
         
         
@@ -126,6 +135,12 @@ final class ChannelChattingView: BaseView {
             make.centerX.equalToSuperview()
             make.top.equalToSuperview().offset(7) //
             make.bottom.equalToSuperview().inset(7)
+        }
+        
+        placeholderLabel.snp.makeConstraints { make in
+            make.height.equalTo(20)
+            make.centerY.equalToSuperview()
+            make.leading.equalToSuperview().offset(5)
         }
         
         sendButton.snp.makeConstraints { make in
