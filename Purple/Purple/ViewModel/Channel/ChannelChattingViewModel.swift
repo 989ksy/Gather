@@ -12,12 +12,13 @@ import RxCocoa
 final class ChannelChattingViewModel: ViewModelType {
     
     let disposeBag = DisposeBag()
+    
+    var workspaceId = 1 //워크스페이스 아이디
+    var chatRoomTitle = "i" //채팅방 제목
 
     struct Input {
         
-        let titleText: String //채팅방 제목
-        let chatText: ControlProperty<String>
-//        let chatPlaceholderText: ControlProperty<String>
+        let chatText: ControlProperty<String> //채팅내용
         
         let backTap: ControlEvent<Void>
         let sendTap: ControlEvent<Void>
@@ -35,8 +36,7 @@ final class ChannelChattingViewModel: ViewModelType {
          
          */
         
-//        let sendValidation: BehaviorSubject<Bool>
-        
+        let sendValidation: BehaviorSubject<Bool>
         let backTapped: BehaviorRelay<Bool>
 //        let sendTapped: BehaviorRelay<Bool>
         
@@ -44,13 +44,25 @@ final class ChannelChattingViewModel: ViewModelType {
     
     func transform(input: Input) -> Output {
         
-        //채팅 플레이스홀더 text
-        let placeholderText = BehaviorSubject(value: "메세지를 입력하세요")
-        
         //채팅 텍스트가 1글자 이상
-        let sendValidation = input.chatText.map {
+        //텍스트버튼 활성화
+        let textValidation = input.chatText.map {
             $0.count > 0
+            
         }
+        
+        let sendValidation = BehaviorSubject(value: false)
+        
+        textValidation
+            .subscribe(with: self) { owner, value in
+                
+                if value {
+                    sendValidation.onNext(true)
+                }
+                
+            }
+            .disposed(by: disposeBag)
+        
         
         //뒤로가기 버튼
         let backTapped = BehaviorRelay(value: false)
@@ -63,9 +75,50 @@ final class ChannelChattingViewModel: ViewModelType {
             }
             .disposed(by: disposeBag)
         
+        //채팅전송
+        input.sendTap
+            .throttle(
+                .seconds(3),
+                scheduler: MainScheduler.instance
+            )
+            .withLatestFrom(input.chatText)
+            .flatMap { chatText in
+                Network.shared.requestMultipart(
+                    type: CreateChannelChatResponse.self,
+                    router: .createChannelChatting(
+                        channelNm: self.chatRoomTitle,
+                        workspaceID: self.workspaceId,
+                        model: createChannelChatInput(
+                            content: chatText,
+                            files: nil
+                        )
+                    )
+                )
+            }
+            .subscribe(with: self) { owner, response in
+                
+                switch response {
+                    
+                case .success(let result):
+                    
+                    print("--- ✅ 채널 채팅 보내기 성공", result)
+                    
+                case .failure(let error):
+                    
+                    print("--- 😈 채널 채팅 보내기 실패:", error)
+                    print(error.localizedDescription)
+                }
+                
+            }
+            .disposed(by: disposeBag)
+        
+        
+        
+        
         return Output(
-//            sendValidation: <#BehaviorSubject<Bool>#>,
-            backTapped: backTapped)
+            sendValidation: sendValidation,
+            backTapped: backTapped
+        )
     }
     
     

@@ -37,8 +37,9 @@ final class ChannelChattingViewController: BaseViewController {
     
     let mainView = ChannelChattingView()
     let viewModel = ChannelChattingViewModel()
-        
+    
     var channelName: String? //채팅방 채널이름
+    var channelID: Int? //채팅방ID
     
     override func loadView() {
         self.view = mainView
@@ -50,14 +51,16 @@ final class ChannelChattingViewController: BaseViewController {
         mainView.chattingTableView.delegate = self
         mainView.chattingTableView.dataSource = self
         
-     bind()
+        bind()
+        
+        //채팅방 타이틀
+        mainView.customNavigationView.channelTitleLabel.text = "#\(viewModel.chatRoomTitle)"
         
     }
     
     func bind() {
         
-        let input = ChannelChattingViewModel.Input(
-            titleText: channelName ?? "",
+        var input = ChannelChattingViewModel.Input(
             chatText:
                 mainView.chatTextView.rx.text.orEmpty,
             backTap:
@@ -67,9 +70,6 @@ final class ChannelChattingViewController: BaseViewController {
         
         let output = viewModel.transform(input: input)
         
-        //타이틀
-        mainView.customNavigationView.channelTitleLabel.text = "#\(input.titleText)"
-        
         //뒤로가기
         output.backTapped
             .subscribe(with: self) { owner, value in
@@ -78,6 +78,31 @@ final class ChannelChattingViewController: BaseViewController {
                     
                     self.navigationController?.popViewController(animated: true)
                     
+                }
+                
+            }
+            .disposed(by: viewModel.disposeBag)
+        
+        //채팅텍스트뷰 활성화 시 플레이스홀더 숨김
+        mainView.chatTextView.rx
+            .didBeginEditing
+            .subscribe(with: self) { owner, _ in
+                
+                self.mainView.placeholderLabel.isHidden = true
+                
+            }
+            .disposed(by: viewModel.disposeBag)
+        
+        //텍스트버튼 활성화 (1글자 이상 일 경우)
+        output.sendValidation
+            .bind(to: mainView.sendButton.rx.isEnabled)
+            .disposed(by: viewModel.disposeBag)
+        
+        output.sendValidation
+            .subscribe(with: self) { owner, value in
+                
+                if value {
+                    self.mainView.sendButton.setImage(ConstantIcon.sendActive, for: .normal)
                 }
                 
             }
@@ -134,7 +159,7 @@ extension ChannelChattingViewController: UITableViewDelegate, UITableViewDataSou
         cell.userNameLabel.text = data.name
         cell.dateLabel.text = data.date
         
-                
+        
         return cell
         
     }

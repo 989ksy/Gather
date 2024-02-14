@@ -74,9 +74,11 @@ final class Network {
                     print("-------- requestMultiDataForm 성공")
                     single(.success(.success(data)))
                     
-                case .failure(_):
+                case .failure(let error):
+                    
                     
                     print("-------- requestMultiDataForm 실패")
+                    print("**", error)
                     
                     if let statusCode = result.response?.statusCode {
                         

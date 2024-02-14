@@ -563,6 +563,8 @@
 		0F547B032B490D3F00813C28 /* Entity */ = {
 			isa = PBXGroup;
 			children = (
+				0F54FB7E2B7B42A10089AB66 /* Channel */,
+				0F54FB7D2B7B42970089AB66 /* Workspace */,
 				0F547B142B4933B600813C28 /* User */,
 			);
 			path = Entity;
@@ -590,8 +592,6 @@
 			isa = PBXGroup;
 			children = (
 				0F547B122B49338E00813C28 /* User.swift */,
-				0F585AEE2B5779600052C58E /* Wrokspace.swift */,
-				0F54FB532B71E5D10089AB66 /* Channel.swift */,
 			);
 			path = Encoding;
 			sourceTree = "<group>";
@@ -600,8 +600,6 @@
 			isa = PBXGroup;
 			children = (
 				0F547B152B4933CB00813C28 /* UserResponse.swift */,
-				0F585AF02B5779690052C58E /* WorkspaceResponse.swift */,
-				0F585B312B6618D70052C58E /* ChannelResponse.swift */,
 			);
 			path = Decoding;
 			sourceTree = "<group>";
@@ -741,6 +739,56 @@
 				0F54FB7B2B74BE130089AB66 /* UserDataTable.swift */,
 			);
 			path = User;
+			sourceTree = "<group>";
+		};
+		0F54FB7D2B7B42970089AB66 /* Workspace */ = {
+			isa = PBXGroup;
+			children = (
+				0F54FB802B7B42B00089AB66 /* Decoding */,
+				0F54FB7F2B7B42AA0089AB66 /* Encoding */,
+			);
+			path = Workspace;
+			sourceTree = "<group>";
+		};
+		0F54FB7E2B7B42A10089AB66 /* Channel */ = {
+			isa = PBXGroup;
+			children = (
+				0F54FB822B7B42CB0089AB66 /* Decoding */,
+				0F54FB812B7B42C10089AB66 /* Encoding */,
+			);
+			path = Channel;
+			sourceTree = "<group>";
+		};
+		0F54FB7F2B7B42AA0089AB66 /* Encoding */ = {
+			isa = PBXGroup;
+			children = (
+				0F585AEE2B5779600052C58E /* Wrokspace.swift */,
+			);
+			path = Encoding;
+			sourceTree = "<group>";
+		};
+		0F54FB802B7B42B00089AB66 /* Decoding */ = {
+			isa = PBXGroup;
+			children = (
+				0F585AF02B5779690052C58E /* WorkspaceResponse.swift */,
+			);
+			path = Decoding;
+			sourceTree = "<group>";
+		};
+		0F54FB812B7B42C10089AB66 /* Encoding */ = {
+			isa = PBXGroup;
+			children = (
+				0F54FB532B71E5D10089AB66 /* Channel.swift */,
+			);
+			path = Encoding;
+			sourceTree = "<group>";
+		};
+		0F54FB822B7B42CB0089AB66 /* Decoding */ = {
+			isa = PBXGroup;
+			children = (
+				0F585B312B6618D70052C58E /* ChannelResponse.swift */,
+			);
+			path = Decoding;
 			sourceTree = "<group>";
 		};
 		0F577D2B2B4D18670094484D /* Button */ = {

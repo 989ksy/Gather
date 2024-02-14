@@ -28,6 +28,7 @@ enum NetworkRouter: URLRequestConvertible {
     case createChannels (workspaceID: Int, model: createChannelInput)// 채널생성
     case readMyChannels (workspaceID: Int) //내가 속한 모든 채널 조회
     case readAllChannels (workspaceID: Int) //모든 채널 조회
+    case createChannelChatting (channelNm: String, workspaceID: Int, model: createChannelChatInput)
     
     
     //MARK: - Base URL
@@ -58,10 +59,15 @@ enum NetworkRouter: URLRequestConvertible {
             //==== Channel
         case .createChannels(let workspaceID, _):
             return "/v1/workspaces/\(workspaceID)/channels"
+            
         case .readMyChannels(let workspaceID):
             return "/v1/workspaces/\(workspaceID)/channels/my"
+            
         case .readAllChannels(let workspaceID):
             return "/v1/workspaces/\(workspaceID)/channels"
+            
+        case .createChannelChatting(let channelNm, let workspaceID, _):
+            return "/v1/workspaces/\(workspaceID)/channels/\(channelNm)/chats"
         }
     }
     
@@ -117,9 +123,16 @@ enum NetworkRouter: URLRequestConvertible {
                 "Authorization": KeychainStorage.shared.userToken!,
                 "SesacKey" : "\(APIKey.sesacKey)"
             ]
-            
         
+        case .createChannelChatting:
+            return [
+                "Content-Type" : "multipart/form-data",
+                "Authorization": KeychainStorage.shared.userToken!,
+                "SesacKey" : "\(APIKey.sesacKey)"
+            ]
+            
         }
+        
         
     }
     
@@ -156,7 +169,8 @@ enum NetworkRouter: URLRequestConvertible {
             :
             return .get
             
-        case .createChannels:
+        case .createChannels,
+                .createChannelChatting:
             return .post
             
         }
@@ -224,6 +238,12 @@ enum NetworkRouter: URLRequestConvertible {
             ]
         case .readAllChannels(let workspaceID):
             return ["id": workspaceID]
+            
+        case .createChannelChatting(let channelNm, let workspaceID, model: let model):
+            return [
+                "content": model.content,
+                "files": model.files
+            ]
         }
         
     }

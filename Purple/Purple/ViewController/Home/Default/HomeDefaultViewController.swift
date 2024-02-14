@@ -354,28 +354,25 @@ extension HomeDefaultViewController: UITableViewDelegate, UITableViewDataSource 
             
             //채팅창으로 화면전환
             if indexPath.row == 0 {
-                
-                print("일반 눌림")
-                
+                                
                 let vc = ChannelChattingViewController()
-                vc.channelName = "일반"
                 
-                let nav = UINavigationController(rootViewController: vc)
-                nav.isNavigationBarHidden = true
+                vc.viewModel.chatRoomTitle = "일반"
+                vc.viewModel.workspaceId = homeWorkspaceID
                 
+                self.navigationController?.isNavigationBarHidden = true
                 self.navigationController?.pushViewController(vc, animated: true)
                 
                 
                 
-//                self.transitionNav(vc)
-                                
-                
             } else if indexPath.row > 0 {
                 
                 let vc = ChannelChattingViewController()
-                vc.channelName = channelList[indexPath.row - 1].name
                 
-                print("---- 채널 채팅방 눌림 \(indexPath.row):", vc.channelName!)
+                vc.viewModel.chatRoomTitle = channelList[indexPath.row - 1].name
+                vc.viewModel.workspaceId = homeWorkspaceID
+                
+                print("---- 채널 채팅방 눌림 \(indexPath.row):", vc.viewModel.chatRoomTitle, vc.viewModel.workspaceId)
                 
                 self.navigationController?.pushViewController(vc, animated: true)
                 self.navigationController?.isNavigationBarHidden = true

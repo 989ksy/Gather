@@ -14,3 +14,11 @@ struct createChannelInput {
     let description: String
     
 }
+
+// 채널 채팅 생성
+struct createChannelChatInput {
+    
+    let content: String
+    let files: [String]?
+    
+}
