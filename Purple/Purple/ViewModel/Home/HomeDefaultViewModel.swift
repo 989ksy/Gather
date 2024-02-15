@@ -17,7 +17,6 @@ final class HomeDefaultViewModel: ViewModelType {
     
     let disposeBag = DisposeBag()
     
-    
     //MARK: - 워크스페이스가 1개일 경우
     
     //워크스페이스ID로 통신한 값 담음

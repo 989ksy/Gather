@@ -51,7 +51,6 @@ final class ChannelChattingView: BaseView {
         view.backgroundColor = ConstantColor.bgPrimary
         view.textColor = ConstantColor.txtPrimary
         view.font = ConstantTypo.body
-//        view.text = "메세지를 입력하세요오"
         
         view.isScrollEnabled = false
         view.translatesAutoresizingMaskIntoConstraints = false

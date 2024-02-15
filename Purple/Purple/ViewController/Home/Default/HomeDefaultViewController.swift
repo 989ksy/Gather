@@ -17,7 +17,7 @@ final class HomeDefaultViewController: BaseViewController, HeaderViewDelegate {
     let dummyDataList = ["나성범", "양현종", "이우성"] //cell 더미데이터
     
     var channelList: [readChannelResponse] = []
-        
+    
     let homeWorkspaceID = UserDefaults.standard.integer(forKey: "workspaceID")
     
     let mainView = HomeDefaultView()
@@ -60,7 +60,7 @@ final class HomeDefaultViewController: BaseViewController, HeaderViewDelegate {
     
     //네비게이션바 영역 값전달
     func setNavigationbarView() {
-
+        
         viewModel.getTitleForOne(workspaceID: homeWorkspaceID)
         
         viewModel.workspaceContainer
@@ -354,11 +354,12 @@ extension HomeDefaultViewController: UITableViewDelegate, UITableViewDataSource 
             
             //채팅창으로 화면전환
             if indexPath.row == 0 {
-                                
+                
                 let vc = ChannelChattingViewController()
                 
                 vc.viewModel.chatRoomTitle = "일반"
                 vc.viewModel.workspaceId = homeWorkspaceID
+                //                vc.viewModel.channelId = self.viewModel.
                 
                 self.navigationController?.isNavigationBarHidden = true
                 self.navigationController?.pushViewController(vc, animated: true)
@@ -371,8 +372,17 @@ extension HomeDefaultViewController: UITableViewDelegate, UITableViewDataSource 
                 
                 vc.viewModel.chatRoomTitle = channelList[indexPath.row - 1].name
                 vc.viewModel.workspaceId = homeWorkspaceID
+                vc.viewModel.channelId = channelList[indexPath.row - 1].channelID
                 
-                print("---- 채널 채팅방 눌림 \(indexPath.row):", vc.viewModel.chatRoomTitle, vc.viewModel.workspaceId)
+                print(
+                    """
+                        ---- 채널 채팅방 눌림, 
+                        채널 순서: \(indexPath.row),
+                        채널 이름: \(vc.viewModel.chatRoomTitle),
+                        채널 워크스페이스ID: \(vc.viewModel.workspaceId),
+                        채널아이디: \(vc.viewModel.channelId)
+                    """
+                )
                 
                 self.navigationController?.pushViewController(vc, animated: true)
                 self.navigationController?.isNavigationBarHidden = true

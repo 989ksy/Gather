@@ -64,7 +64,7 @@ final class JoinChannelViewController: BaseViewController {
                 
                 let vc = ChannelChattingViewController()
                 vc.modalPresentationStyle = .fullScreen
-                vc.channelName = self.channelName
+                vc.viewModel.chatRoomTitle = self.channelName ?? ""
                 
                 self.navigationController?.pushViewController(vc, animated: true)
                                 

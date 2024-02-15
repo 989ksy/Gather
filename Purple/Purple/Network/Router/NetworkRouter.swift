@@ -28,7 +28,8 @@ enum NetworkRouter: URLRequestConvertible {
     case createChannels (workspaceID: Int, model: createChannelInput)// 채널생성
     case readMyChannels (workspaceID: Int) //내가 속한 모든 채널 조회
     case readAllChannels (workspaceID: Int) //모든 채널 조회
-    case createChannelChatting (channelNm: String, workspaceID: Int, model: createChannelChatInput)
+    case createChannelChatting (channelNm: String, workspaceID: Int, model: createChannelChatInput)// 채널 채팅 생성
+    case readChannelCahtting (channelNm: String, workspaceID: Int, cursorDate: String) //채널 채팅 조회
     
     
     //MARK: - Base URL
@@ -59,14 +60,13 @@ enum NetworkRouter: URLRequestConvertible {
             //==== Channel
         case .createChannels(let workspaceID, _):
             return "/v1/workspaces/\(workspaceID)/channels"
-            
         case .readMyChannels(let workspaceID):
             return "/v1/workspaces/\(workspaceID)/channels/my"
-            
         case .readAllChannels(let workspaceID):
             return "/v1/workspaces/\(workspaceID)/channels"
-            
         case .createChannelChatting(let channelNm, let workspaceID, _):
+            return "/v1/workspaces/\(workspaceID)/channels/\(channelNm)/chats"
+        case .readChannelCahtting(let channelNm, let workspaceID, _):
             return "/v1/workspaces/\(workspaceID)/channels/\(channelNm)/chats"
         }
     }
@@ -117,7 +117,8 @@ enum NetworkRouter: URLRequestConvertible {
             //==== Channel
         case .createChannels,
                 .readMyChannels,
-                .readAllChannels:
+                .readAllChannels,
+                .readChannelCahtting:
             return [
                 "Content-Type" : "application/json",
                 "Authorization": KeychainStorage.shared.userToken!,
@@ -165,14 +166,14 @@ enum NetworkRouter: URLRequestConvertible {
             
             //==== Channel
         case .readMyChannels,
-                .readAllChannels
+                .readAllChannels,
+                .readChannelCahtting
             :
             return .get
             
         case .createChannels,
                 .createChannelChatting:
             return .post
-            
         }
         
     }
@@ -231,7 +232,7 @@ enum NetworkRouter: URLRequestConvertible {
         case .readMyChannels(let workspaceID):
             return ["id": workspaceID]
             
-        case .createChannels(let workspaceID, let model):
+        case .createChannels(_, let model):
             return [
                     "name": model.name,
                     "description": model.description
@@ -239,11 +240,35 @@ enum NetworkRouter: URLRequestConvertible {
         case .readAllChannels(let workspaceID):
             return ["id": workspaceID]
             
-        case .createChannelChatting(let channelNm, let workspaceID, model: let model):
+        case .createChannelChatting(_, _, model: let model):
             return [
                 "content": model.content,
                 "files": model.files
             ]
+            
+//        case .readChannelCahtting(let channelNm, let workspaceID, let cursorDate):
+//            return [
+//                "id": workspaceID,
+//                "channel name": channelNm
+//            ]
+            
+        default: return [:]
+            
+        }
+        
+    }
+    
+    //MARK: - 쿼리
+    private var query: [String: String] {
+        
+        switch self {
+        case .readChannelCahtting(_, _, let cursorDate):
+            return [
+                "cursor_date": cursorDate
+            ]
+            
+        default:
+            return [:]
         }
         
     }
@@ -282,6 +307,28 @@ enum NetworkRouter: URLRequestConvertible {
             
             
             return request
+            
+        }
+        
+        if method == .get {
+            
+            if let urlString = request.url?.absoluteString {
+                
+                var components = URLComponents(string: urlString)
+                components?.queryItems = []
+                
+                for (key, value) in query {
+                    components?.queryItems?.append(URLQueryItem(name: key, value: value))
+                }
+                
+                if let newURL = components?.url {
+                    var newURLRequest = URLRequest(url: newURL)
+                    newURLRequest.headers = header
+                    newURLRequest.method = method
+                    
+                    return newURLRequest
+                }
+            }
             
         }
         

@@ -30,7 +30,7 @@ struct readChannelResponse: Decodable {
 }
 
 //채널채팅 생성
-
+//
 // MARK: - 채널정보
 struct CreateChannelChatResponse: Codable {
     let channelID: Int
