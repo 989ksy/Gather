@@ -18,10 +18,11 @@ class ChatDataTable: Object {
     @Persisted var content: String //채팅내용
     @Persisted var createdAt: Date
     
-    convenience init(userData: UserDataTable?, channelData: ChannelDataTable?, content: String, createdAt: Date) {
+    convenience init(chatId:Int, userData: UserDataTable?, channelData: ChannelDataTable?, content: String, createdAt: Date) {
         
         self.init()
         
+        self.chatId = chatId
         self.userData = userData
         self.channelData = channelData
         self.content = content

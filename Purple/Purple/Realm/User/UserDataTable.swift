@@ -16,10 +16,11 @@ final class UserDataTable: Object {
     @Persisted var userEmail: String
     @Persisted var userImage: String?
     
-    convenience init(userName: String, userEmail: String, userImage: String?) {
+    convenience init(user_id: Int, userName: String, userEmail: String, userImage: String?) {
         
         self.init()
         
+        self.user_id = user_id
         self.userName = userName
         self.userEmail = userEmail
         self.userImage = userImage
