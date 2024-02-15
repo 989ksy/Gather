@@ -38,16 +38,13 @@ final class ChannelChattingViewController: BaseViewController {
     let mainView = ChannelChattingView()
     let viewModel = ChannelChattingViewModel()
     
-    var channelName: String? //채팅방 채널이름
-    var channelID: Int? //채팅방ID
-    
     override func loadView() {
         self.view = mainView
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+                
         mainView.chattingTableView.delegate = self
         mainView.chattingTableView.dataSource = self
         
@@ -56,6 +53,10 @@ final class ChannelChattingViewController: BaseViewController {
         //채팅방 타이틀
         mainView.customNavigationView.channelTitleLabel.text = "#\(viewModel.chatRoomTitle)"
         
+        print(viewModel.repository.fetchLatestChatData(channelID: viewModel.channelId))
+        
+    print(viewModel.fetchChatData())
+
     }
     
     func bind() {
@@ -103,6 +104,16 @@ final class ChannelChattingViewController: BaseViewController {
                 
                 if value {
                     self.mainView.sendButton.setImage(ConstantIcon.sendActive, for: .normal)
+                }
+                
+            }
+            .disposed(by: viewModel.disposeBag)
+        
+        output.messageIsSent
+            .subscribe(with: self) { owner, value in
+                
+                if value {
+                    self.mainView.chatTextView.text = ""
                 }
                 
             }
