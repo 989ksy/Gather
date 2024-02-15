@@ -92,6 +92,11 @@
 		0F54FB782B74AF4D0089AB66 /* ChatDataTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F54FB772B74AF4D0089AB66 /* ChatDataTable.swift */; };
 		0F54FB7A2B74BBF60089AB66 /* ChannelDataTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F54FB792B74BBF60089AB66 /* ChannelDataTable.swift */; };
 		0F54FB7C2B74BE130089AB66 /* UserDataTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F54FB7B2B74BE130089AB66 /* UserDataTable.swift */; };
+		0F54FB852B7C77E30089AB66 /* RealmRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F54FB842B7C77E30089AB66 /* RealmRepository.swift */; };
+		0F54FB872B7C8BD70089AB66 /* Date -> String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F54FB862B7C8BD70089AB66 /* Date -> String.swift */; };
+		0F54FB8C2B7C8C6D0089AB66 /* DateFormatType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F54FB8B2B7C8C6D0089AB66 /* DateFormatType.swift */; };
+		0F54FB8E2B7E04D20089AB66 /* AddNineHours + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F54FB8D2B7E04D20089AB66 /* AddNineHours + Extension.swift */; };
+		0F54FB922B7E06760089AB66 /* AddChatDataToRealm + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F54FB912B7E06760089AB66 /* AddChatDataToRealm + Extension.swift */; };
 		0F577D2F2B4D18BE0094484D /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F577D2E2B4D18BE0094484D /* Network.swift */; };
 		0F577D3C2B4D701F0094484D /* ErrorResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F577D3B2B4D701F0094484D /* ErrorResponse.swift */; };
 		0F577D432B4E5A430094484D /* ToastAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F577D422B4E5A430094484D /* ToastAlert.swift */; };
@@ -198,6 +203,11 @@
 		0F54FB772B74AF4D0089AB66 /* ChatDataTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatDataTable.swift; sourceTree = "<group>"; };
 		0F54FB792B74BBF60089AB66 /* ChannelDataTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelDataTable.swift; sourceTree = "<group>"; };
 		0F54FB7B2B74BE130089AB66 /* UserDataTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataTable.swift; sourceTree = "<group>"; };
+		0F54FB842B7C77E30089AB66 /* RealmRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmRepository.swift; sourceTree = "<group>"; };
+		0F54FB862B7C8BD70089AB66 /* Date -> String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date -> String.swift"; sourceTree = "<group>"; };
+		0F54FB8B2B7C8C6D0089AB66 /* DateFormatType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatType.swift; sourceTree = "<group>"; };
+		0F54FB8D2B7E04D20089AB66 /* AddNineHours + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AddNineHours + Extension.swift"; sourceTree = "<group>"; };
+		0F54FB912B7E06760089AB66 /* AddChatDataToRealm + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AddChatDataToRealm + Extension.swift"; sourceTree = "<group>"; };
 		0F577D2E2B4D18BE0094484D /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		0F577D3B2B4D701F0094484D /* ErrorResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorResponse.swift; sourceTree = "<group>"; };
 		0F577D422B4E5A430094484D /* ToastAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastAlert.swift; sourceTree = "<group>"; };
@@ -396,6 +406,7 @@
 				0F585B062B57EE030052C58E /* Cell */,
 				0F4EC4DE2B52530200EE169E /* View */,
 				0F4EC4DD2B5252F500EE169E /* ViewController */,
+				0F54FB8A2B7C8C580089AB66 /* Enum */,
 				0F547A922B458B9400813C28 /* Constant */,
 				0F547A852B458B8E00813C28 /* Componant */,
 				0F547A7E2B458B8800813C28 /* Extension */,
@@ -455,6 +466,9 @@
 				0F585B2E2B6609040052C58E /* LoadImage + Extension.swift */,
 				0F54FB482B70FB310089AB66 /* transitionSheetVC + Extension.swift */,
 				0F54FB4E2B7127870089AB66 /* WorkspaceConfigureCell + Extension.swift */,
+				0F54FB862B7C8BD70089AB66 /* Date -> String.swift */,
+				0F54FB8D2B7E04D20089AB66 /* AddNineHours + Extension.swift */,
+				0F54FB912B7E06760089AB66 /* AddChatDataToRealm + Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -541,12 +555,12 @@
 		0F547AB82B458BBA00813C28 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				0F547AB92B458BBA00813C28 /* Key */,
 				0F547B1E2B495DB200813C28 /* Keycahin */,
 				0F547B172B4939DE00813C28 /* Service */,
 				0F547B092B491E6B00813C28 /* Router */,
 				0F547B042B491B6F00813C28 /* Error */,
 				0F547B032B490D3F00813C28 /* Entity */,
-				0F547AB92B458BBA00813C28 /* Key */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -718,6 +732,7 @@
 		0F54FB6B2B74AA5B0089AB66 /* Realm */ = {
 			isa = PBXGroup;
 			children = (
+				0F54FB832B7C761E0089AB66 /* Repository */,
 				0F54FB762B74AD8F0089AB66 /* User */,
 				0F54FB752B74AD860089AB66 /* Channel */,
 			);
@@ -789,6 +804,22 @@
 				0F585B312B6618D70052C58E /* ChannelResponse.swift */,
 			);
 			path = Decoding;
+			sourceTree = "<group>";
+		};
+		0F54FB832B7C761E0089AB66 /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				0F54FB842B7C77E30089AB66 /* RealmRepository.swift */,
+			);
+			path = Repository;
+			sourceTree = "<group>";
+		};
+		0F54FB8A2B7C8C580089AB66 /* Enum */ = {
+			isa = PBXGroup;
+			children = (
+				0F54FB8B2B7C8C6D0089AB66 /* DateFormatType.swift */,
+			);
+			path = Enum;
 			sourceTree = "<group>";
 		};
 		0F577D2B2B4D18670094484D /* Button */ = {
@@ -1123,6 +1154,7 @@
 				0F54FB492B70FB310089AB66 /* transitionSheetVC + Extension.swift in Sources */,
 				0F585AED2B5675D00052C58E /* WorkspaceWriteView.swift in Sources */,
 				0F54FB572B7211FC0089AB66 /* ExploreViewController.swift in Sources */,
+				0F54FB8C2B7C8C6D0089AB66 /* DateFormatType.swift in Sources */,
 				0F4EC4F82B53CC6600EE169E /* EmailLoginView.swift in Sources */,
 				0F547AB42B458BA200813C28 /* SignupViewModel.swift in Sources */,
 				0F547A8C2B458B8E00813C28 /* NextButton.swift in Sources */,
@@ -1130,8 +1162,10 @@
 				0F585B022B57C40D0052C58E /* HomeDefaultViewController.swift in Sources */,
 				0F54FB4F2B7127870089AB66 /* WorkspaceConfigureCell + Extension.swift in Sources */,
 				0F547A822B458B8800813C28 /* PlaceholderText.swift in Sources */,
+				0F54FB872B7C8BD70089AB66 /* Date -> String.swift in Sources */,
 				0F547A842B458B8800813C28 /* LeftPadding + Extension.swift in Sources */,
 				0F547AAB2B458B9C00813C28 /* OnboardingViewController.swift in Sources */,
+				0F54FB852B7C77E30089AB66 /* RealmRepository.swift in Sources */,
 				0F585B0B2B57F41E0052C58E /* HomeSectionTitleView.swift in Sources */,
 				0F54FB782B74AF4D0089AB66 /* ChatDataTable.swift in Sources */,
 				0F585B0D2B57F7F20052C58E /* HomeListView.swift in Sources */,
@@ -1179,6 +1213,7 @@
 				0F577D432B4E5A430094484D /* ToastAlert.swift in Sources */,
 				0F585B152B58063A0052C58E /* SideMenuViewController.swift in Sources */,
 				0F547A7A2B458B7000813C28 /* BaseTableViewCell.swift in Sources */,
+				0F54FB8E2B7E04D20089AB66 /* AddNineHours + Extension.swift in Sources */,
 				0F585B1D2B5905440052C58E /* WorkspaceNoDataView.swift in Sources */,
 				0F54FB4D2B70FC400089AB66 /* CreateChannelViewController.swift in Sources */,
 				0F547A5F2B458B1100813C28 /* AppDelegate.swift in Sources */,
@@ -1194,6 +1229,7 @@
 				0F585ADA2B5548BE0052C58E /* HomeEmptyView.swift in Sources */,
 				0F547B5E2B4C50EB00813C28 /* WorkSpaceInitialView.swift in Sources */,
 				0F54FB662B7334E70089AB66 /* ChannelNavigationBarView.swift in Sources */,
+				0F54FB922B7E06760089AB66 /* AddChatDataToRealm + Extension.swift in Sources */,
 				0F585AFB2B57C2D00052C58E /* DMViewController.swift in Sources */,
 				0F577D2F2B4D18BE0094484D /* Network.swift in Sources */,
 				0F547A7C2B458B7000813C28 /* BaseViewController.swift in Sources */,
