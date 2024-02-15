@@ -152,7 +152,7 @@ extension ChannelChattingViewController: UITableViewDelegate, UITableViewDataSou
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return self.dummyList.count
+        return self.viewModel.repository.fetchChatData(channelID: viewModel.channelId).count
         
     }
     
@@ -163,12 +163,12 @@ extension ChannelChattingViewController: UITableViewDelegate, UITableViewDataSou
             for: indexPath) as? ChattingCell
         else { return UITableViewCell()}
         
-        let data = dummyList[indexPath.row]
+        let data = self.viewModel.repository.fetchChatData(channelID: viewModel.channelId)[indexPath.row]
         
-        cell.profileImageView.image = data.profile
+        cell.profileImageView.image = UIImage(systemName: "star")
         cell.messageTextView.text = data.content
-        cell.userNameLabel.text = data.name
-        cell.dateLabel.text = data.date
+        cell.userNameLabel.text = data.userData?.userName
+        cell.dateLabel.text = data.createdAt.toString(of: .timeAMPM)
         
         
         return cell
