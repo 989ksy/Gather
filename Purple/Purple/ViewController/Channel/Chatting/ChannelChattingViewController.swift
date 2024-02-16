@@ -9,32 +9,8 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-
-struct dummyDataList {
-    
-    let profile: UIImage
-    let name: String
-    let content: String
-    let date: String
-    
-}
-
 final class ChannelChattingViewController: BaseViewController {
-    
-    //테스트용
-    let dummyList: [dummyDataList] = [
-        dummyDataList(profile: ConstantImage.launching.image!, name: "나성범", content: "타이거즈 나성범 안타 안타 날려라 날려라 나성범 타이거즈 나성범 홈런~~~~~ 아 타이거즈 나성범 안타 안타 날려라 날려라 나성범 타이거즈 나성범 홈런~~~~~ 아 타이거즈 나성범 안타 안타 날려라 날려라 나성범 타이거즈 나성범 홈런~~~~~ 아타이거즈 나성범 안타 안타 날려라 날려라 나성범 타이거즈 나성범 홈런~~~~~ 아 타이거즈 나성범 안타 안타 날려라 날려라 나성범 타이거즈 나성범 홈런~~~~~ 아 타이거즈 나성범 안타 안타 날려라 날려라 나성범 타이거즈 나성범 홈런~~~~~ 아타이거즈 나성범 안타 안타 날려라 날려라 나성범 타이거즈 나성범 홈런~~~~~ 아 타이거즈 나성범 안타 안타 날려라 날려라 나성범 타이거즈 나성범 홈런~~~~~ 아 타이거즈 나성범 안타 안타 날려라 날려라 나성범 타이거즈 나성범 홈런~~~~~ 아타이거즈 나성범 안타 안타 날려라 날려라 나성범 타이거즈 나성범 홈런~~~~~ 아 타이거", date: "08:16 오전"),
-        dummyDataList(profile: UIImage(systemName: "heart.fill")!, name: "양현종", content: "양현종 대투수 짱~", date: "08:16 오전"),
-        dummyDataList(profile: UIImage(systemName: "star")!, name: "이의리", content: "네모 안에 공을 넣어", date: "08:17 오전"),
-        dummyDataList(profile: UIImage(systemName: "star.fill")!, name: "최형우", content: "낡지마 최형우", date: "08:17 오전"),
-        dummyDataList(profile: UIImage(systemName: "house")!, name: "김선빈", content: "작은 거인 기아의 김선빈~", date: "08:17 오전"),
-        dummyDataList(profile: UIImage(systemName: "heart")!, name: "박찬호", content: "기아 박찬호 호~", date: "08:18 오전"),
-        dummyDataList(profile: UIImage(systemName: "heart.fill")!, name: "이우성", content: "우성신", date: "08:18 오전"),
-        dummyDataList(profile: UIImage(systemName: "star")!, name: "윤영철", content: "고졸신인이 퀄스 했으면 승투 먹여야할거아냐", date: "08:20 오전"),
-        dummyDataList(profile: UIImage(systemName: "star")!, name: "이범호", content: "잘생겼다 이범호", date: "08:25 오전"),
-        dummyDataList(profile: ConstantImage.onboarding.image!, name: "김도영", content: "그런 날 있잖아 홈런 치고 챔필런 하고 싶은 그런 날", date: "08:29 오전")
-    ]
-    
+        
     let mainView = ChannelChattingView()
     let viewModel = ChannelChattingViewModel()
     
@@ -53,10 +29,8 @@ final class ChannelChattingViewController: BaseViewController {
         //채팅방 타이틀
         mainView.customNavigationView.channelTitleLabel.text = "#\(viewModel.chatRoomTitle)"
         
-        print(viewModel.repository.fetchLatestChatData(channelID: viewModel.channelId))
+        mainView.customNavigationView.countLabel.text = "3"
         
-    print(viewModel.fetchChatData())
-
     }
     
     func bind() {
@@ -95,6 +69,7 @@ final class ChannelChattingViewController: BaseViewController {
             .disposed(by: viewModel.disposeBag)
         
         //텍스트버튼 활성화 (1글자 이상 일 경우)
+        //버튼 색상 변경
         output.sendValidation
             .bind(to: mainView.sendButton.rx.isEnabled)
             .disposed(by: viewModel.disposeBag)
@@ -109,12 +84,29 @@ final class ChannelChattingViewController: BaseViewController {
             }
             .disposed(by: viewModel.disposeBag)
         
+        //메세지 잘 보내짐
+        //텍스트뷰 초기화 + 테이블 reload
         output.messageIsSent
             .subscribe(with: self) { owner, value in
                 
                 if value {
                     self.mainView.chatTextView.text = ""
+                    
+                    self.mainView.chattingTableView.reloadData()
+                    
                 }
+                
+            }
+            .disposed(by: viewModel.disposeBag)
+        
+        //새로 채팅 보냈을 때
+        
+        viewModel.updatedCahtData
+            .observe(on: MainScheduler.instance)
+            .subscribe(with: self) { owner, result in
+                self.viewModel.readChatData.append(result)
+                self.mainView.chattingTableView.reloadData()
+                
                 
             }
             .disposed(by: viewModel.disposeBag)

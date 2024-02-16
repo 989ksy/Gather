@@ -20,10 +20,14 @@ final class ChannelChattingViewModel: ViewModelType {
     var chatRoomTitle = "i" //채팅방 제목
     var channelId = 1 //채널 아이디
     
+    //채팅데이터 불러오기 담음
     var readChatData: [CreateChannelChatResponse] = []
     
+    //새 채팅데이터 담음
+    let updatedCahtData = PublishSubject<CreateChannelChatResponse>()
+    
     //가장 최근 날짜의 채팅을 이용해서
-    //읽지 않은 메세지 채팅창 입장 시 렘 저장
+    //읽지 않은 메세지 채팅창 입장 시 즉시 렘 저장 -> 이전 + 뉴 대화 로드 가능
     func fetchChatData() {
         
         //가장 최근 날짜의 채팅 날짜
@@ -56,11 +60,9 @@ final class ChannelChattingViewModel: ViewModelType {
                             AddChatDataToRealm(item, workspaceID: self.workspaceId, title: self.chatRoomTitle, date: item.createdAt.toDate(to: .fromAPI)!)
                             
                         }
-                    
                         
                     }
-                    
-                   
+
                                         
                 case .failure(let error):
                     print("--- 😈 채팅 데이터 읽어오기 실패:", error)
@@ -97,9 +99,11 @@ final class ChannelChattingViewModel: ViewModelType {
             
         }
         
+        //보내기 버튼 활성화
         let sendValidation = BehaviorSubject(value: false)
         
-        let sendButtonTapped = BehaviorRelay(value: false)
+        //메세지 전송 후 작성내용 초기화
+        let messageIsSent = BehaviorRelay(value: false)
         
         textValidation
             .subscribe(with: self) { owner, value in
@@ -151,7 +155,8 @@ final class ChannelChattingViewModel: ViewModelType {
                     
                     print("--- ✅ 채널 채팅 보내기 성공", result)
                     
-                    sendButtonTapped.accept(true)
+                    //메세지 보내짐 확인용: 내용 초기화함
+                    messageIsSent.accept(true)
                     
                     //날짜(string -> Date) 변환
                     let dateString = result.createdAt
@@ -166,6 +171,13 @@ final class ChannelChattingViewModel: ViewModelType {
                     
                     //Realm에 저장
                     AddChatDataToRealm(result, workspaceID: self.workspaceId, title: self.chatRoomTitle, date: date!)
+                    
+                    //채팅창에 새 메세지 업로드
+                    DispatchQueue.main.async {
+                        
+                        self.updatedCahtData.onNext(result)
+                        
+                    }
                     
                     
                 case .failure(let error):
@@ -182,7 +194,7 @@ final class ChannelChattingViewModel: ViewModelType {
         return Output(
             sendValidation: sendValidation,
             backTapped: backTapped,
-            messageIsSent: sendButtonTapped
+            messageIsSent: messageIsSent
         )
     }
     

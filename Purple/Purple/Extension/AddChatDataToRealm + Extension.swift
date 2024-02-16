@@ -9,6 +9,7 @@ import Foundation
 
 let repository = RealmRepository()
 
+//렘에 채팅 데이터 저장 메서드
 func AddChatDataToRealm(_ item: CreateChannelChatResponse, workspaceID: Int, title: String, date: Date) {
     
     repository.addChattingData (
@@ -26,7 +27,7 @@ func AddChatDataToRealm(_ item: CreateChannelChatResponse, workspaceID: Int, tit
             channelName: title
         ),
         content: item.content,
-        createdAt: date //item.createdAt.toDate(to: .fromAPI)!
+        createdAt: date
     )
     )
     
