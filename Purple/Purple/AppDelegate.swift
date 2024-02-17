@@ -9,6 +9,7 @@ import UIKit
 import KakaoSDKCommon
 import KakaoSDKAuth
 import SideMenu
+import Firebase
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -27,7 +28,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         //KakaoSDK 초기화 코드 추가
         KakaoSDK.initSDK(appKey: APIKey.kakaoKey)
+        
+        //파이어베이스 초기화 코드 추가
+        FirebaseApp.configure()
+        
         return true
+        
     }
 
     // MARK: UISceneSession Lifecycle

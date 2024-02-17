@@ -97,7 +97,12 @@
 		0F54FB8C2B7C8C6D0089AB66 /* DateFormatType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F54FB8B2B7C8C6D0089AB66 /* DateFormatType.swift */; };
 		0F54FB8E2B7E04D20089AB66 /* AddNineHours + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F54FB8D2B7E04D20089AB66 /* AddNineHours + Extension.swift */; };
 		0F54FB922B7E06760089AB66 /* AddChatDataToRealm + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F54FB912B7E06760089AB66 /* AddChatDataToRealm + Extension.swift */; };
-		0F54FB952B7F4B530089AB66 /* GoogleService-Info (2).plist in Resources */ = {isa = PBXBuildFile; fileRef = 0F54FB942B7F4B530089AB66 /* GoogleService-Info (2).plist */; };
+		0F54FB952B7F4B530089AB66 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0F54FB942B7F4B530089AB66 /* GoogleService-Info.plist */; };
+		0F54FB982B7F615C0089AB66 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = 0F54FB972B7F615C0089AB66 /* FirebaseAnalyticsWithoutAdIdSupport */; };
+		0F54FB9A2B7F615C0089AB66 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 0F54FB992B7F615C0089AB66 /* FirebaseCrashlytics */; };
+		0F54FB9C2B7F615C0089AB66 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 0F54FB9B2B7F615C0089AB66 /* FirebaseMessaging */; };
+		0F54FB9F2B7F66210089AB66 /* SocketManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F54FB9E2B7F66210089AB66 /* SocketManager.swift */; };
+		0F54FBA22B807DC70089AB66 /* SocketIO in Frameworks */ = {isa = PBXBuildFile; productRef = 0F54FBA12B807DC70089AB66 /* SocketIO */; };
 		0F577D2F2B4D18BE0094484D /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F577D2E2B4D18BE0094484D /* Network.swift */; };
 		0F577D3C2B4D701F0094484D /* ErrorResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F577D3B2B4D701F0094484D /* ErrorResponse.swift */; };
 		0F577D432B4E5A430094484D /* ToastAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F577D422B4E5A430094484D /* ToastAlert.swift */; };
@@ -209,7 +214,8 @@
 		0F54FB8B2B7C8C6D0089AB66 /* DateFormatType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatType.swift; sourceTree = "<group>"; };
 		0F54FB8D2B7E04D20089AB66 /* AddNineHours + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AddNineHours + Extension.swift"; sourceTree = "<group>"; };
 		0F54FB912B7E06760089AB66 /* AddChatDataToRealm + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AddChatDataToRealm + Extension.swift"; sourceTree = "<group>"; };
-		0F54FB942B7F4B530089AB66 /* GoogleService-Info (2).plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info (2).plist"; sourceTree = "<group>"; };
+		0F54FB942B7F4B530089AB66 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		0F54FB9E2B7F66210089AB66 /* SocketManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketManager.swift; sourceTree = "<group>"; };
 		0F577D2E2B4D18BE0094484D /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		0F577D3B2B4D701F0094484D /* ErrorResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorResponse.swift; sourceTree = "<group>"; };
 		0F577D422B4E5A430094484D /* ToastAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastAlert.swift; sourceTree = "<group>"; };
@@ -254,10 +260,12 @@
 				0F54FB712B74ACEC0089AB66 /* Realm in Frameworks */,
 				0F547ADD2B46CA0D00813C28 /* KakaoSDKCommon in Frameworks */,
 				0F547AC52B458DDA00813C28 /* SnapKit in Frameworks */,
+				0F54FBA22B807DC70089AB66 /* SocketIO in Frameworks */,
 				0F547ADF2B46CA0D00813C28 /* KakaoSDKFriend in Frameworks */,
 				0F547AD52B46CA0D00813C28 /* KakaoSDK in Frameworks */,
 				0F585B2D2B66072F0052C58E /* Kingfisher in Frameworks */,
 				0F547AE32B46CA0D00813C28 /* KakaoSDKNavi in Frameworks */,
+				0F54FB9C2B7F615C0089AB66 /* FirebaseMessaging in Frameworks */,
 				0F547AE52B46CA0D00813C28 /* KakaoSDKShare in Frameworks */,
 				0F54FB732B74ACEC0089AB66 /* RealmSwift in Frameworks */,
 				0F547AC22B458DCE00813C28 /* RxSwift in Frameworks */,
@@ -267,10 +275,12 @@
 				0F547AFB2B48660D00813C28 /* Alamofire in Frameworks */,
 				0F547AD92B46CA0D00813C28 /* KakaoSDKCert in Frameworks */,
 				0F547AE92B46CA0D00813C28 /* KakaoSDKTemplate in Frameworks */,
+				0F54FB982B7F615C0089AB66 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
 				0F547AFE2B486FA500813C28 /* Toast in Frameworks */,
 				0F585B182B58D8310052C58E /* SideMenu in Frameworks */,
 				0F547AC02B458DCE00813C28 /* RxCocoa in Frameworks */,
 				0F547AD72B46CA0D00813C28 /* KakaoSDKAuth in Frameworks */,
+				0F54FB9A2B7F615C0089AB66 /* FirebaseCrashlytics in Frameworks */,
 				0F547AE12B46CA0D00813C28 /* KakaoSDKFriendCore in Frameworks */,
 				0F547ADB2B46CA0D00813C28 /* KakaoSDKCertCore in Frameworks */,
 			);
@@ -401,6 +411,7 @@
 			isa = PBXGroup;
 			children = (
 				0F547ABC2B458BBF00813C28 /* .gitignore */,
+				0F54FB9D2B7F66100089AB66 /* Socket */,
 				0F54FB932B7F4B3C0089AB66 /* Firebase */,
 				0F54FB6B2B74AA5B0089AB66 /* Realm */,
 				0F4EC4EF2B53B21500EE169E /* Protocol */,
@@ -828,9 +839,17 @@
 		0F54FB932B7F4B3C0089AB66 /* Firebase */ = {
 			isa = PBXGroup;
 			children = (
-				0F54FB942B7F4B530089AB66 /* GoogleService-Info (2).plist */,
+				0F54FB942B7F4B530089AB66 /* GoogleService-Info.plist */,
 			);
 			path = Firebase;
+			sourceTree = "<group>";
+		};
+		0F54FB9D2B7F66100089AB66 /* Socket */ = {
+			isa = PBXGroup;
+			children = (
+				0F54FB9E2B7F66210089AB66 /* SocketManager.swift */,
+			);
+			path = Socket;
 			sourceTree = "<group>";
 		};
 		0F577D2B2B4D18670094484D /* Button */ = {
@@ -1088,6 +1107,10 @@
 				0F585B2C2B66072F0052C58E /* Kingfisher */,
 				0F54FB702B74ACEC0089AB66 /* Realm */,
 				0F54FB722B74ACEC0089AB66 /* RealmSwift */,
+				0F54FB972B7F615C0089AB66 /* FirebaseAnalyticsWithoutAdIdSupport */,
+				0F54FB992B7F615C0089AB66 /* FirebaseCrashlytics */,
+				0F54FB9B2B7F615C0089AB66 /* FirebaseMessaging */,
+				0F54FBA12B807DC70089AB66 /* SocketIO */,
 			);
 			productName = Purple;
 			productReference = 0F547A5B2B458B1100813C28 /* Purple.app */;
@@ -1127,6 +1150,8 @@
 				0F585B162B58D8300052C58E /* XCRemoteSwiftPackageReference "SideMenu" */,
 				0F585B2B2B66072F0052C58E /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				0F54FB6F2B74ACEC0089AB66 /* XCRemoteSwiftPackageReference "realm-swift" */,
+				0F54FB962B7F615C0089AB66 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				0F54FBA02B807DC70089AB66 /* XCRemoteSwiftPackageReference "socket.io-client-swift" */,
 			);
 			productRefGroup = 0F547A5C2B458B1100813C28 /* Products */;
 			projectDirPath = "";
@@ -1142,7 +1167,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0F54FB952B7F4B530089AB66 /* GoogleService-Info (2).plist in Resources */,
+				0F54FB952B7F4B530089AB66 /* GoogleService-Info.plist in Resources */,
 				0F547A6B2B458B1200813C28 /* LaunchScreen.storyboard in Resources */,
 				0F547ABD2B458BBF00813C28 /* .gitignore in Resources */,
 				0F547A682B458B1200813C28 /* Assets.xcassets in Resources */,
@@ -1160,6 +1185,7 @@
 				0F585AFF2B57C2E30052C58E /* SettingViewController.swift in Sources */,
 				0F54FB5D2B7310BB0089AB66 /* JoinChannelViewController.swift in Sources */,
 				0F54FB5B2B7307030089AB66 /* CustomPopupView.swift in Sources */,
+				0F54FB9F2B7F66210089AB66 /* SocketManager.swift in Sources */,
 				0F585AF32B5781BC0052C58E /* WorkspaceAddViewModel.swift in Sources */,
 				0F547AA82B458B9B00813C28 /* AuthViewModel.swift in Sources */,
 				0F547B082B491CBC00813C28 /* BaseServer.swift in Sources */,
@@ -1531,6 +1557,22 @@
 				minimumVersion = 10.47.0;
 			};
 		};
+		0F54FB962B7F615C0089AB66 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.21.0;
+			};
+		};
+		0F54FBA02B807DC70089AB66 /* XCRemoteSwiftPackageReference "socket.io-client-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/socketio/socket.io-client-swift.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 		0F585B162B58D8300052C58E /* XCRemoteSwiftPackageReference "SideMenu" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/jonkykong/SideMenu.git";
@@ -1649,6 +1691,26 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 0F54FB6F2B74ACEC0089AB66 /* XCRemoteSwiftPackageReference "realm-swift" */;
 			productName = RealmSwift;
+		};
+		0F54FB972B7F615C0089AB66 /* FirebaseAnalyticsWithoutAdIdSupport */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0F54FB962B7F615C0089AB66 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalyticsWithoutAdIdSupport;
+		};
+		0F54FB992B7F615C0089AB66 /* FirebaseCrashlytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0F54FB962B7F615C0089AB66 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCrashlytics;
+		};
+		0F54FB9B2B7F615C0089AB66 /* FirebaseMessaging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0F54FB962B7F615C0089AB66 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseMessaging;
+		};
+		0F54FBA12B807DC70089AB66 /* SocketIO */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0F54FBA02B807DC70089AB66 /* XCRemoteSwiftPackageReference "socket.io-client-swift" */;
+			productName = SocketIO;
 		};
 		0F585B172B58D8310052C58E /* SideMenu */ = {
 			isa = XCSwiftPackageProductDependency;
