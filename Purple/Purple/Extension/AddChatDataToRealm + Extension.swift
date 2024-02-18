@@ -10,7 +10,7 @@ import Foundation
 let repository = RealmRepository()
 
 //렘에 채팅 데이터 저장 메서드
-func AddChatDataToRealm(_ item: CreateChannelChatResponse, workspaceID: Int, title: String, date: Date) {
+func addChatDataToRealm(_ item: CreateChannelChatResponse, workspaceID: Int, title: String, date: Date) {
     
     repository.addChattingData (
     ChatDataTable(

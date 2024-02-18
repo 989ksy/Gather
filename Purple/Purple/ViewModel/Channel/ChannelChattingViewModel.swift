@@ -22,13 +22,13 @@ final class ChannelChattingViewModel: ViewModelType {
     
     //채팅데이터 불러오기 담음
     var readChatData: [CreateChannelChatResponse] = []
-    
+        
     //새 채팅데이터 담음
     let updatedCahtData = PublishSubject<CreateChannelChatResponse>()
     
     //가장 최근 날짜의 채팅을 이용해서
     //읽지 않은 메세지 채팅창 입장 시 즉시 렘 저장 -> 이전 + 뉴 대화 로드 가능
-    func fetchChatData() {
+    func fetchChatData(completion: @escaping () -> Void) {
         
         //가장 최근 날짜의 채팅 날짜
         let date = self.repository.fetchLatestChatData(channelID: self.channelId) ?? Date()
@@ -49,7 +49,6 @@ final class ChannelChattingViewModel: ViewModelType {
                     
                 case .success(let data):
                     
-                    self.readChatData = data
                     print("--- ✅ 채팅 데이터 읽어오기 성공:", data)
                     
                     //DB 저장 (아직 읽지 않은 데이터였을 경우)
@@ -57,9 +56,30 @@ final class ChannelChattingViewModel: ViewModelType {
                         
                         data.forEach { item in
                             
-                            AddChatDataToRealm(item, workspaceID: self.workspaceId, title: self.chatRoomTitle, date: item.createdAt.toDate(to: .fromAPI)!)
+                            addChatDataToRealm(item, workspaceID: self.workspaceId, title: self.chatRoomTitle, date: item.createdAt.toDate(to: .fromAPI)!)
+                        }
+                        
+                        //DB 모든 데이터
+                        self.readChatData = self.repository.fetchChatData(channelID: self.channelId).map {
+                            
+                            CreateChannelChatResponse(
+                                channelID: $0.channelData!.channelId,
+                                channelName: $0.channelData!.channelName,
+                                chatID: $0.chatId,
+                                content: $0.content,
+                                createdAt: $0.createdAt.toString(of: .fromAPI),
+                                files: [],
+                                user: ChannelUser(
+                                    userID: $0.userData!.user_id,
+                                    email: $0.userData!.userEmail,
+                                    nickname: $0.userData!.userName,
+                                    profileImage: $0.userData?.userImage
+                                )
+                            )
                             
                         }
+                        
+                        completion()
                         
                     }
 
@@ -96,7 +116,6 @@ final class ChannelChattingViewModel: ViewModelType {
         //텍스트버튼 활성화
         let textValidation = input.chatText.map {
             $0.count > 0
-            
         }
         
         //보내기 버튼 활성화
@@ -170,7 +189,7 @@ final class ChannelChattingViewModel: ViewModelType {
                     }
                     
                     //Realm에 저장
-                    AddChatDataToRealm(result, workspaceID: self.workspaceId, title: self.chatRoomTitle, date: date!)
+                    addChatDataToRealm(result, workspaceID: self.workspaceId, title: self.chatRoomTitle, date: date!)
                     
                     //채팅창에 새 메세지 업로드
                     DispatchQueue.main.async {
@@ -187,8 +206,6 @@ final class ChannelChattingViewModel: ViewModelType {
                 
             }
             .disposed(by: disposeBag)
-        
-        
         
         
         return Output(
