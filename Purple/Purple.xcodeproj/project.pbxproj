@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0F0D63732B81D37100F50C09 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0F0D63722B81D37100F50C09 /* GoogleService-Info.plist */; };
 		0F4EC4F12B53B22F00EE169E /* ViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F4EC4F02B53B22F00EE169E /* ViewModelType.swift */; };
 		0F4EC4F42B53CBFB00EE169E /* EmailLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F4EC4F32B53CBFB00EE169E /* EmailLoginViewController.swift */; };
 		0F4EC4F82B53CC6600EE169E /* EmailLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F4EC4F72B53CC6600EE169E /* EmailLoginView.swift */; };
@@ -97,7 +98,6 @@
 		0F54FB8C2B7C8C6D0089AB66 /* DateFormatType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F54FB8B2B7C8C6D0089AB66 /* DateFormatType.swift */; };
 		0F54FB8E2B7E04D20089AB66 /* AddNineHours + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F54FB8D2B7E04D20089AB66 /* AddNineHours + Extension.swift */; };
 		0F54FB922B7E06760089AB66 /* AddChatDataToRealm + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F54FB912B7E06760089AB66 /* AddChatDataToRealm + Extension.swift */; };
-		0F54FB952B7F4B530089AB66 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0F54FB942B7F4B530089AB66 /* GoogleService-Info.plist */; };
 		0F54FB982B7F615C0089AB66 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = 0F54FB972B7F615C0089AB66 /* FirebaseAnalyticsWithoutAdIdSupport */; };
 		0F54FB9A2B7F615C0089AB66 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 0F54FB992B7F615C0089AB66 /* FirebaseCrashlytics */; };
 		0F54FB9C2B7F615C0089AB66 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 0F54FB9B2B7F615C0089AB66 /* FirebaseMessaging */; };
@@ -142,6 +142,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0F0D63722B81D37100F50C09 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../무제 폴더/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		0F0D63742B81D41500F50C09 /* Purple.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Purple.entitlements; sourceTree = "<group>"; };
 		0F4EC4F02B53B22F00EE169E /* ViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelType.swift; sourceTree = "<group>"; };
 		0F4EC4F32B53CBFB00EE169E /* EmailLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailLoginViewController.swift; sourceTree = "<group>"; };
 		0F4EC4F72B53CC6600EE169E /* EmailLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailLoginView.swift; sourceTree = "<group>"; };
@@ -214,7 +216,6 @@
 		0F54FB8B2B7C8C6D0089AB66 /* DateFormatType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatType.swift; sourceTree = "<group>"; };
 		0F54FB8D2B7E04D20089AB66 /* AddNineHours + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AddNineHours + Extension.swift"; sourceTree = "<group>"; };
 		0F54FB912B7E06760089AB66 /* AddChatDataToRealm + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AddChatDataToRealm + Extension.swift"; sourceTree = "<group>"; };
-		0F54FB942B7F4B530089AB66 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		0F54FB9E2B7F66210089AB66 /* SocketManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketManager.swift; sourceTree = "<group>"; };
 		0F577D2E2B4D18BE0094484D /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		0F577D3B2B4D701F0094484D /* ErrorResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorResponse.swift; sourceTree = "<group>"; };
@@ -410,6 +411,7 @@
 		0F547A5D2B458B1100813C28 /* Purple */ = {
 			isa = PBXGroup;
 			children = (
+				0F0D63742B81D41500F50C09 /* Purple.entitlements */,
 				0F547ABC2B458BBF00813C28 /* .gitignore */,
 				0F54FB9D2B7F66100089AB66 /* Socket */,
 				0F54FB932B7F4B3C0089AB66 /* Firebase */,
@@ -839,7 +841,7 @@
 		0F54FB932B7F4B3C0089AB66 /* Firebase */ = {
 			isa = PBXGroup;
 			children = (
-				0F54FB942B7F4B530089AB66 /* GoogleService-Info.plist */,
+				0F0D63722B81D37100F50C09 /* GoogleService-Info.plist */,
 			);
 			path = Firebase;
 			sourceTree = "<group>";
@@ -1167,8 +1169,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0F54FB952B7F4B530089AB66 /* GoogleService-Info.plist in Resources */,
 				0F547A6B2B458B1200813C28 /* LaunchScreen.storyboard in Resources */,
+				0F0D63732B81D37100F50C09 /* GoogleService-Info.plist in Resources */,
 				0F547ABD2B458BBF00813C28 /* .gitignore in Resources */,
 				0F547A682B458B1200813C28 /* Assets.xcassets in Resources */,
 			);
@@ -1424,9 +1426,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_ENTITLEMENTS = Purple/Purple.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 664ZRFHZS6;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = VYC9A4SEQS;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Purple/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Gather;
@@ -1440,8 +1445,10 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.callie.Gather;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sesac.SeSACTalkSLP;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = SeSACTalkSLP;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1453,9 +1460,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_ENTITLEMENTS = Purple/Purple.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 664ZRFHZS6;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = VYC9A4SEQS;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Purple/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Gather;
@@ -1469,8 +1479,10 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.callie.Gather;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sesac.SeSACTalkSLP;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = SeSACTalkSLP;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

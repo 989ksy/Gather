@@ -31,11 +31,56 @@ final class ChannelChattingViewController: BaseViewController {
         
         mainView.customNavigationView.countLabel.text = "3"
         
+        self.viewModel.fetchChatData {
+            self.mainView.chattingTableView.reloadData()
+        }
+        
+        //소켓 열어
+        SocketIOManager.shared.establisheConnection(viewModel.channelId)
+        
+        //소켓 데이터
+        listenToMessages()
+        
+        
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        //소켓 닫아
+        SocketIOManager.shared.closeConnection()
+
+    }
+    
+    //소켓으로 실시간 데이터 받아옴
+    func listenToMessages() {
+        
+        SocketIOManager.shared.listenForMessages { [weak self] message in
+            
+            if message.user.userID != Int(KeychainStorage.shared.userID) {
+                
+                DispatchQueue.main.async {
+                    
+                    //데이터 넣고 업데이트 진행시켜
+                    self?.viewModel.updatedCahtData.onNext(message)
+                    
+                    //실시간 데이터 저장해
+                    addChatDataToRealm(
+                        message,
+                        workspaceID: (self?.viewModel.workspaceId)!,
+                        title: (self?.viewModel.chatRoomTitle)!,
+                        date: message.createdAt.toDate(to: .fromAPI)!
+                    )
+                }
+                
+            }
+        }
+        
     }
     
     func bind() {
         
-        var input = ChannelChattingViewModel.Input(
+        let input = ChannelChattingViewModel.Input(
             chatText:
                 mainView.chatTextView.rx.text.orEmpty,
             backTap:
@@ -54,7 +99,6 @@ final class ChannelChattingViewController: BaseViewController {
                     self.navigationController?.popViewController(animated: true)
                     
                 }
-                
             }
             .disposed(by: viewModel.disposeBag)
         
@@ -91,21 +135,21 @@ final class ChannelChattingViewController: BaseViewController {
                 
                 if value {
                     self.mainView.chatTextView.text = ""
-                    
                     self.mainView.chattingTableView.reloadData()
-                    
                 }
                 
             }
             .disposed(by: viewModel.disposeBag)
         
         //새로 채팅 보냈을 때
-        
         viewModel.updatedCahtData
             .observe(on: MainScheduler.instance)
             .subscribe(with: self) { owner, result in
+                
                 self.viewModel.readChatData.append(result)
                 self.mainView.chattingTableView.reloadData()
+                
+                print("****************", result)
                 
                 
             }
@@ -133,6 +177,11 @@ final class ChannelChattingViewController: BaseViewController {
         
     }
     
+    
+    func scrollToBottom() {
+        
+    }
+    
     override func configureView() {
         view.backgroundColor = ConstantColor.bgSecondary
     }
@@ -144,7 +193,7 @@ extension ChannelChattingViewController: UITableViewDelegate, UITableViewDataSou
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return self.viewModel.repository.fetchChatData(channelID: viewModel.channelId).count
+        return self.viewModel.readChatData.count//self.viewModel.repository.fetchChatData(channelID: viewModel.channelId).count
         
     }
     
@@ -155,13 +204,14 @@ extension ChannelChattingViewController: UITableViewDelegate, UITableViewDataSou
             for: indexPath) as? ChattingCell
         else { return UITableViewCell()}
         
-        let data = self.viewModel.repository.fetchChatData(channelID: viewModel.channelId)[indexPath.row]
+//        let data = self.viewModel.repository.fetchChatData(channelID: viewModel.channelId)[indexPath.row]
         
-        cell.profileImageView.image = UIImage(systemName: "star")
+        let data = self.viewModel.readChatData[indexPath.row]
+        
+        cell.profileImageView.image = ConstantIcon.noPhotoC
         cell.messageTextView.text = data.content
-        cell.userNameLabel.text = data.userData?.userName
-        cell.dateLabel.text = data.createdAt.toString(of: .timeAMPM)
-        
+        cell.userNameLabel.text = data.user.nickname
+        cell.dateLabel.text = data.createdAt//.toString(of: .timeAMPM)
         
         return cell
         
