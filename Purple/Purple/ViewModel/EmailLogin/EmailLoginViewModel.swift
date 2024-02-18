@@ -119,11 +119,10 @@ final class EmailLoginViewModel: ViewModelType {
                         model: .init(
                             email: userInput.0,
                             password: userInput.1,
-                            deviceToken: ""
+                            deviceToken: UserDefaults.standard.string(forKey: "firebaseToken") ?? ""
                         )
                     )
-                )
-            }
+                )}
             .filter { response in
                 
                 switch response {
@@ -191,13 +190,11 @@ final class EmailLoginViewModel: ViewModelType {
                                 UserDefaults.standard.setValue(latestWorkspaceID, forKey: "workspaceID")
                                 
                                 self.workspaceID = latestWorkspaceID
-
                             }
                             
                         }
                         
                         print("---- 홈디폴트로 전환, 최신 워크스페이스 ID:", latestWorkspaceID)
-                        
                     }
                     
                     
@@ -229,7 +226,6 @@ final class EmailLoginViewModel: ViewModelType {
                       goToHomeDefault: goToHomeDefault,
                       loginButtonTapped: loginButtonTapped,
                       closeButtonTapped: closeButtonTapped)
-        
     }
     
     
