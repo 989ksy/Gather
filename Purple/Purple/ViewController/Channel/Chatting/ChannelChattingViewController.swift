@@ -26,7 +26,7 @@ final class ChannelChattingViewController: BaseViewController {
         
         bind()
         
-        //채팅방 타이틀
+        // 채팅방 타이틀
         mainView.customNavigationView.channelTitleLabel.text = "#\(viewModel.chatRoomTitle)"
         
         mainView.customNavigationView.countLabel.text = "3"
@@ -35,10 +35,10 @@ final class ChannelChattingViewController: BaseViewController {
             self.mainView.chattingTableView.reloadData()
         }
         
-        //소켓 열어
+        // 소켓 열어
         SocketIOManager.shared.establisheConnection(viewModel.channelId)
         
-        //소켓 데이터
+        // 소켓 데이터
         listenToMessages()
         
         
@@ -47,12 +47,12 @@ final class ChannelChattingViewController: BaseViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
-        //소켓 닫아
+        // 소켓 닫아
         SocketIOManager.shared.closeConnection()
 
     }
     
-    //소켓으로 실시간 데이터 받아옴
+    // 소켓으로 실시간 데이터 받아옴
     func listenToMessages() {
         
         SocketIOManager.shared.listenForMessages { [weak self] message in
@@ -61,10 +61,10 @@ final class ChannelChattingViewController: BaseViewController {
                 
                 DispatchQueue.main.async {
                     
-                    //데이터 넣고 업데이트 진행시켜
+                    // 데이터 넣고 업데이트 진행시켜
                     self?.viewModel.updatedCahtData.onNext(message)
                     
-                    //실시간 데이터 저장해
+                    // 실시간 데이터 저장해
                     addChatDataToRealm(
                         message,
                         workspaceID: (self?.viewModel.workspaceId)!,
@@ -85,12 +85,15 @@ final class ChannelChattingViewController: BaseViewController {
                 mainView.chatTextView.rx.text.orEmpty,
             backTap:
                 mainView.customNavigationView.backButton.rx.tap,
-            sendTap: mainView.sendButton.rx.tap
+            sendTap:
+                mainView.sendButton.rx.tap,
+            listTap:
+                mainView.customNavigationView.listButton.rx.tap
         )
         
         let output = viewModel.transform(input: input)
         
-        //뒤로가기
+        // 뒤로가기
         output.backTapped
             .subscribe(with: self) { owner, value in
                 
@@ -102,7 +105,18 @@ final class ChannelChattingViewController: BaseViewController {
             }
             .disposed(by: viewModel.disposeBag)
         
-        //채팅텍스트뷰 활성화 시 플레이스홀더 숨김
+        // 편집 버튼
+        output.listTapped
+            .subscribe(with: self) { owner, value in
+                
+                if value {
+                    self.navigationController?.pushViewController(ChannelSettingViewController(), animated: true)
+                }
+                
+            }
+            .disposed(by: viewModel.disposeBag)
+        
+        // 채팅텍스트뷰 활성화 시 플레이스홀더 숨김
         mainView.chatTextView.rx
             .didBeginEditing
             .subscribe(with: self) { owner, _ in
@@ -204,14 +218,17 @@ extension ChannelChattingViewController: UITableViewDelegate, UITableViewDataSou
             for: indexPath) as? ChattingCell
         else { return UITableViewCell()}
         
-//        let data = self.viewModel.repository.fetchChatData(channelID: viewModel.channelId)[indexPath.row]
-        
         let data = self.viewModel.readChatData[indexPath.row]
         
         cell.profileImageView.image = ConstantIcon.noPhotoC
         cell.messageTextView.text = data.content
         cell.userNameLabel.text = data.user.nickname
-        cell.dateLabel.text = data.createdAt//.toString(of: .timeAMPM)
+        
+        //날짜 변환
+        let timeText = data.createdAt.toDate(to: .fromAPI)
+        let timeTextString = timeText?.toString(of: .timeAMPM)
+        
+        cell.dateLabel.text = timeTextString
         
         return cell
         

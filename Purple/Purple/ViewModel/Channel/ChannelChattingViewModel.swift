@@ -96,8 +96,9 @@ final class ChannelChattingViewModel: ViewModelType {
         
         let chatText: ControlProperty<String> //채팅내용
         
-        let backTap: ControlEvent<Void>
-        let sendTap: ControlEvent<Void>
+        let backTap: ControlEvent<Void> //뒤로가기
+        let sendTap: ControlEvent<Void> //보내기
+        let listTap: ControlEvent<Void> //편집
         
         
     }
@@ -106,6 +107,7 @@ final class ChannelChattingViewModel: ViewModelType {
         
         let sendValidation: BehaviorSubject<Bool>
         let backTapped: BehaviorRelay<Bool>
+        let listTapped: BehaviorSubject<Bool>
         let messageIsSent: BehaviorRelay<Bool>
         
     }
@@ -142,6 +144,17 @@ final class ChannelChattingViewModel: ViewModelType {
             .subscribe(with: self) { owner, _ in
                 
                 backTapped.accept(true)
+                
+            }
+            .disposed(by: disposeBag)
+        
+        // 채팅 리스트버튼
+        let listTapped = BehaviorSubject(value: false)
+        
+        input.listTap
+            .subscribe(with: self) { owner, _ in
+                
+                listTapped.onNext(true)
                 
             }
             .disposed(by: disposeBag)
@@ -210,7 +223,8 @@ final class ChannelChattingViewModel: ViewModelType {
         
         return Output(
             sendValidation: sendValidation,
-            backTapped: backTapped,
+            backTapped: backTapped, 
+            listTapped: listTapped,
             messageIsSent: messageIsSent
         )
     }
