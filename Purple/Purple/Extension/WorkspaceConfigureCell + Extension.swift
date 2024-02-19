@@ -9,12 +9,6 @@ import UIKit
 
 extension HomeDefaultViewController {
     
-    //채널 첫번째 셀("일반") 구성
-    func configureChannelFirstCell(cell: HomeListCell) {
-        cell.chanelListView.titleLabel.text = "일반"
-        cell.chanelListView.iconImageView.image = ConstantIcon.hashThin
-    }
-    
     //채널 마지막 셀("채널 추가") 구성
     func configureChannelLastCell(cell: HomeListCell) {
         cell.chanelListView.titleLabel.text = "채널 추가"
@@ -31,12 +25,10 @@ extension HomeDefaultViewController {
     //채널 리스트
     func configureChannelCell(cell: HomeListCell, indexPath: IndexPath) {
         switch indexPath.row {
-        case 0:
-            configureChannelFirstCell(cell: cell)
-        case channelList.count + 1:
+        case channelList.count: // 3
             configureChannelLastCell(cell: cell)
         default:
-            configureChannelCell(cell: cell, index: indexPath.row - 1)
+            configureChannelCell(cell: cell, index: indexPath.row)
         }
     }
     

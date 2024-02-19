@@ -109,9 +109,11 @@ final class HomeDefaultViewModel: ViewModelType {
                 
             case .success(let data):
                 
+                let sortedData = data.sorted(by: { $0.createdAt > $1.createdAt })
+                
                 owner.channelListForOneContainer.onNext(data)
                 
-                print("---- 내가 속한 모든 채널 조회 성공:", data)
+                print("---- 내가 속한 모든 채널 조회 성공:", sortedData)
                 
             case .failure(let error):
                 print("---- 내가 속한 모든 채널 조회 실패:", error)

@@ -14,7 +14,11 @@ import Kingfisher
 
 final class HomeDefaultViewController: BaseViewController, HeaderViewDelegate {
     
-    let dummyDataList = ["나성범", "양현종", "이우성"] //cell 더미데이터
+    let dummyDataList: [KiaPlayers] = [
+        KiaPlayers(name: "양현종", profile: UIImage(named: "4_54")!),
+        KiaPlayers(name: "나성범", profile: UIImage(named: "15_나성범")!),
+        KiaPlayers(name: "이범호", profile: UIImage(named: "1_71")!),
+    ] //cell 더미데이터
     
     var channelList: [readChannelResponse] = []
     
@@ -39,12 +43,7 @@ final class HomeDefaultViewController: BaseViewController, HeaderViewDelegate {
         setNavigationbarView()
         bind()
         
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(channelListUpdate),
-            name: NSNotification.Name("channelListUpdate"),
-            object: nil
-        )
+        viewModel.getProfileForOne()
         
     }
     
@@ -71,19 +70,12 @@ final class HomeDefaultViewController: BaseViewController, HeaderViewDelegate {
                 print("title:", response.name)
                 
                 //썸네일
-                let thumURL = URL(string: BaseServer.base + response.thumbnail)
-                
+                let thumURL = URL(string: BaseServer.base + "/v1" +  response.thumbnail)
+
                 owner.mainView.navigationbarView.groupThumImageView.loadImage(
                     from: thumURL!,
                     placeHolderImage: ConstantImage.rectangleProfile.image
                 )
-                
-                owner.mainView.navigationbarView.groupThumImageView.loadImage(
-                    from: thumURL!,
-                    placeHolderImage:
-                        ConstantImage.rectangleProfile.image)
-                
-                print("====!!!! 사진", thumURL)
                 
                 
             }
@@ -94,11 +86,16 @@ final class HomeDefaultViewController: BaseViewController, HeaderViewDelegate {
         viewModel.profileContainer
             .subscribe(with: self) { owner, response in
                 
-                let profileURL = URL(string: BaseServer.base + (response.profileImage ?? ""))
+                let profileURL = URL(string: BaseServer.base + "/v1" + (response.profileImage ?? ""))
+                
+                print("*******")
+                print(profileURL)
+                print("*******")
                 
                 self.mainView.navigationbarView.circleThumImageView.loadImage(
                     from: profileURL!,
-                    placeHolderImage: UIImage(systemName: "star.fill"))
+                    placeHolderImage: .noPhotoB
+                )
             }
         
             .disposed(by: disposeBag)
@@ -270,7 +267,7 @@ extension HomeDefaultViewController: UITableViewDelegate, UITableViewDataSource 
             
             if section == 0 {
                 // 첫번째 섹션일 경우 채널리스트
-                return channelList.count + 2
+                return channelList.count + 1
                 
             } else if section == 1 {
                 
@@ -312,8 +309,8 @@ extension HomeDefaultViewController: UITableViewDelegate, UITableViewDataSource 
                 
                 let data = dummyDataList[indexPath.row]
                 
-                cell.directionMessageView.messageLabel.text = data
-                cell.directionMessageView.thumImage.image = UIImage(systemName: "star")
+                cell.directionMessageView.messageLabel.text = data.name
+                cell.directionMessageView.thumImage.image = data.profile
                 
                 
             } else {
@@ -324,7 +321,7 @@ extension HomeDefaultViewController: UITableViewDelegate, UITableViewDataSource 
                 cell.chanelListView.titleLabel.text = "새 메세지 시작"
                 cell.chanelListView.iconImageView.image = ConstantIcon.plusCustom
             }
-        }
+        } //디엠
         
         
         return cell
@@ -341,7 +338,7 @@ extension HomeDefaultViewController: UITableViewDelegate, UITableViewDataSource 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         //채널추가 눌렀을 때 액션시트
-        if indexPath.section == 0 && indexPath.row == self.channelList.count + 1  {
+        if indexPath.section == 0 && indexPath.row == self.channelList.count {
             
             self.presentActionSheet(
                 titleCreate: "채널생성",
@@ -353,26 +350,11 @@ extension HomeDefaultViewController: UITableViewDelegate, UITableViewDataSource 
         } else if indexPath.section == 0 {
             
             //채팅창으로 화면전환
-            if indexPath.row == 0 {
-                
                 let vc = ChannelChattingViewController()
                 
-                vc.viewModel.chatRoomTitle = "일반"
+                vc.viewModel.chatRoomTitle = channelList[indexPath.row].name
                 vc.viewModel.workspaceId = homeWorkspaceID
-                //                vc.viewModel.channelId = self.viewModel.
-                
-                self.navigationController?.isNavigationBarHidden = true
-                self.navigationController?.pushViewController(vc, animated: true)
-                
-                
-                
-            } else if indexPath.row > 0 {
-                
-                let vc = ChannelChattingViewController()
-                
-                vc.viewModel.chatRoomTitle = channelList[indexPath.row - 1].name
-                vc.viewModel.workspaceId = homeWorkspaceID
-                vc.viewModel.channelId = channelList[indexPath.row - 1].channelID
+                vc.viewModel.channelId = channelList[indexPath.row].channelID
                 
                 print(
                     """
@@ -387,8 +369,6 @@ extension HomeDefaultViewController: UITableViewDelegate, UITableViewDataSource 
                 self.navigationController?.pushViewController(vc, animated: true)
                 self.navigationController?.isNavigationBarHidden = true
                 
-                
-            }
             
             
         }
