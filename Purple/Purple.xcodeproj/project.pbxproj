@@ -139,6 +139,14 @@
 		0F585B2D2B66072F0052C58E /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 0F585B2C2B66072F0052C58E /* Kingfisher */; };
 		0F585B2F2B6609040052C58E /* LoadImage + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F585B2E2B6609040052C58E /* LoadImage + Extension.swift */; };
 		0F585B322B6618D70052C58E /* ChannelResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F585B312B6618D70052C58E /* ChannelResponse.swift */; };
+		0F7FD0592B81F2490037D7A0 /* ChannelSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7FD0582B81F2490037D7A0 /* ChannelSettingViewController.swift */; };
+		0F7FD05D2B81F2B40037D7A0 /* ChannelSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7FD05C2B81F2B40037D7A0 /* ChannelSettingView.swift */; };
+		0F7FD0602B82E2650037D7A0 /* DummyDataList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7FD05F2B82E2650037D7A0 /* DummyDataList.swift */; };
+		0F7FD0622B82E3470037D7A0 /* ChannelSettingFirstSectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7FD0612B82E3470037D7A0 /* ChannelSettingFirstSectionCell.swift */; };
+		0F7FD0642B82E6BA0037D7A0 /* ChannelSettingSecondSectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7FD0632B82E6BA0037D7A0 /* ChannelSettingSecondSectionCell.swift */; };
+		0F7FD0662B82E7220037D7A0 /* ChannelSettingThirdSectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7FD0652B82E7220037D7A0 /* ChannelSettingThirdSectionCell.swift */; };
+		0F7FD0682B8313100037D7A0 /* ChannelMemberCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7FD0672B8313100037D7A0 /* ChannelMemberCollectionViewCell.swift */; };
+		0F7FD06A2B83384F0037D7A0 /* ChannelSettingMemberHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7FD0692B83384F0037D7A0 /* ChannelSettingMemberHeaderCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -251,6 +259,14 @@
 		0F585B292B5E60C80052C58E /* DirectMessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectMessageView.swift; sourceTree = "<group>"; };
 		0F585B2E2B6609040052C58E /* LoadImage + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LoadImage + Extension.swift"; sourceTree = "<group>"; };
 		0F585B312B6618D70052C58E /* ChannelResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelResponse.swift; sourceTree = "<group>"; };
+		0F7FD0582B81F2490037D7A0 /* ChannelSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelSettingViewController.swift; sourceTree = "<group>"; };
+		0F7FD05C2B81F2B40037D7A0 /* ChannelSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelSettingView.swift; sourceTree = "<group>"; };
+		0F7FD05F2B82E2650037D7A0 /* DummyDataList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyDataList.swift; sourceTree = "<group>"; };
+		0F7FD0612B82E3470037D7A0 /* ChannelSettingFirstSectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelSettingFirstSectionCell.swift; sourceTree = "<group>"; };
+		0F7FD0632B82E6BA0037D7A0 /* ChannelSettingSecondSectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelSettingSecondSectionCell.swift; sourceTree = "<group>"; };
+		0F7FD0652B82E7220037D7A0 /* ChannelSettingThirdSectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelSettingThirdSectionCell.swift; sourceTree = "<group>"; };
+		0F7FD0672B8313100037D7A0 /* ChannelMemberCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelMemberCollectionViewCell.swift; sourceTree = "<group>"; };
+		0F7FD0692B83384F0037D7A0 /* ChannelSettingMemberHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelSettingMemberHeaderCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -687,6 +703,7 @@
 		0F54FB4A2B70FC210089AB66 /* Channel */ = {
 			isa = PBXGroup;
 			children = (
+				0F7FD0572B81F2360037D7A0 /* Setting */,
 				0F54FB5F2B731E990089AB66 /* Chatting */,
 				0F54FB5E2B731E910089AB66 /* Join */,
 				0F54FB552B7211EE0089AB66 /* Explore */,
@@ -741,6 +758,7 @@
 			isa = PBXGroup;
 			children = (
 				0F54FB632B7332FE0089AB66 /* ChannelChattingView.swift */,
+				0F7FD05C2B81F2B40037D7A0 /* ChannelSettingView.swift */,
 			);
 			path = Channel;
 			sourceTree = "<group>";
@@ -834,6 +852,7 @@
 			isa = PBXGroup;
 			children = (
 				0F54FB8B2B7C8C6D0089AB66 /* DateFormatType.swift */,
+				0F7FD05F2B82E2650037D7A0 /* DummyDataList.swift */,
 			);
 			path = Enum;
 			sourceTree = "<group>";
@@ -1050,6 +1069,11 @@
 				0F585B1F2B59113C0052C58E /* SideMenuTableViewCell.swift */,
 				0F585B082B57EE480052C58E /* HomeListCell.swift */,
 				0F54FB692B746AEA0089AB66 /* ChattingCell.swift */,
+				0F7FD0612B82E3470037D7A0 /* ChannelSettingFirstSectionCell.swift */,
+				0F7FD0632B82E6BA0037D7A0 /* ChannelSettingSecondSectionCell.swift */,
+				0F7FD0652B82E7220037D7A0 /* ChannelSettingThirdSectionCell.swift */,
+				0F7FD0672B8313100037D7A0 /* ChannelMemberCollectionViewCell.swift */,
+				0F7FD0692B83384F0037D7A0 /* ChannelSettingMemberHeaderCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -1068,6 +1092,14 @@
 				0F585B192B58F5E30052C58E /* SideMenuView.swift */,
 			);
 			path = SideMenu;
+			sourceTree = "<group>";
+		};
+		0F7FD0572B81F2360037D7A0 /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				0F7FD0582B81F2490037D7A0 /* ChannelSettingViewController.swift */,
+			);
+			path = Setting;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1201,6 +1233,7 @@
 				0F547B242B4BDC2D00813C28 /* WorkSpaceInitialViewController.swift in Sources */,
 				0F585B022B57C40D0052C58E /* HomeDefaultViewController.swift in Sources */,
 				0F54FB4F2B7127870089AB66 /* WorkspaceConfigureCell + Extension.swift in Sources */,
+				0F7FD0662B82E7220037D7A0 /* ChannelSettingThirdSectionCell.swift in Sources */,
 				0F547A822B458B8800813C28 /* PlaceholderText.swift in Sources */,
 				0F54FB872B7C8BD70089AB66 /* Date -> String.swift in Sources */,
 				0F547A842B458B8800813C28 /* LeftPadding + Extension.swift in Sources */,
@@ -1217,6 +1250,7 @@
 				0F585B092B57EE480052C58E /* HomeListCell.swift in Sources */,
 				0F585B1A2B58F5E30052C58E /* SideMenuView.swift in Sources */,
 				0F547B022B490CFF00813C28 /* AuthRouter.swift in Sources */,
+				0F7FD0592B81F2490037D7A0 /* ChannelSettingViewController.swift in Sources */,
 				0F547B162B4933CB00813C28 /* UserResponse.swift in Sources */,
 				0F585B052B57CA550052C58E /* HomeDefaultView.swift in Sources */,
 				0F585B2F2B6609040052C58E /* LoadImage + Extension.swift in Sources */,
@@ -1224,6 +1258,7 @@
 				0F585B282B5A55060052C58E /* HomeDefaultHeaderView.swift in Sources */,
 				0F547B0D2B4924DA00813C28 /* CustomError.swift in Sources */,
 				0F547A912B458B8E00813C28 /* txtfieldTitleLabel.swift in Sources */,
+				0F7FD0622B82E3470037D7A0 /* ChannelSettingFirstSectionCell.swift in Sources */,
 				0F585B322B6618D70052C58E /* ChannelResponse.swift in Sources */,
 				0F585B262B5981E10052C58E /* Dummy.swift in Sources */,
 				0F54FB612B731F7E0089AB66 /* ChannelChattingViewController.swift in Sources */,
@@ -1248,6 +1283,7 @@
 				0F585B242B593CAE0052C58E /* BlurEffect + Expension.swift in Sources */,
 				0F585B122B58032D0052C58E /* HomeDefaultViewModel.swift in Sources */,
 				0F547A8D2B458B8E00813C28 /* CloseButton.swift in Sources */,
+				0F7FD0602B82E2650037D7A0 /* DummyDataList.swift in Sources */,
 				0F54FB7A2B74BBF60089AB66 /* ChannelDataTable.swift in Sources */,
 				0F585AD62B5523470052C58E /* HomeEmptyViewController.swift in Sources */,
 				0F577D432B4E5A430094484D /* ToastAlert.swift in Sources */,
@@ -1267,6 +1303,9 @@
 				0F54FB6A2B746AEA0089AB66 /* ChattingCell.swift in Sources */,
 				0F547B202B49611100813C28 /* Keychain.swift in Sources */,
 				0F585ADA2B5548BE0052C58E /* HomeEmptyView.swift in Sources */,
+				0F7FD0682B8313100037D7A0 /* ChannelMemberCollectionViewCell.swift in Sources */,
+				0F7FD0642B82E6BA0037D7A0 /* ChannelSettingSecondSectionCell.swift in Sources */,
+				0F7FD05D2B81F2B40037D7A0 /* ChannelSettingView.swift in Sources */,
 				0F547B5E2B4C50EB00813C28 /* WorkSpaceInitialView.swift in Sources */,
 				0F54FB662B7334E70089AB66 /* ChannelNavigationBarView.swift in Sources */,
 				0F54FB922B7E06760089AB66 /* AddChatDataToRealm + Extension.swift in Sources */,
@@ -1275,6 +1314,7 @@
 				0F547A7C2B458B7000813C28 /* BaseViewController.swift in Sources */,
 				0F585B2A2B5E60C80052C58E /* DirectMessageView.swift in Sources */,
 				0F585AEB2B5628A30052C58E /* CustomPresentNavigationBarView.swift in Sources */,
+				0F7FD06A2B83384F0037D7A0 /* ChannelSettingMemberHeaderCell.swift in Sources */,
 				0F585B202B59113C0052C58E /* SideMenuTableViewCell.swift in Sources */,
 				0F547AB52B458BA200813C28 /* SignupViewController.swift in Sources */,
 				0F585B222B5912E90052C58E /* sideBarListView.swift in Sources */,
