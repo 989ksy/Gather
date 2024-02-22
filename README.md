@@ -54,7 +54,7 @@
 ## 구현기능
 
 - **AuthenticationServices**와 **Kakao SDK**를 사용하여 **애플과 카카오 소셜 로그인 기능**을 구현
-- **Custom HeaderView**와 **delegate 패턴**을 활용하여 **UI TableView 섹션 폴딩** 구현
+- **UITapGestureRecognizer**와 **delegate 패턴**을 활용하여 **UI TableView 섹션 폴딩** 구현
 - **SocketIO**를 기반으로 한 클라이언트와 서버 간의 양방향 통신을 통해 **실시간 채팅 기능**
 - 읽은 메세지 내역을 **Realm Database**에 저장하여 불필요한 네트워크 통신 방지
 - **Firebase Cloud Messaging**을 사용하여 **Remote Push Notification** 수신
@@ -73,11 +73,11 @@
 
 HomeDefaultViewController의 TableView에서 채널과 다이렉트 메세지로 구분 된 section이 사용자의 액션에 따라 동적으로 표시되거나 숨겨져야 함.
 
-고려해야 했던 사항:
+- 고려해야 했던 사항:
 
-i. 여러 Section 상태(열림/닫힘) 관리
+  i. 여러 Section 상태(열림/닫힘) 관리
 
-ii. 사용자가 section header를 탭했을 때, 해당 section과 관련된 UI 업데이트
+  ii. 사용자가 section header를 탭했을 때, 해당 section과 관련된 UI 업데이트
 
 
 #### [해결방안]
@@ -112,7 +112,7 @@ iii. section 반응 처리
 
 ```
 
-- HeaderViewDelegate 프로토콜을 통해 HomeDefaultViewController Section 탭 이벤트를 전달하고, VC에서는 didTouchSection 메서드를 구현하여 해당 seciton만을 다시 로드
+- HeaderViewDelegate 프로토콜을 통해 HomeDefaultViewController에 Section 탭 이벤트를 전달하고, VC에서는 didTouchSection 메서드를 구현하여 해당 seciton만을 다시 로드
   
 ``` swift
 func didTouchSection(_ sectionIndex: Int) {
@@ -137,20 +137,36 @@ var isOpened: Bool = false {
 ```
  
 
-### 2. Realm?
+### 2. Socket 연결 및 해제 시점
 
 #### [문제사항]
 
+i. 사용자가 채팅 화면에서 채널 설정 화면으로 이동한 후 다시 채팅 화면으로 돌아올 때, 소켓 연결이 제대로 이루어지지 않아 실시간 채팅 불가
 
+ii. 앱이 백그라운드 상태로 전환되었을 때, 소켓 연결이 유지되어 배터리 소모 및 불필요한 데이터 사용이 발생하는 문제
 
 #### [문제해결]
 
+i. viewWillAppear를 사용한 소켓 연결 재설정
+
+- 소켓 연결 코드를 뷰 컨트롤러의 생명주기에서 한 번만 호출되는 viewDidLoad에서 뷰 컨트롤러가 화면에 나타날 때마다 호출되는 viewWillAppear로 이동시킴으로써, 사용자가 채팅 화면으로 돌아올 때마다 소켓 연결을 하도록 재설정.
 
 ``` swift
 
-
+override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    
+    // 소켓 열기
+    SocketIOManager.shared.establisheConnection(viewModel.channelId)
+    
+    // 소켓 데이터 디코딩
+    listenToMessages()
+    
+}
 
 ```
+
+ii.
 
 
  </br>
