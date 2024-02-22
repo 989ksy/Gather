@@ -71,19 +71,71 @@
 
 #### [문제사항]
 
+HomeDefaultViewController의 TableView에서 채널과 다이렉트 메세지로 구분 된 section이 사용자의 액션에 따라 동적으로 표시되거나 숨겨져야 함.
+
+고려해야 했던 사항:
+
+i. 여러 Section 상태(열림/닫힘) 관리
+
+ii. 사용자가 section header를 탭했을 때, 해당 section과 관련된 UI 업데이트
 
 
 #### [해결방안]
 
+i. Section 상태 관리
 
+- 각 section의 열림/닫힘 상태를 관리하기 위해 상태 배열을 Bool로 만들어 사용. 각 섹션의 상태를 true (열림) 또는 false (닫힘)으로 저장함.
 
 ``` swift
+//섹션의 초기 상태를 모두 닫힘으로 설정
+var isOpen = [false, false, false]        
+```
 
-      
+ii. 사용자 반응 처리
+- HomeDefaultHeaderView 내에서 UITapGestureRecognizer를 추가하여 section header가 탭될 때마다 이벤트를 처리
+
+``` swift
+let tapGestureRecognizer = UITapGestureRecognizer()
+tapGestureRecognizer.addTarget(self, action: #selector(didSelectSection))
+layerView.addGestureRecognizer(tapGestureRecognizer)
             
 ```
 
+iii. section 반응 처리
+- 탭 이벤트가 발생하면 didSelectSection 메서드가 호출되어 해당 섹션의 상태를 토글하고 tableView를 업데이트
 
+``` swift
+@objc func didSelectSection() {
+    delegate?.didTouchSection(self.sectionIndex)
+    isOpened.toggle()
+}
+
+```
+
+- HeaderViewDelegate 프로토콜을 통해 HomeDefaultViewController Section 탭 이벤트를 전달하고, VC에서는 didTouchSection 메서드를 구현하여 해당 seciton만을 다시 로드
+  
+``` swift
+func didTouchSection(_ sectionIndex: Int) {
+    viewModel.isOpen[sectionIndex].toggle()
+    mainView.homeTableView.reloadSections([sectionIndex], with: .none)
+}
+
+```
+
+iV. section headerView UI 업데이트
+
+- section의 열림/닫힘 상태에 따라 UI 업데이트
+
+``` swift
+var isOpened: Bool = false {
+    didSet {
+        foldImageView.image = isOpened ? ConstantIcon.chevronDown : ConstantIcon.chevronUp
+        dividerBottom.isHidden = !isOpened
+    }
+}
+
+```
+ 
 
 ### 2. Realm?
 
