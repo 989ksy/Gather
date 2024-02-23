@@ -11,14 +11,12 @@ import SideMenu
 final class SideMenuViewController: BaseViewController {
     
     let dummyList: [Dummy] = [
-        Dummy(title: "KiaTigers", date: "24.01.02", thum: UIImage(systemName: "star")!),
-        Dummy(title: "HanhwaEgles", date: "24.01.02", thum: UIImage(systemName:  "star")!),
-        Dummy(title: "SamsungLions", date: "24.01.02", thum: UIImage(systemName:  "star")!),
-        Dummy(title: "LGTwins", date: "24.01.02", thum: UIImage(systemName:  "star")!),
-        Dummy(title: "DoosanBears", date: "24.01.02", thum: UIImage(systemName:  "star")!),
-        Dummy(title: "KiumHeroes", date: "24.01.02", thum: UIImage(systemName:  "star")!),
-        Dummy(title: "KTWiz", date: "24.01.02", thum: UIImage(systemName:  "star")!),
-        Dummy(title: "LotteGiants", date: "24.01.02", thum: UIImage(systemName:  "star")!)
+        Dummy(title: "Team KIA 타이거스", date: "24.01.02", thum: UIImage(named: "Kia")!),
+        Dummy(title: "동물의 숲", date: "24.01.20", thum: UIImage(named: "animalCrossing")!),
+        Dummy(title: "짱구는 못말려", date: "24.02.12", thum: UIImage(named: "Zzangu")!),
+        Dummy(title: "맨체스터 유나이티드 팬클럽", date: "24.01.02", thum: UIImage(named: "Manchester")!),
+        Dummy(title: "농사 꿀팁", date: "24.02.16", thum: UIImage(named: "Potato")!),
+        Dummy(title: "영화광", date: "24.02.20", thum: UIImage(named:  "Movie")!),
     ]
 
     let mainView = SideMenuView()
@@ -65,13 +63,14 @@ extension SideMenuViewController: UITableViewDelegate, UITableViewDataSource {
         let data = dummyList[indexPath.row]
 
         cell.dateLabel.text = data.date
-        print("\(data.date)")
         cell.titleLabel.text = data.title
-        print("\(data.title)")
-//        cell.thumImageView.image = data.thum
+        cell.thumImageView.image = data.thum
         
         cell.selectionStyle = .none //선택 시 회색 되는 거 없애
-
+        
+        if indexPath.row != 0 {
+            cell.threeDotsButton.isHidden = true
+        }
         
         return cell
         
