@@ -29,11 +29,17 @@ final class ChannelChattingViewController: BaseViewController {
         // 채팅방 타이틀
         mainView.customNavigationView.channelTitleLabel.text = "#\(viewModel.chatRoomTitle)"
         
-        mainView.customNavigationView.countLabel.text = "3"
+        mainView.customNavigationView.countLabel.text = "17"
         
         self.viewModel.fetchChatData {
             self.mainView.chattingTableView.reloadData()
         }
+        
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
         // 소켓 열어
         SocketIOManager.shared.establisheConnection(viewModel.channelId)
@@ -41,6 +47,13 @@ final class ChannelChattingViewController: BaseViewController {
         // 소켓 데이터
         listenToMessages()
         
+        // 소켓 재연결
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(reconnectSocket),
+            name: NSNotification.Name("reconnectSocket"),
+            object: nil
+        )
         
     }
     
@@ -49,8 +62,10 @@ final class ChannelChattingViewController: BaseViewController {
         
         // 소켓 닫아
         SocketIOManager.shared.closeConnection()
+        NotificationCenter.default.removeObserver(self)
 
     }
+
     
     // 소켓으로 실시간 데이터 받아옴
     func listenToMessages() {
@@ -77,6 +92,18 @@ final class ChannelChattingViewController: BaseViewController {
         }
         
     }
+    
+    @objc
+    func reconnectSocket() {
+        
+        // 소켓 열어
+        SocketIOManager.shared.establisheConnection(viewModel.channelId)
+        
+        // 소켓 데이터
+        listenToMessages()
+        
+    }
+
     
     func bind() {
         
@@ -220,9 +247,15 @@ extension ChannelChattingViewController: UITableViewDelegate, UITableViewDataSou
         
         let data = self.viewModel.readChatData[indexPath.row]
         
-        cell.profileImageView.image = ConstantIcon.noPhotoC
+        let profileURL = URL(string: BaseServer.base + "/v1" + (data.user.profileImage ?? ""))!
+        
+        cell.profileImageView.loadImage(
+            from: profileURL,
+            placeHolderImage: .noPhotoA
+        )
         cell.messageTextView.text = data.content
         cell.userNameLabel.text = data.user.nickname
+
         
         //날짜 변환
         let timeText = data.createdAt.toDate(to: .fromAPI)
