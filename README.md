@@ -166,7 +166,41 @@ override func viewWillAppear(_ animated: Bool) {
 
 ```
 
-ii.
+ii. 백그라운드 상태에서 소켓 연결 관리를 통한 리소스 최적화
+
+- SceneDelegate의 sceneDidEnterBackground 메서드를 활용하여 앱이 백그라운드 상태로 전환될 때 소켓 연결을 해제
+
+``` swift
+
+func sceneDidEnterBackground(_ scene: UIScene) {
+    SocketIOManager.shared.isOpen = false
+    SocketIOManager.shared.closeConnection()
+}
+
+```
+
+- SceneDelegate의 sceneDidBecomeActive 메서드를 활용하여 앱이 다시 활성화될 때 소켓 연결을 재설정
+
+``` swift
+
+func sceneDidBecomeActive(_ scene: UIScene) {
+    SocketIOManager.shared.isOpen = true
+    NotificationCenter.default.post(name: NSNotification.Name("reconnectSocket"), object: nil)
+}
+
+
+```
+
+- ChannelChattingViewController에서 NotificationCenter를 통해 발행된 소켓 재연결 이벤트를 감지하고, 해당 이벤트에 반응하여 소켓 연결을 다시 설정
+
+``` swift
+
+@objc func reconnectSocket() {
+    SocketIOManager.shared.establisheConnection(viewModel.channelId)
+    listenToMessages()
+}
+
+```
 
 
  </br>
