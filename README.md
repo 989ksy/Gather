@@ -157,7 +157,7 @@ override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     
     // 소켓 열기
-    SocketIOManager.shared.establisheConnection(viewModel.channelId)
+    SocketIOManager.shared.establishConnection(viewModel.channelId)
     
     // 소켓 데이터 디코딩
     listenToMessages()
@@ -196,7 +196,7 @@ func sceneDidBecomeActive(_ scene: UIScene) {
 ``` swift
 
 @objc func reconnectSocket() {
-    SocketIOManager.shared.establisheConnection(viewModel.channelId)
+    SocketIOManager.shared.establishConnection(viewModel.channelId)
     listenToMessages()
 }
 
@@ -206,3 +206,5 @@ func sceneDidBecomeActive(_ scene: UIScene) {
  </br>
 
  ## 회고
+
+* 이 프로젝트를 통해 SocketIO를 활용한 다인원 실시간 채팅 기능을 구현했습니다. 실시간 채팅 구현 과정에서 소켓 연결 시점 관리가 스스로에게 핵심 과제였습니다. 앱의 포그라운드 및 백그라운드 상태 변화를 캐치하기 위해 SceneDelegate의 생명주기를 적극 활용했지만, 네트워크 상태 변화에 따른 사용자 알림과 소켓 연결 끊김 처리에 있어 아쉬움이 남았습니다. 이 경험으로 실시간 통신의 복잡성, SocketIO의 활용, 이벤트 기반 통신의 이해, 그리고 효과적인 리소스 관리의 중요성을 깨달았습니다. 향후 프로젝트에서는 네트워크 상태 모니터링 기능을 강화하여 사용자가 네트워크 변화에 따라 적절한 피드백을 받을 수 있도록 개선할 계획입니다.
